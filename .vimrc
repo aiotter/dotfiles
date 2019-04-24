@@ -51,7 +51,8 @@ set showmatch " 閉じカッコ入力時に対応するカッコを強調
 
 " ----- クリップボード -----
 if has('vim_starting')
-    set clipboard+=unnamed
+    set clipboard&
+    set clipboard^=unnamedplus
 endif
 
 
