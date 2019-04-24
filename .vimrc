@@ -55,7 +55,7 @@ if has('vim_starting')
 endif
 
 
-" ----- タブとインデント -----
+" ----- タブとインデント (グローバル設定) -----
 set expandtab " タブ入力を複数の空白入力に置き換える
 set tabstop=4 " 画面上でタブ文字が占める幅
 set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
@@ -130,6 +130,19 @@ set laststatus=2 " ステータスラインを常に表示
 set noshowmode " 現在のモードを非表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
+
+
+" ----- ファイルタイプ固有の設定 -----
+filetype plugin indent on
+" sw=softtabstop  タブ文字を何文字で表示するか
+" sts=shiftwidth  入力したタブ文字を空白何文字に置換するか
+" ts=tabstop      自動インデントは空白何文字を用いるか
+" et=expandtab    ソフトタブを使用 (タブ文字を空白に置換)
+autocmd FileType sh          setlocal sw=2 sts=2 ts=2 et
+autocmd FileType zsh         setlocal sw=2 sts=2 ts=2 et
+autocmd FileType html        setlocal sw=2 sts=2 ts=2 et
+autocmd FileType css         setlocal sw=2 sts=2 ts=2 et
+autocmd FileType javascript  setlocal sw=2 sts=2 ts=2 et
 
 
 " ----- Python -----
