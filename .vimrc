@@ -131,6 +131,33 @@ set noshowmode " 現在のモードを非表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
 
+let g:lightline = {
+      \ 'component_function': {
+      \   'fileformat': 'LightlineFileformat',
+      \   'fileencoding': 'LightlineFileencoding',
+      \   'filetype': 'LightlineFiletype',
+      \ },
+      \ }
+
+" レスポンシブ対応
+let s:threshold = 65
+function! LightlineFileformat()
+  if winwidth(0) > s:threshold
+    return &fileformat ==# 'dos' ? 'CRLF' :
+      \ &fileformat ==# 'unix' ? 'LF' :
+      \ &fileformat ==# 'mac' ? 'CR' :
+      \ &fileformat
+  else
+    return ''
+  endif
+endfunction
+function! LightlineFileencoding()
+  return winwidth(0) > s:threshold ? &fileformat : ''
+endfunction
+function! LightlineFiletype()
+  return winwidth(0) > s:threshold ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
 
 " ----- ファイルタイプ固有の設定 -----
 filetype plugin indent on
