@@ -1,0 +1,18 @@
+*~
+*.swp
+.DS_Store
+
+# Python
+__pycache__/
+build/
+develop-eggs/
+dist/
+wheels/
+*.egg-info/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Virturl environment
+.venv
+
