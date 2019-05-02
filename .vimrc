@@ -41,6 +41,11 @@ if dein#check_install()
 endif
 
 
+" ----- キーバインド -----
+" ノーマルモードで o を入力したときに挿入モードに移らない
+nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
+
+
 " ----- 文字 -----
 set fileencoding=utf-8 " 保存時の文字コード
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
