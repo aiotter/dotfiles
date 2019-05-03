@@ -43,7 +43,7 @@ endif
 
 " ----- キーバインド -----
 " ノーマルモードで o を入力したときに挿入モードに移らない
-nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
+" nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
 
 
 " ----- 文字 -----
