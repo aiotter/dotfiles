@@ -3,3 +3,5 @@
 [core]
 	excludesfile = /Users/mac-n6/.gitignore_global
 	editor = vim
+[rebase]
+	autosquash = true
