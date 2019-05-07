@@ -5,3 +5,5 @@
 	editor = vim
 [rebase]
 	autosquash = true
+[commit]
+	verbose = true
