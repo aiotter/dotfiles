@@ -1,7 +1,7 @@
 [user]
 	useConfigOnly = true
 [core]
-	excludesfile = /Users/mac-n6/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = vim
 [rebase]
 	autosquash = true
