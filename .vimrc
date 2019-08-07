@@ -40,6 +40,9 @@ if dein#check_install()
   call dein#install()
 endif
 
+" プラグインの設定
+let g:indentLine_setConceal=0
+
 
 " ----- キーバインド -----
 " ノーマルモードで o を入力したときに挿入モードに移らない
@@ -57,6 +60,14 @@ set showmatch " 閉じカッコ入力時に対応するカッコを強調
 " ----- クリップボード -----
 if has('vim_starting')
     set clipboard+=unnamed
+endif
+
+
+" ----- Concealing (構文の非表示化) の設定 -----
+" json のダブルクオーテーションなど，視認性を妨げる文字を隠す設定
+if has('conceal')
+  set conceallevel=1 " 表示する(0), 代理文字（default: スペース）に置換(1), 非表示(2)
+  set concealcursor= " 構文を隠すモードの指定．n: normal, v: visual, i: insert, c: command
 endif
 
 
