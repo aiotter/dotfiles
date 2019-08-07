@@ -2,6 +2,9 @@
 *.swp
 .DS_Store
 
+# General development
+.env
+
 # Python
 __pycache__/
 build/
@@ -15,4 +18,7 @@ wheels/
 
 # Virturl environment
 .venv
+
+# IntelliJ
+.idea/
 
