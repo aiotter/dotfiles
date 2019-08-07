@@ -63,6 +63,13 @@ if has('vim_starting')
 endif
 
 
+" ----- 制御文字の表示 -----
+set list
+set listchars=tab:▸\ ,eol:↲,extends:»,precedes:«,nbsp:⚋ ",trail:-
+autocmd ColorScheme * highlight NonText    ctermbg=NONE ctermfg=238 guibg=NONE guifg=NONE
+autocmd ColorScheme * highlight SpecialKey ctermbg=NONE ctermfg=238 guibg=NONE guifg=NONE
+
+
 " ----- Concealing (構文の非表示化) の設定 -----
 " json のダブルクオーテーションなど，視認性を妨げる文字を隠す設定
 if has('conceal')
