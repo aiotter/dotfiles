@@ -8,6 +8,10 @@ pane_current_path=$4
 cd "$pane_current_path"
 
 
+# Git で index.lock を作成しないよう環境変数を設定
+GIT_OPTIONAL_LOCKS=0
+
+
 # hostname 取得処理
 host() {
   if [[ ${pane_current_command} = "ssh" ]]; then
