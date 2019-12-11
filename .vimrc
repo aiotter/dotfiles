@@ -193,6 +193,7 @@ autocmd FileType zsh         setlocal sw=2 sts=2 ts=2 et
 autocmd FileType html        setlocal sw=2 sts=2 ts=2 et
 autocmd FileType css         setlocal sw=2 sts=2 ts=2 et
 autocmd FileType javascript  setlocal sw=2 sts=2 ts=2 et
+autocmd FileType yaml        setlocal sw=2 sts=2 ts=2 et
 
 
 " ----- Python -----
