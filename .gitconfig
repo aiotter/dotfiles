@@ -7,3 +7,6 @@
 	autosquash = true
 [commit]
 	verbose = true
+[alias]
+	one = log --oneline
+	graph = log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
