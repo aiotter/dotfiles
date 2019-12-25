@@ -1,6 +1,17 @@
 MAC でのセットアップ
 =====
 
+- システム設定
+    - 余計なキーバインドを解除
+        - システム環境設定 -> キーボード -> ショートカット -> Mission Control
+            - Ctrl+↑: Mission Control を無効にする
+            - Ctrl+↓: アプリケーションウィンドウ を無効にする
+            - Ctrl+[←→]: Mission Control -> [左右]の操作スペースに移動 を無効にする
+        - システム環境設定 -> キーボード -> ショートカット -> 入力ソース
+            - Ctrl+Space: 前の入力ソースを選択 を無効にする
+            - Shift+Ctrl+Space: 入力メニューの次の入力ソースを選択 を無効にする
+        
+
 - [iTerm2](https://www.iterm2.com/)
     - Preferences -> Profiles
         - Colors -> Color Presets -> Pastel (Dark background)
