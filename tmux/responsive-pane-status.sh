@@ -107,6 +107,9 @@ check-space() {
 host_result=$(host)
 venv_result=$(echo-venv)
 
+# 矢印の書式設定
+cursor=" ⇱ "
+
 # git管理下のとき
 if git status >/dev/null 2>&1
 then
@@ -114,21 +117,21 @@ then
   git_name=${git_name:-UNNAMED}
   git_email=$(git config --get user.email)
   git_email=${git_email:-not_set@invalid.email}
-  git_style='#[bg=cyan,fg=black]'
+  git_style='#[reverse]'
 
-  echo " ⇱ ${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] | ${venv_result} " | check-space && exit 0
-  echo " ⇱ ${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] | ${venv_result} " | check-space && exit 0
-  echo " ⇱ ${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | check-space && exit 0
-  echo " ⇱ ${host_result} (${pane_pid}) | ${git_style}${git_name}#[default] " | check-space && exit 0
-  echo " ⇱ ${host_result} | ${git_style}${git_name}#[default] " | check-space && exit 0
-  echo " ⇱ ${host_result} [GIT] " | check-space && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] | ${venv_result} " | check-space && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] | ${venv_result} " | check-space && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | check-space && exit 0
+  echo "${cursor}${host_result} (${pane_pid}) | ${git_style}${git_name}#[default] " | check-space && exit 0
+  echo "${cursor}${host_result} | ${git_style}${git_name}#[default] " | check-space && exit 0
+  echo "${cursor}${host_result} [GIT] " | check-space && exit 0
 fi
 
 
 # 非Git管理下
-echo " ⇱ ${host_result} | ${pane_current_command}(${pane_pid}) | ${venv_result} " | check-space && exit 0
-echo " ⇱ ${host_result} | ${pane_current_command}(${pane_pid}) " | check-space && exit 0
-echo " ⇱ ${host_result} (${pane_pid}) " | check-space && exit 0
-echo " ⇱ ${host_result} " | check-space && exit 0
+echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${venv_result} " | check-space && exit 0
+echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) " | check-space && exit 0
+echo "${cursor}${host_result} (${pane_pid}) " | check-space && exit 0
+echo "${cursor}${host_result} " | check-space && exit 0
 echo ""
 
