@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Add `source auto_venv_activator.zsh` to .zshrc
+# Add `source auto_toggle_venv.zsh` to .zshrc
 
 find-venv() {
   dir=$*
@@ -32,6 +32,7 @@ toggle-venv() {
   fi
 }
 
+autoload -U add-zsh-hook
 add-zsh-hook chpwd toggle-venv
 toggle-venv
 
