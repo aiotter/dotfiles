@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# root=$(git log --oneline | peco --rcfile <(echo '{"Prompt": "Rebase from: "}') | awk '{print $1}')
+root=$(git log --oneline | fzf-tmux -d 70% --prompt='Start interactive rebase from: ' | awk '{print $1}')
+if [ -n "$root" ]; then
+  git rebase -i ${root}~
+fi
+
