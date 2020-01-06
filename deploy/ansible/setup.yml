@@ -1,0 +1,7 @@
+---
+- name: Deploy dotfiles
+  hosts: localhost
+  connection: local
+  tasks:
+    - include: tasks.yml
+

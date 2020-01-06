@@ -1,0 +1,62 @@
+---
+- name: Include vars
+  include_vars: vars.yml
+
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "~/work"
+
+- name: List up dotfiles to link
+  find:
+    path: "{{ lookup('env', 'DOTPATH') }}"
+    hidden: true
+    pattern: .*
+    excludes:
+      - ".DS_Store"
+      - "*.swp"
+      - ".gitignore"
+  register:
+    dotfiles
+  tags: symlink
+
+- name: Symlink dotfiles
+  file:
+    src: "{{ item }}"
+    dest: "~/{{ item | basename }}"
+    state: link
+  loop: "{{ dotfiles.files | map(attribute='path') | list }}"
+  tags: symlink
+
+- name: Install Python modules
+  pip:
+    name: "{{ packages | map(attribute='brew') | select('defined') | list }}"
+  tags: pip
+
+- when: ansible_os_family == "Darwin"
+  block:
+    - name: Install Homebrew
+      command:
+        cmd: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+        creates: /usr/local/bin/brew
+      tags: check_brew
+
+    - name: Install formula
+      homebrew:
+        name: "{{ packages | map(attribute='brew') | select('defined') | list }}"
+      tags: brew_formula
+
+    - name: Install cask
+      homebrew_cask:
+        name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
+      tags: brew_cask
+
+
+- name: Change user shell to zsh
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+  tags: zsh
+

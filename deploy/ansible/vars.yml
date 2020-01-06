@@ -1,0 +1,21 @@
+packages:
+  - brew: zsh
+  - brew: coreutils
+  - brew: git
+  - brew: jq
+  - brew: vim
+  - brew: tmux
+  - brew: tree
+  - brew: circleci
+  - brew: ffmpeg
+  - brew: wget
+
+  - pip: httpie
+  - pip: ipython
+  - pip: youtube-dl
+
+  - cask: iterm2
+# - cask: docker
+  - cask: alt-c  # Sync clipboard with smartphone
+  - cask: hyperswitch  # windows-style Cmd-Tab
+
