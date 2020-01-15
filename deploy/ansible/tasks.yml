@@ -27,6 +27,7 @@
     src: "{{ item }}"
     dest: "~/{{ item | basename }}"
     state: link
+    force: true
   loop: "{{ dotfiles.files | map(attribute='path') | list }}"
   tags: symlink
 
