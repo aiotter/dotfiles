@@ -31,7 +31,8 @@ if ! which python3 >/dev/null 2>&1; then
 fi
 
 # Install ansible
-python3 -m pip install -U ansible
+echo 'Installing ansible...'
+python3 -m pip -q install -U ansible
 
 # Excute ansible
 cd "$(dirname "$THIS_FILE_PATH")"
