@@ -54,10 +54,24 @@
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
       tags: brew_cask
 
+- shell: "cat /etc/shells | grep zsh | tail -1"
+  register: zsh_path
+  ignore_errors: true
+  changed_when: false
+  tags: zsh
 
 - name: Change user shell to zsh
   user:
     name: "{{ ansible_user }}"
-    shell: /bin/zsh
+    shell: "{{ zsh_path.stdout }}"
+  when: zsh_path is succeeded
+  become: true
+  tags: zsh
+
+- debug:
+    msg: |
+      Install zsh and add its path to /etc/shells.
+      Then execute `chsh -s /path/to/zsh`.
+  when: zsh_path is failed
   tags: zsh
 

@@ -35,5 +35,11 @@ python3 -m pip install -U ansible
 
 # Excute ansible
 cd "$(dirname "$THIS_FILE_PATH")"
-ansible-playbook ansible/setup.yml
+if sudo -n true 2>/dev/null; then
+  # sudo password is not needed (like GitHub Actions)
+  ansible-playbook ansible/setup.yml
+else
+  # sudo password is needed: ask password beforehand
+  ansible-playbook ansible/setup.yml -K
+fi
 
