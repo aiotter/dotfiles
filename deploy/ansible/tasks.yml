@@ -33,7 +33,7 @@
 
 - name: Install Python modules
   pip:
-    name: "{{ packages | map(attribute='brew') | select('defined') | list }}"
+    name: "{{ packages | map(attribute='pip') | select('defined') | list }}"
   tags: pip
 
 - when: ansible_os_family == "Darwin"
