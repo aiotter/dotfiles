@@ -162,12 +162,13 @@ zplugin ice wait lucid
 zplugin light b4b4r07/enhancd
 export ENHANCD_DOT_ARG='...'
 
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+# extract command (from oh-my-zsh)
+zplugin ice wait lucid depth'1' pick'plugins/extract/extract.plugin.zsh'
+zplugin light ohmyzsh/ohmyzsh
 
-# alias GNU utility
-zplugin ice wait lucid
-zplugin snippet PZT::modules/gnu-utility/init.zsh
+# alias GNU utility (from prezto)
+zplugin ice wait lucid depth'1' pick'modules/gnu-utility/init.zsh'
+zplugin light sorin-ionescu/prezto
 
 # zplugin ice wait lucid from'gh-r' as'command' pick'peco*/peco'
 # zplugin light peco/peco
