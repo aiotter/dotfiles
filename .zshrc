@@ -6,6 +6,10 @@ export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export PATH=$PATH:/usr/local/bin:$HOME/local/bin:$DOTPATH/bin
 
+# Go
+export GOPATH=$HOME/dev/go
+export PATH=$PATH:$GOPATH/bin
+
 # Python
 alias py=python3
 export VIRTUAL_ENV_DISABLE_PROMPT=1

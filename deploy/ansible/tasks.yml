@@ -1,6 +1,7 @@
 ---
 - name: Include vars
   include_vars: vars.yml
+  tags: always
 
 - name: Create directories
   file:
@@ -53,6 +54,17 @@
       homebrew_cask:
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
       tags: brew_cask
+
+- name: Install Go
+  import_role: name=install_go
+  tags: go
+
+- name: Install Go packages
+  shell: "go get -v {{ item }}"
+  loop: "{{ packages | map(attribute='go') | select('defined') | list }}"
+  register: result
+  changed_when: "result.stdout != ''"
+  tags: go
 
 - shell: "cat /etc/shells | grep zsh | tail -1"
   register: zsh_path

@@ -1,0 +1,6 @@
+---
+- name: Install Go (macOS)
+  when: ansible_os_family == "Darwin"
+  homebrew:
+    name: go
+
