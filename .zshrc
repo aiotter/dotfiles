@@ -16,7 +16,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:$PATH"
 
 # My commands
-FPATH=$DOTPATH/bin:$FPATH
+FPATH=$DOTPATH/zsh/fbin:$FPATH
 autoload -Uz venvinit
 autoload -Uz git  # git subcommands with cd
 
@@ -207,7 +207,7 @@ zplugin light popstas/zsh-command-time
 
 # extensions in dotfiles
 zplugin ice wait lucid multisrc"*.zsh"
-zplugin light "${HOME}/dotfiles/zsh/"
+zplugin light "$DOTPATH/zsh/plugins"
 
 
 # starts completion
