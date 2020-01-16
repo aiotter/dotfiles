@@ -66,10 +66,29 @@
   changed_when: "result.stdout != ''"
   tags: go
 
+- name: Install tmux plugin manager
+  git:
+    repo: 'https://github.com/tmux-plugins/tpm.git'
+    dest: ~/.tmux/plugins/tpm
+  tags: tpm
+
+- name: Install tmux plugins
+  shell: "! ~/.tmux/plugins/tpm/bin/install_plugins | grep -v 'Already installed'"
+  register: result
+  changed_when: "result.stdout != ''"
+  tags: tpm
+
 - shell: "cat /etc/shells | grep zsh | tail -1"
   register: zsh_path
   ignore_errors: true
   changed_when: false
+  tags: zsh
+
+- name: Install zsh plugins
+  command:
+    cmd: "zsh -i -c -- '-zplg-scheduler burst'"
+    creates: ~/.zplugin/plugins
+  when: zsh_path is succeeded
   tags: zsh
 
 - name: Change user shell to zsh
