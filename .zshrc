@@ -14,7 +14,11 @@ export PATH=$PATH:$GOPATH/bin
 alias py=python3
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:$PATH"
-FPATH="${DOTPATH}/bin:${FPATH}" autoload -Uz venvinit
+
+# My commands
+FPATH=$DOTPATH/bin:$FPATH
+autoload -Uz venvinit
+autoload -Uz git  # git subcommands with cd
 
 # colouring commands
 alias ls='ls --color'
@@ -185,8 +189,7 @@ zplugin wait lucid light-mode for \
 zplugin ice wait lucid as'command' pick'battery'
 zplugin light goles/battery
 
-zplugin ice wait lucid from'gh-r' as'command' pick'bin/hub' \
-  atload'eval "$(hub alias -s)"'
+zplugin ice wait lucid from'gh-r' as'command' pick'bin/hub'
 zplugin light github/hub
 
 # time previous command
