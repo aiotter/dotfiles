@@ -36,6 +36,7 @@ setopt hist_expand
 setopt no_beep
 
 # key bind
+bindkey -rM vicmd ':' # vim-mode で混乱の元になるので解除
 bindkey '^[OH'  beginning-of-line  # HOME
 bindkey '^[[1~' beginning-of-line  # HOME
 bindkey '^[OF'  end-of-line        # END
