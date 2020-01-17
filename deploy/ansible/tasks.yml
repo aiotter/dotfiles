@@ -61,6 +61,8 @@
 
 - name: Install Go packages
   shell: "go get -v {{ item }}"
+  environment:
+    GOPATH: "{{ lookup('env', 'HOME') }}/dev/go"
   loop: "{{ packages | map(attribute='go') | select('defined') | list }}"
   register: result
   changed_when: "result.stdout != ''"
