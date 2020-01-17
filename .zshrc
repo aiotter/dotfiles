@@ -156,17 +156,7 @@ autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
 
-# --- Completions ---
-zplugin ice blockf
-zplugin light zsh-users/zsh-completions
-
-zplugin ice atload"_zsh_autosuggest_start"
-zplugin light zsh-users/zsh-autosuggestions
-
-zplugin light zdharma/fast-syntax-highlighting
-
-
-# --- Others ---
+# ----- Plugins -----
 zplugin ice wait lucid
 zplugin light b4b4r07/enhancd
 export ENHANCD_DOT_ARG='...'
@@ -191,6 +181,9 @@ zplugin light goles/battery
 zplugin ice wait lucid from'gh-r' as'command' pick'bin/hub'
 zplugin light github/hub
 
+zplugin ice wait lucid as'completion' blockf has'hub'
+zplugin snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
+
 # time previous command
 ZSH_COMMAND_TIME_MIN_SECONDS=10
 custom_zsh_command_time() {
@@ -209,8 +202,21 @@ zplugin ice wait lucid multisrc"*.zsh"
 zplugin light "$DOTPATH/zsh/plugins"
 
 
-# starts completion
-autoload -Uz compinit
-compinit
-zplugin cdreplay -q
+# ----- Completions -----
+zplugin ice wait lucid
+zplugin snippet PZT::modules/completion/init.zsh
+
+zplugin ice wait lucid as'completion' blockf svn \
+  mv'git-completion.zsh -> _git' atpull'zplugin creinstall -q .' \
+  atload'zstyle ":completion:*:*:git:*" script "$(pwd)/git-completion.bash"'
+zplugin snippet https://github.com/git/git/trunk/contrib/completion
+
+zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
+zplugin light zsh-users/zsh-completions
+
+zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"
+zplugin light zdharma/fast-syntax-highlighting
+
+zplugin ice wait lucid atload"_zsh_autosuggest_start"
+zplugin light zsh-users/zsh-autosuggestions
 
