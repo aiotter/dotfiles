@@ -22,7 +22,7 @@ if dein#load_state(s:dein_dir)
   " パッケージ一覧
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   " call dein#add('tomasr/molokai')
-  call dein#add('romainl/vim-dichromatic', {'rev': 'wip'})
+  call dein#add('romainl/vim-dichromatic')
   " call dein#add('nanotech/jellybeans.vim')
   call dein#add('itchyny/lightline.vim')
   " call dein#add('bronson/vim-trailing-whitespace')
@@ -102,6 +102,7 @@ set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次�
 set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
 " highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=darkgray
+set scrolloff=5 " スクロール時、常に5行先を表示する
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
@@ -141,6 +142,7 @@ endif
 
 
 " ----- 色 -----
+" Colorscheme
 if dein#tap('vim-dichromatic')
     colorscheme dichromatic
 endif
