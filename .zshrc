@@ -25,7 +25,9 @@ alias ls='ls --color'
 alias grep='grep --color'
 
 # miscellaneous
-source /Applications/ccp4-7.0/bin/ccp4.setup-sh
+if [ -e '/Applications/ccp4-7.0/bin/ccp4.setup-sh' ]; then
+  source /Applications/ccp4-7.0/bin/ccp4.setup-sh
+fi
 
 # macOS でマルチプロセスの実行を許可
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
