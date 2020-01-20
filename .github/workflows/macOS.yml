@@ -7,11 +7,5 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v1
-
-    - name: Deploy
-      run: curl -L dot.aiotter.com | bash
-
-    - name: Initialize zsh plugins
-      run: zsh -i -c -- '-zplg-scheduler burst'
-
+      - name: Deploy
+        run: curl -sL dot.aiotter.com | bash

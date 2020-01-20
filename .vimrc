@@ -45,6 +45,8 @@ let g:indentLine_setConceal=0
 
 
 " ----- キーバインド -----
+set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
+
 " ノーマルモードで o を入力したときに挿入モードに移らない
 " nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
 
