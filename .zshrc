@@ -146,45 +146,45 @@ PROMPT2='> '
 RPROMPT='%{$fg[green]%}$VENV_INFO%{$reset_color%} [%*]'
 
 
-# ------------ Settings for zplugin ------------ #
+# ------------- Settings for zinit ------------- #
 #  Put these settings at the bottom of the file  #
 # ---------------------------------------------- #
-if [ ! -e "${HOME}/.zplugin/bin/zplugin.zsh" ]; then
-  mkdir ~/.zplugin
-  git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
+if [ ! -e "${HOME}/.zinit/bin/zinit.zsh" ]; then
+  mkdir ~/.zinit
+  git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 fi
-source ~/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source ~/.zinit/bin/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 
 # ----- Plugins -----
-zplugin ice wait lucid
-zplugin light b4b4r07/enhancd
+zinit ice wait lucid
+zinit light b4b4r07/enhancd
 export ENHANCD_DOT_ARG='...'
 
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/extract/extract.plugin.zsh
+zinit ice wait lucid
+zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 
 # alias GNU utility
-zplugin ice wait lucid
-zplugin snippet PZT::modules/gnu-utility/init.zsh
+zinit ice wait lucid
+zinit snippet PZT::modules/gnu-utility/init.zsh
 
-# zplugin ice wait lucid from'gh-r' as'command' pick'peco*/peco'
-# zplugin light peco/peco
+# zinit ice wait lucid from'gh-r' as'command' pick'peco*/peco'
+# zinit light peco/peco
 
-zplugin wait lucid light-mode for \
+zinit wait lucid light-mode for \
   from'gh-r' as'command'          junegunn/fzf-bin \
   as'command' pick'bin/fzf-tmux'  junegunn/fzf
 
-zplugin ice wait lucid as'command' pick'battery'
-zplugin light goles/battery
+zinit ice wait lucid as'command' pick'battery'
+zinit light goles/battery
 
-zplugin ice wait lucid from'gh-r' as'command' pick'bin/hub'
-zplugin light github/hub
+zinit ice wait lucid from'gh-r' as'command' pick'bin/hub'
+zinit light github/hub
 
-zplugin ice wait lucid as'completion' blockf has'hub'
-zplugin snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
+zinit ice wait lucid as'completion' blockf has'hub'
+zinit snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
 
 # time previous command
 ZSH_COMMAND_TIME_MIN_SECONDS=10
@@ -194,31 +194,31 @@ custom_zsh_command_time() {
     $(($ZSH_COMMAND_TIME/3600)) $(($ZSH_COMMAND_TIME%3600/60)) $(($ZSH_COMMAND_TIME%60))
   echo -e '[0m'
 }
-zplugin ice wait lucid \
+zinit ice wait lucid \
   atload'zsh_command_time() { custom_zsh_command_time }'
-zplugin light popstas/zsh-command-time
+zinit light popstas/zsh-command-time
 
 
 # extensions in dotfiles
-zplugin ice wait lucid multisrc"*.zsh"
-zplugin light "$DOTPATH/zsh/plugins"
+zinit ice wait lucid multisrc"*.zsh"
+zinit light "$DOTPATH/zsh/plugins"
 
 
 # ----- Completions -----
-zplugin ice wait lucid
-zplugin snippet PZT::modules/completion/init.zsh
+zinit ice wait lucid
+zinit snippet PZT::modules/completion/init.zsh
 
-zplugin ice wait lucid as'completion' blockf svn \
-  mv'git-completion.zsh -> _git' atpull'zplugin creinstall -q .' \
+zinit ice wait lucid as'completion' blockf svn \
+  mv'git-completion.zsh -> _git' atpull'zinit creinstall -q .' \
   atload'zstyle ":completion:*:*:git:*" script "$(pwd)/git-completion.bash"'
-zplugin snippet https://github.com/git/git/trunk/contrib/completion
+zinit snippet https://github.com/git/git/trunk/contrib/completion
 
-zplugin ice wait lucid blockf atpull'zplugin creinstall -q .'
-zplugin light zsh-users/zsh-completions
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
 
-zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"
-zplugin light zdharma/fast-syntax-highlighting
+zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
+zinit light zdharma/fast-syntax-highlighting
 
-zplugin ice wait lucid atload"_zsh_autosuggest_start"
-zplugin light zsh-users/zsh-autosuggestions
+zinit ice wait lucid atload"_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
 
