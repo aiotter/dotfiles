@@ -18,7 +18,8 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:$PATH"
 # My commands
 FPATH=$DOTPATH/zsh/fbin:$FPATH
 autoload -Uz venvinit
-autoload -Uz git  # git subcommands with cd
+autoload -Uz exgit  # git subcommands with cd
+alias git=exgit
 
 # colouring commands
 alias ls='ls --color'
