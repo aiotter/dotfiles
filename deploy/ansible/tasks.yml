@@ -45,6 +45,10 @@
         creates: /usr/local/bin/brew
       tags: check_brew
 
+    - name: Update Homebrew
+      homebrew:
+        update_homebrew: true
+
     - name: Install/Upgrade formulae
       homebrew:
         name: "{{ packages | map(attribute='brew') | select('defined') | list }}"
