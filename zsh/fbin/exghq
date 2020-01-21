@@ -12,11 +12,7 @@ case $1 in
     ;;
 
   * )
-    if type hub >/dev/null 2>&1; then
-      hub "$@"
-    else
-      \git "$@"
-    fi
+    \ghq "$@"
     ;;
 esac
 
