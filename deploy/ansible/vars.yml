@@ -17,7 +17,7 @@ packages:
   - go: github.com/motemen/ghq
 
   - cask: iterm2
-# - cask: docker
+  - cask: docker
   - cask: alt-c  # Sync clipboard with smartphone
   - cask: hyperswitch  # windows-style Cmd-Tab
 

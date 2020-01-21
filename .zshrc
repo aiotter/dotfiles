@@ -214,6 +214,9 @@ zinit ice wait lucid as'completion' blockf svn \
   atload'zstyle ":completion:*:*:git:*" script "$(pwd)/git-completion.bash"'
 zinit snippet https://github.com/git/git/trunk/contrib/completion
 
+zinit ice wait lucid blockf as'completion'
+zinit snippet https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
