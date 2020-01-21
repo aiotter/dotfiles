@@ -181,10 +181,11 @@ zinit wait lucid light-mode for \
 zinit ice wait lucid as'command' pick'battery'
 zinit light goles/battery
 
-zinit ice wait lucid from'gh-r' as'command' pick'bin/hub'
+zinit ice wait lucid from'gh-r' as'command' pick'bin/hub' \
+  atload'eval "$(hub alias -s)"'
 zinit light github/hub
 
-zinit ice wait lucid as'completion' blockf has'hub'
+zinit ice wait lucid blockf has'hub'
 zinit snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
 
 # time previous command
