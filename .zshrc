@@ -181,7 +181,7 @@ zinit wait lucid light-mode for \
 zinit ice wait lucid as'command' pick'battery'
 zinit light goles/battery
 
-zinit ice wait lucid from'gh-r' as'command' pick'bin/hub' \
+zinit ice wait lucid from'gh-r' as'command' pick'hub-*/bin/hub' \
   atload'eval "$(hub alias -s)"'
 zinit light github/hub
 
