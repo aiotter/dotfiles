@@ -2,13 +2,25 @@
 
 case $1 in
   cd )
-    repo="$(ghq list | sed -e 's@^github.com/@@' | fzf)"
+    repo="$(ghq list | sed -e 's@^github.com/@@' | fzf -1 --query=$2)"
     [ -z "$repo" ] && return
     cd "$(ghq list --full-path --exact "$repo")"
     ;;
 
-  root )
-    cd "$(git rev-parse --show-toplevel)"
+  create )
+    result=$(\ghq "$@")
+    echo $result
+    dir=$(echo -n $result | tail -1)
+    [ -e "$dir" ] && cd "$dir"
+    ;;
+
+  rm )
+    repo="$(ghq list | sed -e 's@^github.com/@@' | fzf -1 --query=$2)"
+    [ -z "$repo" ] && return
+    echo -n "remove ${repo}? (y/N): "
+    read yn
+    case yn in [yY]*) ;; *) echo 'abort.'; return ;; esac
+    rm -rf "$(ghq list --full-path --exact "$repo")"
     ;;
 
   * )
