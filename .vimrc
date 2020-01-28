@@ -29,6 +29,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('Yggdroot/indentLine')
   call dein#add('davidhalter/jedi-vim')
   call dein#add('kevinw/pyflakes-vim')
+  call dein#add('ervandew/supertab')
 
   " 設定終了
   call dein#end()
@@ -42,6 +43,8 @@ endif
 
 " プラグインの設定
 let g:indentLine_setConceal=0
+let g:SuperTabContextDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 
 " ----- キーバインド -----
