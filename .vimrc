@@ -203,6 +203,18 @@ autocmd FileType javascript  setlocal sw=2 sts=2 ts=2 et
 autocmd FileType yaml        setlocal sw=2 sts=2 ts=2 et
 
 
+" ----- 補完 -----
+" 常に補完候補を表示/補完ウィンドウ表示時に挿入しない
+set completeopt=menuone,noinsert
+
+" 補完表示時のEnterで改行をしない
+inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+
+" C-p と C-n を矢印キーと同じ挙動に（候補選択時に挿入しない）
+inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+
+
 " ----- Python -----
 let g:pyflakes_prefer_python_version = 3
 
