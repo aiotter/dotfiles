@@ -103,7 +103,7 @@
 - name: Install zsh plugins
   command:
     cmd: "zsh -i -c -- '@zinit-scheduler burst'"
-    creates: ~/.zplugin/plugins
+    creates: ~/.zinit/plugins
   when: zsh_path is succeeded
   tags: zsh
 
