@@ -4,7 +4,8 @@ export DOTPATH=$HOME/dotfiles
 # General settings
 export LANG=ja_JP.UTF-8
 export EDITOR=vim
-export PATH=$PATH:/usr/local/bin:$HOME/local/bin:$DOTPATH/bin
+export HOME_LOCAL=$HOME/local
+export PATH=$HOME_LOCAL:$DOTPATH/bin:/usr/local/bin:$PATH
 
 # Go
 export GOPATH=$HOME/dev/go

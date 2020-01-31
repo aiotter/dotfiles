@@ -1,12 +1,12 @@
 #!/bin/bash
 
 DOTPATH=${PREFIX:-"$HOME/dotfiles"}
-USER_LOCAL=$HOME/local
 THIS_FILE_PATH=$DOTPATH/deploy/init.sh
 PYTHON_VER=3.7
 
 export DOTPATH
-export PATH=$USER_LOCAL/bin:$PATH
+export HOME_LOCAL=$HOME/local
+export PATH=$HOME_LOCAL/bin:$PATH
 
 # Clone dotfiles repo
 if [ -d "$DOTPATH" ]; then
@@ -23,16 +23,16 @@ if ! which python-build >/dev/null 2>&1; then
   cd /tmp/python-build
   git clone --depth=1 git://github.com/pyenv/pyenv.git
   cd pyenv/plugins/python-build
-  PREFIX="$USER_LOCAL" ./install.sh
+  PREFIX="$HOME_LOCAL" ./install.sh
 fi
 
 # Install Python3 to ~/local
 PYTHON_VER=$(python-build --definitions | grep -E "^$(echo $PYTHON_VER | sed 's/\./\\./g')[.0-9]*$" | tail -1)
-python-build $PYTHON_VER "$USER_LOCAL"
+python-build $PYTHON_VER "$HOME_LOCAL"
 
 # Install ansible
 echo 'Installing ansible...'
-"$USER_LOCAL/bin/python3" -m pip -q install -U ansible
+"$HOME_LOCAL/bin/python3" -m pip -q install -U ansible
 
 # Excute ansible
 cd "$(dirname "$THIS_FILE_PATH")"
