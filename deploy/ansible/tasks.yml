@@ -86,6 +86,14 @@
   changed_when: "result.stdout != ''"
   tags: tpm
 
+- name: Install snippets
+  get_url:
+    url: "{{ item }}"
+    dest: "{{ lookup('env', 'HOME_LOCAL') }}/bin"
+    mode: "u=rwx,g=rx,o=rx"
+  loop: "{{ packages | map(attribute='snippet') | select('defined') | list }}"
+  tags: snippet
+
 - shell: "cat /etc/shells | grep zsh | tail -1"
   register: zsh_path
   ignore_errors: true

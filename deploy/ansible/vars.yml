@@ -21,3 +21,5 @@ packages:
   - cask: alt-c  # Sync clipboard with smartphone
   - cask: hyperswitch  # windows-style Cmd-Tab
 
+  - snippet: https://raw.githubusercontent.com/holman/spark/master/spark
+  - snippet: https://raw.githubusercontent.com/goles/battery/master/battery
