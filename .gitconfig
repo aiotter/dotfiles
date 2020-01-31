@@ -19,4 +19,4 @@
 	root = ~/dev/src
 	user = aiotter
 [url "git@github.com:"]
-    insteadOf = https://github.com/
+    pushInsteadOf = https://github.com/
