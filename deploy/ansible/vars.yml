@@ -25,6 +25,7 @@ packages:
   - cask: docker
   - cask: alt-c  # Sync clipboard with smartphone
   - cask: hyperswitch  # windows-style Cmd-Tab
+  - cask: skim  # pdf viewer (useful with latex)
 
   # used to be required when using pbpaste inside tmux
   # remained for backword compartibility

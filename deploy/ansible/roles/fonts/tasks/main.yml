@@ -1,0 +1,7 @@
+---
+- name: Install fonts (macOS)
+  when: ansible_os_family == "Darwin"
+  get_url:
+    url: "{{ item }}"
+    dest: ~/Library/Fonts
+  loop: "{{ fonts }}"

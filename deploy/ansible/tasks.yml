@@ -94,6 +94,10 @@
   loop: "{{ packages | map(attribute='snippet') | select('defined') | list }}"
   tags: snippet
 
+- name: Install fonts
+  import_role: name=fonts
+  tags: font
+
 - shell: "cat /etc/shells | grep zsh | tail -1"
   register: zsh_path
   ignore_errors: true
