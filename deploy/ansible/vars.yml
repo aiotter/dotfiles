@@ -9,6 +9,8 @@ packages:
   - brew: circleci
   - brew: ffmpeg
   - brew: wget
+  - brew: unp  # unpack (almost) everything
+  - brew: unrar
   - brew: gnu-tar
 
   - pip: httpie
