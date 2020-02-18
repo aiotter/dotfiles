@@ -9,6 +9,7 @@ packages:
   - brew: circleci
   - brew: ffmpeg
   - brew: wget
+  - brew: gnu-tar
 
   - pip: httpie
   - pip: ipython

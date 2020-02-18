@@ -1,7 +1,10 @@
 ---
-- name: Install fonts (macOS)
+- set_fact: dir="~/Library/Fonts"
   when: ansible_os_family == "Darwin"
-  get_url:
-    url: "{{ item }}"
-    dest: ~/Library/Fonts
-  loop: "{{ fonts }}"
+
+- name: Install Ricty
+  unarchive:
+    remote_src: yes
+    src: https://rictyfonts.github.io/files/ricty_diminished-4.1.1.tar.gz
+    exclude: OFL.txt
+    dest: "{{ dir }}"
