@@ -2,6 +2,7 @@ packages:
   - brew: zsh
   - brew: coreutils
   - brew: git
+  - brew: jesseduffield/lazygit/lazygit
   - brew: jq
   - brew: vim
   - brew: tmux

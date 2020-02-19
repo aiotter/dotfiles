@@ -1,0 +1,14 @@
+gui:
+  theme:
+    activeBorderColor:
+      - yellow
+      - bold
+    inactiveBorderColor:
+      - white
+    optionsTextColor:
+      - blue
+  commitLength:
+    show: true
+reporting: "off"
+startuppopupversion: 1
+confirmOnQuit: true
