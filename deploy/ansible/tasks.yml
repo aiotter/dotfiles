@@ -32,6 +32,38 @@
   loop: "{{ dotfiles.files | map(attribute='path') | list }}"
   tags: symlink
 
+# Linux configdir path
+- when: ansible_os_family != "Darwin"
+  set_fact:
+    configpaths:
+      - "~/.config"
+  tags: symlink
+
+# macos configdir path
+- when: ansible_os_family == "Darwin"
+  set_fact:
+    configpaths:
+      - "~/.config"
+      - "~/Library/Application Support"
+  tags: symlink
+
+- name: List up configdir to link
+  find:
+    path: "{{ lookup('env', 'DOTPATH') }}/.config"
+    hidden: true
+    file_type: any
+  register: configdirs
+  tags: symlink
+
+- name: Symlink configdir
+  file:
+    src: "{{ item.0 }}"
+    dest: "{{ item.1 }}/{{ item.0 | basename }}"
+    state: link
+    force: true
+  loop: "{{ configdirs.files | map(attribute='path') | product(configpaths) | list }}"
+  tags: symlink
+
 - name: Install Python modules
   pip:
     name: "{{ packages | map(attribute='pip') | select('defined') | list }}"
