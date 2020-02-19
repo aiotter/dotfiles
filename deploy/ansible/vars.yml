@@ -23,7 +23,7 @@ packages:
 
 
   # macOS specific packages
-  - cask: iterm2
+  - cask: alacritty  # GPU-accelerated terminal emulator
   - cask: docker
   - cask: alt-c  # Sync clipboard with smartphone
   - cask: hyperswitch  # windows-style Cmd-Tab
