@@ -49,6 +49,8 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ----- キーバインド -----
 set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
+nnoremap p P  " p と P の動作を入れ替える
+nnoremap P p
 
 " ノーマルモードで o を入力したときに挿入モードに移らない
 " nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
