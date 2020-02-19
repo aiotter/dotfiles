@@ -19,8 +19,7 @@ packages:
 
   - go: github.com/motemen/ghq
 
-  - snippet: https://raw.githubusercontent.com/holman/spark/master/spark
-  - snippet: https://raw.githubusercontent.com/goles/battery/master/battery
+  - snippet: https://raw.githubusercontent.com/aiotter/nerdBattery/master/battery
 
 
   # macOS specific packages
