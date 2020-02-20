@@ -55,6 +55,10 @@ nnoremap P p
 " ノーマルモードで o を入力したときに挿入モードに移らない
 " nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
 
+" Leader
+let mapleader = "\<Space>"
+nnoremap <Leader>f :let &filetype=input('Enter filetype: ')<CR>
+
 
 " ----- 文字 -----
 set fileencoding=utf-8 " 保存時の文字コード
