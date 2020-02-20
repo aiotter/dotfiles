@@ -2,6 +2,10 @@
 - set_fact: dir="~/Library/Fonts"
   when: ansible_os_family == "Darwin"
 
+- file:
+    path: "{{ dir }}"
+    state: directory
+
 - name: Install Ricty
   unarchive:
     remote_src: yes
