@@ -27,41 +27,60 @@ import shutil
 from subprocess import Popen, PIPE
 from contextlib import contextmanager, ExitStack
 
+CHUNK_SIZE = 1048576
+
 
 @contextmanager
-def open_clipboard(mode='r'):
+def open_clipboard(mode='r', text=True):
     if mode == 'r':
         if shutil.which('pbpaste'):
-            with Popen('pbpaste', stdout=PIPE, text=True) as proc:
+            with Popen('pbpaste', stdout=PIPE, text=text) as proc:
                 yield proc.stdout
 
         elif shutil.which('xsel'):
             with Popen(['xsel', '--clipboard', '--output'],
-                       stdout=PIPE, text=True) as proc:
+                       stdout=PIPE, text=text) as proc:
                 yield proc.stdout
+
+        else:
+            raise FileNotFoundError('Either pbpaste or xsel is needed')
 
     elif mode == 'w':
         if shutil.which('pbcopy'):
-            with Popen('pbcopy', stdin=PIPE, text=True) as proc:
+            with Popen('pbcopy', stdin=PIPE, text=text) as proc:
                 yield proc.stdin
 
         elif shutil.which('xsel'):
             with Popen(['xsel', '--clipboard', '--input'],
-                       stdin=PIPE, text=True) as proc:
+                       stdin=PIPE, text=text) as proc:
                 yield proc.stdin
+
+        else:
+            raise FileNotFoundError('Either pbcopy or xsel is needed')
+
+    else:
+        raise ValueError("mode argument must be either 'r' or 'w'")
+
+
+def _read_by(chunk_size, file):
+    while True:
+        chunk = file.read(chunk_size)
+        if not chunk:
+            break
+        yield chunk
 
 
 def main():
     with ExitStack() as stack:
-        clip_r = stack.enter_context(open_clipboard('r'))
-        clip_w = stack.enter_context(open_clipboard('w'))
+        clip_r = stack.enter_context(open_clipboard('r', text=False))
+        clip_w = stack.enter_context(open_clipboard('w', text=False))
 
-        input = clip_r if sys.stdin.isatty() else sys.stdin
+        input = clip_r if sys.stdin.isatty() else sys.stdin.buffer
 
-        for line in input:
+        for chunk in _read_by(CHUNK_SIZE, input):
             if sys.stdin.isatty() or not sys.stdout.isatty():
-                sys.stdout.write(line)
-            clip_w.write(line)
+                sys.stdout.buffer.write(chunk)
+            clip_w.write(chunk)
 
 
 if __name__ == '__main__':
