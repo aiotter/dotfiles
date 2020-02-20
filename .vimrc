@@ -30,6 +30,10 @@ if dein#load_state(s:dein_dir)
   call dein#add('davidhalter/jedi-vim')
   call dein#add('kevinw/pyflakes-vim')
   call dein#add('ervandew/supertab')
+  call dein#add('terryma/vim-expand-region')
+  call dein#add('kana/vim-textobj-user')
+  call dein#add('kana/vim-textobj-line')
+  call dein#add('kana/vim-textobj-entire')
 
   " 設定終了
   call dein#end()
@@ -53,6 +57,10 @@ set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
 " p と P の動作を入れ替える
 nnoremap p P
 nnoremap P p
+
+" v で選択範囲拡張、 C-v で選択範囲縮小
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 " ノーマルモードで o を入力したときに挿入モードに移らない
 " nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
