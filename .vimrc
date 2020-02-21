@@ -30,6 +30,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('davidhalter/jedi-vim')
   call dein#add('kevinw/pyflakes-vim')
   call dein#add('ervandew/supertab')
+  call dein#add('easymotion/vim-easymotion')
   call dein#add('terryma/vim-expand-region')
   call dein#add('kana/vim-textobj-user')
   call dein#add('kana/vim-textobj-line')
@@ -68,6 +69,9 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " Leader
 let mapleader = "\<Space>"
 nnoremap <Leader>f :let &filetype=input('Enter filetype: ')<CR>
+
+" EasyMortion
+map ; <Plug>(easymotion-prefix)
 
 
 " ----- 文字 -----
