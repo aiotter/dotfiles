@@ -119,9 +119,16 @@
   tags: tpm
 
 - name: Install vim plugins
+  vars:
+    dir: ~/.cache/dein/repos
   shell:
-    cmd: "yes | vim +quit"
-    creates: ~/.cache/dein/repos
+    cmd: |
+      before=$(find {{ dir }})
+      yes | vim +quit >/dev/null
+      diff <(echo "$before") <(find {{ dir }}) >/dev/null || echo changed
+    executable: /bin/bash
+  register: result
+  changed_when: "result.stdout != ''"
   tags: vim
 
 - name: Install snippets
