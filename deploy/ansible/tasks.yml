@@ -150,8 +150,8 @@
   tags: zsh
 
 - name: Install zsh plugins
-  command:
-    cmd: "zsh -i -c -- '@zinit-scheduler burst || true'"
+  shell:
+    cmd: "TERM=xterm-256color zsh -i -c -- '@zinit-scheduler burst'"
     creates: ~/.zinit/plugins
   when: zsh_path is succeeded
   tags: zsh
