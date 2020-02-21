@@ -118,6 +118,12 @@
   changed_when: "result.stdout != ''"
   tags: tpm
 
+- name: Install vim plugins
+  shell:
+    cmd: "yes | vim +quit"
+    creates: ~/.cache/dein/repos
+  tags: vim
+
 - name: Install snippets
   get_url:
     url: "{{ item }}"
