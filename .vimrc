@@ -31,6 +31,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('kevinw/pyflakes-vim')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
+  call dein#add('rhysd/clever-f.vim')
   call dein#add('terryma/vim-expand-region')
   call dein#add('kana/vim-textobj-user')
   call dein#add('kana/vim-textobj-line')
@@ -46,10 +47,13 @@ if dein#check_install()
   call dein#install()
 endif
 
-" プラグインの設定
+" ----- プラグインの設定 -----
 let g:indentLine_setConceal=0
+
 let g:SuperTabContextDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+let g:clever_f_timeout_ms = 3000
 
 
 " ----- キーバインド -----
