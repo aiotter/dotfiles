@@ -150,9 +150,12 @@
   tags: zsh
 
 - name: Install zsh plugins
-  shell:
-    cmd: "TERM=xterm-256color zsh -i -c -- '@zinit-scheduler burst'"
-    creates: ~/.zinit/plugins
+  command: zsh -i -c -- '@zinit-scheduler'
+  environment:
+    TERM: linux-m
+  register: result
+  changed_when: |
+    (result.stdout | regex_replace('\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]', '')) != ''
   when: zsh_path is succeeded
   tags: zsh
 
