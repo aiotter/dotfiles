@@ -10,6 +10,7 @@ packages:
   - brew: circleci
   - brew: ffmpeg
   - brew: wget
+  - brew: aria2  # download manager
   - brew: unp  # unpack (almost) everything
   - brew: unrar
   - brew: gnu-tar
