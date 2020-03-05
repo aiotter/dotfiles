@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+export BW_SESSION=$(bw unlock --raw)
+echo ${BW_SESSION:+'Bitwarden vault successfully unlocked: check $BW_SESSION for session key'}

@@ -18,8 +18,7 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:$PATH"
 
 # My commands
 FPATH=$DOTPATH/zsh/fbin:$FPATH
-autoload -Uz venvinit
-autoload -Uz exghq
+autoload -Uz $(ls -1 "$DOTPATH/zsh/fbin")
 alias ghq=exghq
 
 # colouring commands
