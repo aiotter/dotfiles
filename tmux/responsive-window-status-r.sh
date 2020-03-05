@@ -12,7 +12,7 @@ PATH=$HOME/local/bin:$PATH
 ping 'google.com' -c 1 >/dev/null 2>&1
 if [ $? == 0 ]
 then
-    online_status="-online-"
+    online_status=" $(get-wifi-ssid)"
 else
     online_status="#[bg=cyan,fg=black] *OFFLINE* #[default]"
 fi

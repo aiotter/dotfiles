@@ -1,0 +1,9 @@
+#/bin/bash
+
+if type /System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport >/dev/null 2>&1; then
+  ssid=$(/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I | awk -F ': ' '/ SSID/{print $2}')
+elif type nmcli >/dev/null 2>&1; then
+  ssid=$(nmcli -t -f active,ssid dev wifi | egrep '^yes' | cut -d\' -f2)
+fi
+
+/bin/echo -n "$ssid"
