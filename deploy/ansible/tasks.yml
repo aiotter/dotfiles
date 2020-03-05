@@ -67,6 +67,7 @@
 - name: Install Python modules
   pip:
     name: "{{ packages | map(attribute='pip') | select('defined') | list }}"
+    executable: "{{ lookup('env', 'HOME_LOCAL') }}/bin/pip3"
   tags: pip
 
 - when: ansible_os_family == "Darwin"
