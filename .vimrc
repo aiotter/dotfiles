@@ -27,7 +27,6 @@ if dein#load_state(s:dein_dir)
   call dein#add('itchyny/lightline.vim')
   " call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
-  call dein#add('davidhalter/jedi-vim')
   call dein#add('kevinw/pyflakes-vim')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
@@ -36,6 +35,15 @@ if dein#load_state(s:dein_dir)
   call dein#add('kana/vim-textobj-user')
   call dein#add('kana/vim-textobj-line')
   call dein#add('kana/vim-textobj-entire')
+
+  call dein#add('Shougo/deoplete.nvim')
+  if !has('nvim')
+    call dein#add('roxma/nvim-yarp')
+    call dein#add('roxma/vim-hug-neovim-rpc')
+  endif
+  call dein#add('davidhalter/jedi', {'on_ft': 'python'})
+  call dein#add('deoplete-plugins/deoplete-jedi', {'on_ft': 'python'})
+
 
   " 設定終了
   call dein#end()
@@ -54,6 +62,12 @@ let g:SuperTabContextDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:clever_f_timeout_ms = 3000
+
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('smart_case', v:true)
+call deoplete#custom#option('ignore_sources', {
+\ '_': ['around']
+\})
 
 
 " ----- キーバインド -----
@@ -229,10 +243,19 @@ autocmd FileType yaml        setlocal sw=2 sts=2 ts=2 et
 
 " ----- 補完 -----
 " 常に補完候補を表示/補完ウィンドウ表示時に挿入しない
-set completeopt=menuone,noinsert
+set completeopt=menuone,noinsert,noselect ",preview
 
-" 補完表示時のEnterで改行をしない
-inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+" 補完選択時はEnterで改行をしない
+function! _Enter_key()
+  if complete_info(['pum_visible', 'selected']) == {'pum_visible': 1, 'selected': -1}
+    return "\<CR>\<CR>"
+  elseif pumvisible()
+    return "\<C-y>"
+  else
+    return "\<CR>"
+  endif
+endfunction
+inoremap <expr><CR> _Enter_key()
 
 " C-p と C-n を矢印キーと同じ挙動に（候補選択時に挿入しない）
 inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
@@ -241,4 +264,20 @@ inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
 " ----- Python -----
 let g:pyflakes_prefer_python_version = 3
+" deoplate が使う pynvim ライブラリが未導入なら導入する
+if !has('nvim')
+  python3 import importlib.util
+  if py3eval('importlib.util.find_spec("pynvim") is None')
+    python3 << EOS
+import runpy, contextlib
+sys.argv = ["pip", "install", "--user", "pynvim", "jedi"]
+with contextlib.suppress(SystemExit):
+    runpy.run_module("pip", run_name="__main__")
+EOS
+  endif
+endif
 
+let g:pyflakes_prefer_python_version = 3
+let g:deoplete#sources#jedi#python_path = g:python3_host_prog
+" let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#sources#jedi#ignore_private_members = 1
