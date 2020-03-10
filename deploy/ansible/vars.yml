@@ -4,7 +4,7 @@ packages:
   - brew: git
   - brew: jesseduffield/lazygit/lazygit
   - brew: jq
-  - brew: vim
+  - brew: neovim
   - brew: tmux
   - brew: tree
   - brew: circleci

@@ -2,7 +2,6 @@
 	useConfigOnly = true
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = vim
 [rebase]
 	autosquash = true
 [commit]

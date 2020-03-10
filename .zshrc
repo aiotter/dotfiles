@@ -3,9 +3,17 @@ export DOTPATH=$HOME/dotfiles
 
 # General settings
 export LANG=ja_JP.UTF-8
-export EDITOR=vim
 export HOME_LOCAL=$HOME/local
 export PATH=$HOME_LOCAL/bin:$DOTPATH/bin:/usr/local/bin:$PATH
+
+# Editor
+if type nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+export GIT_EDITOR=$EDITOR
+
 
 # Go
 export GOPATH=$HOME/dev/go

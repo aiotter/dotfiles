@@ -172,7 +172,9 @@ set history=5000 " 保存するコマンド履歴の数
 
 " ----- マウス -----
 " マウスでカーソル移動やスクロール移動
-if has('mouse')
+if has('nvim')
+    set mouse=a
+elseif has('mouse')
     set mouse=a
     if has('mouse_sgr')
         set ttymouse=sgr
@@ -263,21 +265,36 @@ inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
 
 " ----- Python -----
-let g:pyflakes_prefer_python_version = 3
-" deoplate が使う pynvim ライブラリが未導入なら導入する
-if !has('nvim')
-  python3 import importlib.util
-  if py3eval('importlib.util.find_spec("pynvim") is None')
-    python3 << EOS
-import runpy, contextlib
-sys.argv = ["pip", "install", "--user", "pynvim", "jedi"]
-with contextlib.suppress(SystemExit):
-    runpy.run_module("pip", run_name="__main__")
-EOS
-  endif
+let s:python3_path = $HOME_LOCAL . '/bin/python3'
+let s:venv_dir = expand('~/.cache/neovim_venv')
+
+" create venv if not exist
+if !isdirectory(s:venv_dir)
+  execute '!' . s:python3_path '-m venv' s:venv_dir
+endif
+
+" if venv is activated, use it
+if exists("$VIRTUAL_ENV")
+  let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+else
+  let g:python3_host_prog = s:venv_dir . '/bin/python'
+  " QuickRun のための設定
+  let $PATH = s:venv_dir . '/bin:' . $PATH
+endif
+
+" Install pynvim
+let s:install_pynvim_script = 
+  \ "import importlib.util\n"
+  \."if importlib.util.find_spec('pynvim') is None:\n"
+  \."    import sys, runpy, contextlib\n"
+  \."    sys.argv = ['pip', 'install', 'pynvim']\n"
+  \."    with contextlib.suppress(SystemExit):\n"
+  \."        runpy.run_module('pip', run_name='__main__')"
+if has('nvim')
+  echo system(g:python3_host_prog . ' -', s:install_pynvim_script)
+else
+  execute('python3 ' . s:install_pynvim_script)
 endif
 
 let g:pyflakes_prefer_python_version = 3
 let g:deoplete#sources#jedi#python_path = g:python3_host_prog
-" let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#sources#jedi#ignore_private_members = 1
