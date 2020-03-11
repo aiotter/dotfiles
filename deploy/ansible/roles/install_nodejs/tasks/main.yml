@@ -4,3 +4,4 @@
   when: ansible_os_family == "Darwin"
   homebrew:
     name: node
+    state: latest

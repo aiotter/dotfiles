@@ -85,13 +85,13 @@
     - name: Install/Upgrade formulae
       homebrew:
         name: "{{ packages | map(attribute='brew') | select('defined') | list }}"
-        upgrade_all: true
+        state: latest
       tags: brew_formula
 
     - name: Install/Upgrade casks
       homebrew_cask:
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
-        upgrade_all: true
+        state: upgraded
       tags: brew_cask
 
 - name: Install Go

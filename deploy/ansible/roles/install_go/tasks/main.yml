@@ -3,4 +3,4 @@
   when: ansible_os_family == "Darwin"
   homebrew:
     name: go
-
+    state: latest
