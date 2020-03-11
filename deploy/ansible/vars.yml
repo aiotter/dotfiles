@@ -25,6 +25,14 @@ packages:
   - snippet: https://raw.githubusercontent.com/aiotter/nerdBattery/master/battery
 
 
+  # Linter
+  - npm: prettier       # HTML/(S)CSS/JS/TS/JSON/Vue/GraphQL/Less/Markdown/YAML
+  - brew: shellcheck    # shellscript
+  - pip: flake8         # Python
+  - pip: vim-vint       # Vim script
+  - pip: ansible-lint   # Ansible
+
+
   # macOS specific packages
   - cask: alacritty  # GPU-accelerated terminal emulator
   - cask: docker

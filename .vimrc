@@ -37,6 +37,8 @@ if dein#load_state(s:dein_dir)
   call dein#add('kana/vim-textobj-line')
   call dein#add('kana/vim-textobj-entire')
 
+  call dein#add('pearofducks/ansible-vim')
+
   call dein#add('Shougo/deoplete.nvim')
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
@@ -77,6 +79,7 @@ call deoplete#custom#option('ignore_sources', {
 " let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 let g:ale_sign_column_always = 1
+let b:ale_linters = 'all'
 
 let g:gen_tags#ctags_auto_gen = 1
 
