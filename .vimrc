@@ -56,12 +56,15 @@ if dein#check_install()
 endif
 
 " ----- プラグインの設定 -----
+let g:dein#auto_recache = 1
+
 let g:indentLine_setConceal=0
 
 let g:SuperTabContextDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:clever_f_timeout_ms = 3000
+let g:clever_f_fix_key_direction = 1
 
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
@@ -222,7 +225,7 @@ function! LightlineFileformat()
   endif
 endfunction
 function! LightlineFileencoding()
-  return winwidth(0) > s:threshold ? &fileformat : ''
+  return winwidth(0) > s:threshold ? &fileencoding : ''
 endfunction
 function! LightlineFiletype()
   return winwidth(0) > s:threshold ? (&filetype !=# '' ? &filetype : 'no ft') : ''
