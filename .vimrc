@@ -28,6 +28,7 @@ if dein#load_state(s:dein_dir)
   " call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
   call dein#add('dense-analysis/ale')
+  call dein#add('majutsushi/tagbar')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
   call dein#add('rhysd/clever-f.vim')
@@ -77,6 +78,11 @@ call deoplete#custom#option('ignore_sources', {
 let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 let g:ale_sign_column_always = 1
 
+let g:gen_tags#ctags_auto_gen = 1
+
+let g:tagbar_autopreview = 1
+autocmd VimEnter * nested :call tagbar#autoopen(1)  " 自動起動
+set updatetime=500  " スワップファイルへの書き出し頻度 (=tagbar更新頻度)
 
 " ----- キーバインド -----
 set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
