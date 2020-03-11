@@ -27,7 +27,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('itchyny/lightline.vim')
   " call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
-  call dein#add('kevinw/pyflakes-vim')
+  call dein#add('dense-analysis/ale')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
   call dein#add('rhysd/clever-f.vim')
@@ -71,6 +71,11 @@ call deoplete#custom#option('smart_case', v:true)
 call deoplete#custom#option('ignore_sources', {
 \ '_': ['around']
 \})
+
+" let g:ale_sign_error = '⨉'
+" let g:ale_sign_warning = '⚠'
+let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
+let g:ale_sign_column_always = 1
 
 
 " ----- キーバインド -----
@@ -299,5 +304,4 @@ else
   execute('python3 ' . s:install_pynvim_script)
 endif
 
-let g:pyflakes_prefer_python_version = 3
 let g:deoplete#sources#jedi#python_path = g:python3_host_prog
