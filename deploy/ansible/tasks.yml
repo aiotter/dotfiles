@@ -107,6 +107,17 @@
   changed_when: "result.stdout != ''"
   tags: go
 
+- name: Install Node.js
+  import_role: name=install_nodejs
+  tags: npm
+
+- name: Install Node.js packages
+  npm:
+    name: "{{ item }}"
+    global: yes
+  loop: "{{ packages | map(attribute='npm') | select('defined') | list }}"
+  tags: npm
+
 - name: Install tmux plugin manager
   git:
     repo: 'https://github.com/tmux-plugins/tpm.git'

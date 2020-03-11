@@ -1,0 +1,6 @@
+---
+# https://nodejs.org/en/download/package-manager/
+- name: Install Go (macOS)
+  when: ansible_os_family == "Darwin"
+  homebrew:
+    name: node
