@@ -280,6 +280,13 @@ inoremap <expr><CR> _Enter_key()
 inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
+" カーソルキーで補完ウィンドウにフォーカスしない
+function! Is_completion_unforcused()
+  return complete_info(['pum_visible', 'selected']) == {'pum_visible': 1, 'selected': -1}
+endfunction
+inoremap <expr><Down> Is_completion_unforcused() ? "\<C-e>\<Down>" : "\<Down>"
+inoremap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
+
 
 " ----- Python -----
 let s:python3_path = $HOME_LOCAL . '/bin/python3'
