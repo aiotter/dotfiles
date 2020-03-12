@@ -190,7 +190,7 @@ zinit ice wait lucid from'gh-r' as'command' pick'hub-*/bin/hub' \
   atload'eval "$(hub alias -s)"'
 zinit light github/hub
 
-zinit ice wait lucid blockf has'hub'
+zinit ice wait lucid as'completion' has'hub' mv'hub.zsh_completion -> _hub'
 zinit snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
 
 # time previous command
@@ -215,7 +215,7 @@ zinit light "$DOTPATH/zsh/plugins"
 zinit ice wait lucid
 zinit snippet PZT::modules/completion/init.zsh
 
-zinit ice wait lucid as'completion' blockf svn \
+zinit ice wait lucid as'completion' svn \
   mv'git-completion.zsh -> _git' atpull'zinit creinstall -q .' \
   atload'zstyle ":completion:*:*:git:*" script "$(pwd)/git-completion.bash"'
 zinit snippet https://github.com/git/git/trunk/contrib/completion
