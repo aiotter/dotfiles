@@ -5,7 +5,7 @@ packages:
   - brew: jesseduffield/lazygit/lazygit
   - brew: jq
   - brew: neovim
-  - brew: universal-ctags/universal-ctags/universal-ctags
+  - brew-head: universal-ctags/universal-ctags/universal-ctags
   - brew: tmux
   - brew: tree
   - brew: circleci

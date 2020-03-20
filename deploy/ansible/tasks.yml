@@ -88,6 +88,12 @@
         state: latest
       tags: brew_formula
 
+    - name: Install/Upgrade HEAD-only formulae
+      homebrew:
+        name: "{{ packages | map(attribute='brew-head') | select('defined') | list }}"
+        state: head
+      tags: brew_formula
+
     - name: Install/Upgrade casks
       homebrew_cask:
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
