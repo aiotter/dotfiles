@@ -2,6 +2,8 @@
 - name: Deploy dotfiles
   hosts: localhost
   connection: local
+  roles:
+    - kewlfft.aur
   tasks:
     - include: tasks.yml
 

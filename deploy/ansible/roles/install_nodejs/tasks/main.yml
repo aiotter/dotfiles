@@ -1,7 +1,14 @@
 ---
 # https://nodejs.org/en/download/package-manager/
-- name: Install Go (macOS)
+- name: Install Node.js (macOS)
   when: ansible_os_family == "Darwin"
   homebrew:
     name: node
     state: latest
+
+- name: Install Node.js (Arch Linux)
+  when: ansible_os_family == "Archlinux"
+  pacman:
+    name: ["nodejs", "npm"]
+    state: latest
+  become: true

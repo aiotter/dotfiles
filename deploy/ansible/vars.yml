@@ -1,20 +1,47 @@
 packages:
   - brew: zsh
-  - brew: coreutils
+    pacman: zsh
+
   - brew: git
+    pacman: git
+
   - brew: jesseduffield/lazygit/lazygit
+    aur: lazygit-git
+
   - brew: jq
+    pacman: jq
+
   - brew: neovim
+    pacman: neovim
+
   - brew-head: universal-ctags/universal-ctags/universal-ctags
+    aur: universal-ctags
+
   - brew: tmux
+    pacman: tmux
+
   - brew: tree
+    pacman: tree
+
   - brew: circleci
+    aur: circleci-cli-bin
+
   - brew: ffmpeg
+    pacman: ffmpeg
+
   - brew: wget
+    pacman: wget
+
   - brew: aria2  # download manager
+    pacman: aria2
+
   - brew: unp  # unpack (almost) everything
+    pacman: unp
+
   - brew: unrar
-  - brew: gnu-tar
+    pacman: unrar
+
+  - pacman: unzip
 
   - pip: httpie
   - pip: ipython
@@ -28,16 +55,22 @@ packages:
   # Linter
   - npm: prettier       # HTML/(S)CSS/JS/TS/JSON/Vue/GraphQL/Less/Markdown/YAML
   - brew: shellcheck    # shellscript
+    pacman: shellcheck
   - pip: flake8         # Python
   - pip: vim-vint       # Vim script
   - pip: ansible-lint   # Ansible
 
 
-  # macOS specific packages
+  # GUI apps
   - cask: alacritty  # GPU-accelerated terminal emulator
-  - cask: docker
-  - cask: alt-c  # Sync clipboard with smartphone
+    aur: alacritty-git
+
+
+  # macOS specific packages
+  - brew: coreutils
+  - brew: gnu-tar
   - cask: hyperswitch  # windows-style Cmd-Tab
+  - cask: alt-c  # Sync clipboard with smartphone
   - cask: skim  # pdf viewer (useful with latex)
 
   # used to be required when using pbpaste inside tmux

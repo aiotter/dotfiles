@@ -2,6 +2,9 @@
 - set_fact: dir="~/Library/Fonts"
   when: ansible_os_family == "Darwin"
 
+- set_fact: dir="~/.local/share/fonts"
+  when: ansible_os_family == "Archlinux"
+
 - file:
     path: "{{ dir }}"
     state: directory

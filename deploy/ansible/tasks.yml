@@ -9,6 +9,7 @@
     state: directory
   loop:
     - "~/work"
+    - "~/.config"
 
 - name: List up dotfiles to link
   find:
@@ -99,6 +100,26 @@
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
       tags: brew_cask
 
+- when: ansible_os_family == "Archlinux"
+  block:
+    - name: Install/Upgrade pacman packages
+      pacman:
+        name: "{{ packages | map(attribute='pacman') | select('defined') | list }}"
+        state: latest
+        update_cache: yes
+      become: true
+      tags: pacman
+
+    - name: Install/Upgrade AUR packages
+      aur:
+        name: "{{ packages | map(attribute='aur') | select('defined') | list }}"
+      tags: aur
+
+
+- name: Install Docker
+  import_role: name=install_docker
+  tags: docker
+
 - name: Install Go
   import_role: name=install_go
   tags: go
@@ -159,6 +180,10 @@
 - name: Install fonts
   import_role: name=fonts
   tags: font
+
+- name: Install IME
+  import_role: name=ime
+  tags: ime
 
 - shell: "cat /etc/shells | grep zsh | tail -1"
   register: zsh_path

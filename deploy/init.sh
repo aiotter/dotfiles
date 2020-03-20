@@ -8,8 +8,22 @@ export DOTPATH
 export HOME_LOCAL=$HOME/.local
 export PATH=$HOME_LOCAL/bin:$PATH
 
+
+# Install dependencies (Arch Linux)
+if type pacman >/dev/null 2>&1; then
+  sudo pacman -Syu --noconfirm
+  sudo pacman -S --noconfirm --needed base-devel git gnupg
+
+  if ! type yay >/dev/null 2>&1; then
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    cd /tmp/yay
+    makepkg -si --noconfirm
+  fi
+fi
+
 # Clone dotfiles repo
 if [ -d "$DOTPATH" ]; then
+  cd "$DOTPATH"
   git status >/dev/null 2>&1 || exit 1
   git pull
 else
@@ -28,11 +42,19 @@ fi
 
 # Install Python3 to ~/local
 PYTHON_VER=$(python-build --definitions | grep -E "^$(echo $PYTHON_VER | sed 's/\./\\./g')[.0-9]*$" | tail -1)
-python-build $PYTHON_VER "$HOME_LOCAL"
+if [ -e "$HOME_LOCAL/bin/python3" ]; then
+  CURRENT_PYTHON_VER=$("$HOME_LOCAL/bin/python3" -c "import platform; print(platform.python_version())")
+fi
+if [ "$PYTHON_VER" != "${CURRENT_PYTHON_VER:-}" ]; then
+  python-build "$PYTHON_VER" "$HOME_LOCAL"
+fi
 
 # Install ansible
 echo 'Installing ansible...'
 "$HOME_LOCAL/bin/python3" -m pip -q install -U ansible
+
+# Install ansible modules
+ansible-galaxy install kewlfft.aur
 
 # Excute ansible
 cd "$(dirname "$THIS_FILE_PATH")"
