@@ -62,97 +62,9 @@ bindkey '^[OF'  end-of-line        # END
 bindkey '^[[4~' end-of-line        # END
 bindkey '^[[3~' delete-char        # DEL
 
-
-# ---------- vim mode ----------
+# vim mode
 bindkey -v
 KEYTIMEOUT=5
-
-#### カーソル形状をinsertとnormalで変更したかったけど無理だった ####
-# これが解決できない: https://unix.stackexchange.com/questions/433273/changing-cursor-style-based-on-mode-in-both-zsh-and-vim
-
-# Change cursor shape for different vi modes.
-# function zle-keymap-select {
-#   if [[ ${KEYMAP} == vicmd ]] ||
-#      [[ $1 = 'block' ]]; then
-#     echo -ne '\e[1 q'
-# 
-#   elif [[ ${KEYMAP} == main ]] ||
-#        [[ ${KEYMAP} == viins ]] ||
-#        [[ ${KEYMAP} = '' ]] ||
-#        [[ $1 = 'beam' ]]; then
-#     echo -ne '\e[5 q'
-#   fi
-# }
-# zle -N zle-keymap-select
-# 
-# zle-line-init() {
-#     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-#     echo -ne "\e[5 q"
-# }
-# zle -N zle-line-init
-
-# zle-line-finish() { echo -ne "\e[1 q" }
-# zle -N zle-line-finish
-# 
-# # Use beam shape cursor for each new prompt.
-# _fix_cursor() {
-#   echo -ne '\e[5 q'
-# }
-# precmd_functions+=(_fix_cursor)
-
-
-# ---------- prompt ----------
-autoload -Uz colors; colors
-setopt prompt_subst
-
-# Vi mode (enabling $VIMODE on $PROMPT)
-VIMODE=' INS '
-function zle-keymap-select {
-  VIMODE="${${KEYMAP/vicmd/NORM }/(main|viins)/ INS }"
-  zle reset-prompt
-}
-zle -N zle-keymap-select
-
-
-# Get git info
-# %b ブランチ情報
-# %a アクション名(mergeなど)
-autoload -Uz vcs_info
-
-#formats 設定項目で %c, %u を使用
-zstyle ':vcs_info:git:*' check-for-changes true
-
-# ステージ済みのファイルがあるときの %c
-zstyle ':vcs_info:git:*' stagedstr '[38;5;163m! '
-
-# ステージされていないファイルがあるときの %u
-zstyle ':vcs_info:git:*' unstagedstr '[38;5;32m+ '
-
-# 通常時のフォーマット
-zstyle ':vcs_info:*' formats '[38;5;240m> [%r] on %u%c%b[0m'
-
-  echo -e '[0m'
-#rebase 途中, merge コンフリクトなどのときのフォーマット
-zstyle ':vcs_info:*' actionformats '> [%r] on %b <!%a>'
-
-
-# Get venv info
-venv_info() {
-  VENV_INFO=""
-  if [ -n "$VIRTUAL_ENV" ]; then
-    VENV_INFO="venv:$(echo "$VIRTUAL_ENV" | sed -E 's@^.+/([^/]*/\.venv)@\1@' || basename "$VIRTUAL_ENV")"
-  fi
-}
-
-# format
-precmd() { vcs_info; venv_info }
-LANG=en_US.UTF-8 vcs_info
-venv_info
-PROMPT='
-%{$fg[cyan]%}%~%{$reset_color%} $vcs_info_msg_0_
-%{$fg[cyan]%}$VIMODE%# %{$reset_color%}'
-PROMPT2='> '
-RPROMPT='%{$fg[green]%}$VENV_INFO%{$reset_color%} [%*]'
 
 
 # ------------- Settings for zinit ------------- #
@@ -168,6 +80,16 @@ autoload -Uz _zinit
 
 
 # ----- Plugins -----
+# todo.txt must be loaded before powerlevel10k
+zinit ice from'gh-r' as'command' pick'todo.txt_cli-*/todo.sh'
+zinit light todotxt/todo.txt-cli
+alias todo=todo.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 zinit ice wait lucid
 zinit light b4b4r07/enhancd
 export ENHANCD_DOT_ARG='...'
@@ -192,19 +114,6 @@ zinit light github/hub
 
 zinit ice wait lucid as'completion' has'hub' mv'hub.zsh_completion -> _hub'
 zinit snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
-
-# time previous command
-ZSH_COMMAND_TIME_MIN_SECONDS=10
-custom_zsh_command_time() {
-  echo -en '[38;5;240m'
-  printf '[%dh:%02dm:%02ds]' \
-    $(($ZSH_COMMAND_TIME/3600)) $(($ZSH_COMMAND_TIME%3600/60)) $(($ZSH_COMMAND_TIME%60))
-  echo -e '[0m'
-}
-zinit ice wait lucid \
-  atload'zsh_command_time() { custom_zsh_command_time }'
-zinit light popstas/zsh-command-time
-
 
 # extensions in dotfiles
 zinit ice wait lucid multisrc"*.zsh"
