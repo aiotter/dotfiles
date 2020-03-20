@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+export -n BW_SESSION
+bw lock
