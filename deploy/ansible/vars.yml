@@ -61,7 +61,7 @@ packages:
 
   # GUI apps
   - cask: alacritty  # GPU-accelerated terminal emulator
-    aur: alacritty-git
+    pacman: alacritty
 
 
   # macOS specific packages
