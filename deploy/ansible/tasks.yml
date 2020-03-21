@@ -94,10 +94,9 @@
         state: head
       tags: brew_formula
 
-    - name: Install/Upgrade casks
+    - name: Install casks
       homebrew_cask:
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
-        state: upgraded
       tags: brew_cask
 
 - name: Install Go
