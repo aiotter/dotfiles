@@ -5,9 +5,17 @@
     name: docker
     state: upgraded
 
-- name: Install Docker (Arch Linux)
-  when: ansible_os_family == "Archlinux"
-  pacman:
-    name: docker
-    state: latest
-  become: true
+- when: ansible_os_family == "Archlinux"
+  block:
+    - name: Install Docker (Arch Linux)
+      pacman:
+        name: docker
+        state: latest
+      become: true
+
+    - name: Enable Docker daemon
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+      become: yes
