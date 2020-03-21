@@ -141,6 +141,7 @@
   npm:
     name: "{{ item }}"
     global: yes
+  become: yes
   loop: "{{ packages | map(attribute='npm') | select('defined') | list }}"
   tags: npm
 
