@@ -9,10 +9,17 @@ export HOME_LOCAL=$HOME/.local
 export PATH=$HOME_LOCAL/bin:$PATH
 
 
+# Get password for sudo
+if ! sudo -n true 2>/dev/null; then
+  printf "Password for sudo: "
+  read -s PASSWORD <"/dev/$(ps aux | awk -v pid="$$" '$2==pid {print $7}')"
+  printf "\n"
+fi
+
 # Install dependencies (Arch Linux)
 if type pacman >/dev/null 2>&1; then
-  sudo pacman -Syu --noconfirm
-  sudo pacman -S --noconfirm --needed base-devel git gnupg
+  echo "$PASSWORD" | sudo -S pacman -Syu --noconfirm
+  echo "$PASSWORD" | sudo -S pacman -S --noconfirm --needed base-devel git gnupg
 
   if ! type yay >/dev/null 2>&1; then
     git clone https://aur.archlinux.org/yay.git /tmp/yay
@@ -59,10 +66,10 @@ ansible-galaxy install kewlfft.aur
 # Excute ansible
 cd "$(dirname "$THIS_FILE_PATH")"
 if sudo -n true 2>/dev/null; then
-  # sudo password is not needed (like GitHub Actions)
+  # if sudo password is not needed (like GitHub Actions)
   ansible-playbook ansible/setup.yml
 else
-  # sudo password is needed: ask password beforehand
-  ansible-playbook ansible/setup.yml -K
+  # if sudo password is needed: use the password stored beforehand
+  ansible-playbook ansible/setup.yml --extra-vars "ansible_become_pass='$PASSWORD'"
 fi
 
