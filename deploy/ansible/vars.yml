@@ -5,9 +5,6 @@ packages:
   - brew: git
     pacman: git
 
-  - brew: jesseduffield/lazygit/lazygit
-    aur: lazygit-git
-
   - brew: jq
     pacman: jq
 
@@ -48,6 +45,7 @@ packages:
   - pip: youtube-dl
 
   - go: github.com/motemen/ghq
+  - go: github.com/jesseduffield/lazygit
 
   - snippet: https://raw.githubusercontent.com/aiotter/nerdBattery/master/battery
 
