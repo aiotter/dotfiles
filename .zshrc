@@ -3,7 +3,7 @@ export DOTPATH=$HOME/dotfiles
 
 # General settings
 export LANG=ja_JP.UTF-8
-export HOME_LOCAL=$HOME/local
+export HOME_LOCAL=$HOME/.local
 export PATH=$HOME_LOCAL/bin:$DOTPATH/bin:/usr/local/bin:$PATH
 
 # Editor

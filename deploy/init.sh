@@ -5,7 +5,7 @@ THIS_FILE_PATH=$DOTPATH/deploy/init.sh
 PYTHON_VER=3.7
 
 export DOTPATH
-export HOME_LOCAL=$HOME/local
+export HOME_LOCAL=$HOME/.local
 export PATH=$HOME_LOCAL/bin:$PATH
 
 # Clone dotfiles repo
