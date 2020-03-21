@@ -13,6 +13,22 @@
         state: latest
       become: true
 
+    - name: Create user group for Docker
+      group:
+        name: docker
+      become: yes
+
+    - name: Add current user to the group
+      user:
+        name: "{{ ansible_user }}"
+        append: yes
+        groups: docker
+      become: yes
+
+    - name: Activate group changes
+      command: newgrp docker
+      changed_when: false
+
     - name: Enable Docker daemon
       systemd:
         name: docker
