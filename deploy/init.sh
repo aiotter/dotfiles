@@ -10,10 +10,15 @@ export PATH=$HOME_LOCAL/bin:$PATH
 
 
 # Get password for sudo
-if ! sudo -n true 2>/dev/null; then
+if ! sudo -nk true 2>/dev/null; then
   printf "Password for sudo: "
   read -s PASSWORD </dev/tty
   printf "\n"
+  while ! (echo "$PASSWORD" | sudo -S true >/dev/null 2>&1); do
+    printf "Password incorrect. Retry: "
+    read -s PASSWORD </dev/tty
+    printf "\n"
+  done
 fi
 
 # Install dependencies (Arch Linux)
@@ -65,7 +70,7 @@ ansible-galaxy install kewlfft.aur
 
 # Excute ansible
 cd "$(dirname "$THIS_FILE_PATH")"
-if sudo -n true 2>/dev/null; then
+if sudo -nk true 2>/dev/null; then
   # if sudo password is not needed (like GitHub Actions)
   ansible-playbook ansible/setup.yml
 else
