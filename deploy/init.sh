@@ -2,7 +2,7 @@
 
 DOTPATH=${PREFIX:-"$HOME/dotfiles"}
 THIS_FILE_PATH=$DOTPATH/deploy/init.sh
-PYTHON_VER=3.7
+PYTHON_VER=3.8
 
 export DOTPATH
 export HOME_LOCAL=$HOME/.local
