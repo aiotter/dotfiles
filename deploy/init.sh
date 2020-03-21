@@ -12,7 +12,7 @@ export PATH=$HOME_LOCAL/bin:$PATH
 # Get password for sudo
 if ! sudo -n true 2>/dev/null; then
   printf "Password for sudo: "
-  read -s PASSWORD <"/dev/$(ps aux | awk -v pid="$$" '$2==pid {print $7}')"
+  read -s PASSWORD </dev/tty
   printf "\n"
 fi
 
