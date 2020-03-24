@@ -115,7 +115,6 @@
         name: "{{ packages | map(attribute='aur') | select('defined') | list }}"
       tags: aur
 
-
 - name: Install Docker
   import_role: name=install_docker
   tags: docker
@@ -181,6 +180,10 @@
 - name: Install fonts
   import_role: name=fonts
   tags: font
+
+- name: System settings
+  import_role: name=system_settings
+  tags: system
 
 - name: Install IME
   import_role: name=ime

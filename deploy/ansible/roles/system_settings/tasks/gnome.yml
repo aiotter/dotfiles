@@ -1,0 +1,14 @@
+- name: Disable night mode
+  dconf:
+    key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+    value: 'false'
+
+- name: Map Ctrl to CapsLock
+  dconf:
+    key: /org/gnome/desktop/input-sources/xkb-options
+    value: "['ctrl:nocaps']"
+
+- name: Enable natural scroll on touchpad
+  dconf:
+    key: /org/gnome/desktop/peripherals/touchpad/natural-scroll
+    value: 'true'

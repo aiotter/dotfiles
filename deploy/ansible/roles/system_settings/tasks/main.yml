@@ -1,0 +1,3 @@
+---
+- include: gnome.yml
+  when: lookup('env', 'DESKTOP_SESSION') == 'gnome'

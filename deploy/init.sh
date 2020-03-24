@@ -61,9 +61,9 @@ if [ "$PYTHON_VER" != "${CURRENT_PYTHON_VER:-}" ]; then
   python-build "$PYTHON_VER" "$HOME_LOCAL"
 fi
 
-# Install ansible
+# Install ansible and its dependencies
 echo 'Installing ansible...'
-"$HOME_LOCAL/bin/python3" -m pip -q install -U ansible
+"$HOME_LOCAL/bin/python3" -m pip -q install -U ansible psutil
 
 # Install ansible modules
 ansible-galaxy install kewlfft.aur
