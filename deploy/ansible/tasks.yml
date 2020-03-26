@@ -186,7 +186,7 @@
   tags: system
 
 - name: Install IME
-  import_role: name=ime
+  import_role: name=IME
   tags: ime
 
 - shell: "cat /etc/shells | grep zsh | tail -1"

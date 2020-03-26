@@ -1,0 +1,17 @@
+---
+- name: Install IME
+  become: yes
+  pacman:
+    name: ["fcitx-im", "fcitx-configtool", "fcitx-mozc"]
+    state: latest
+
+- name: Setup IME skin
+  lineinfile:
+    path: ~/.config/fcitx/conf/fcitx-classic-ui.config
+    regexp: '^#?SkinType='
+    line: SkinType=dark
+
+- name: Activate IME
+  command: fcitx-autostart
+  register: result
+  changed_when: result.stdout != 'Fcitx is running correctly.'

@@ -1,0 +1,6 @@
+---
+- include: macos.yml
+  when: ansible_os_family == "Darwin"
+
+- include: arch.yml
+  when: ansible_os_family == "Archlinux"

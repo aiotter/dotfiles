@@ -1,0 +1,4 @@
+---
+- name: Install IME
+  homebrew_cask:
+    name: google-japanese-ime
