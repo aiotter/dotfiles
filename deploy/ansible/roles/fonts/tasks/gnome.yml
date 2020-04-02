@@ -1,0 +1,15 @@
+---
+- name: Setting up monospace font
+  dconf:
+    key: /org/gnome/desktop/interface/monospace-font-name
+    value: "'Cica 11'"
+
+- name: Setting up gtk default font
+  dconf:
+    key: /org/gnome/desktop/interface/font-name
+    value: "'Cica 11'"
+
+- name: Setting up document font
+  dconf:
+    key: /org/gnome/desktop/interface/document-font-name
+    value: "'Cica 11'"
