@@ -5,6 +5,15 @@
     name: ["fcitx-im", "fcitx-configtool", "fcitx-mozc"]
     state: latest
 
+- name: Setup IME ON/OFF key
+  lineinfile:
+    path: /home/aiotter/.config/fcitx/config
+    regexp: "{ item.regexp }"
+    line: "{ item.line }"
+  loop:
+    - { regexp: '^#?ActivateKey=',   line: ActivateKey=HENKANMODE }
+    - { regexp: '^#?InactivateKey=', line: InactivateKey=MUHENKAN }
+
 - name: Setup IME skin
   lineinfile:
     path: ~/.config/fcitx/conf/fcitx-classic-ui.config
