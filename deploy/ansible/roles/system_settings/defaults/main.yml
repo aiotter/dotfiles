@@ -1,0 +1,5 @@
+---
+extensions:
+  - horizontal-workspaces@gnome-shell-extensions.gcampax.github.com
+  - fullscreenworkspace@satran.in
+  - pixel-saver@deadalnix.me

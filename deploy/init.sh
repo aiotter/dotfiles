@@ -39,7 +39,7 @@ if [ -d "$DOTPATH" ]; then
   git status >/dev/null 2>&1 || exit 1
   git pull
 else
-  git clone https://github.com/aiotter/dotfiles.git "$DOTPATH"
+  git clone --recursive https://github.com/aiotter/dotfiles.git "$DOTPATH"
 fi
 
 # Install python-build if not installed

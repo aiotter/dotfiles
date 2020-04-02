@@ -1,0 +1,3 @@
+[submodule "deploy/ansible/roles/system_settings/files/gnome-shell-extension-cli"]
+	path = deploy/ansible/roles/system_settings/files/gnome-shell-extension-cli
+	url = https://github.com/martin-sucha/gnome-shell-extension-cli
