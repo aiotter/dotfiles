@@ -12,3 +12,61 @@
   dconf:
     key: /org/gnome/desktop/peripherals/touchpad/natural-scroll
     value: 'true'
+
+- name: Move the window titlebar buttons to left
+  dconf:
+    key: /org/gnome/desktop/wm/preferences/button-layout
+    value: "'close,minimize,maximize:appmenu'"
+
+- name: Enable user extensions
+  dconf:
+    key: /org/gnome/shell/disable-user-extensions
+    value: 'false'
+
+- name: Open fullscreen app in a new workspace (Download extension)
+  git:
+    repo: https://github.com/satran/fullscreenworkspace-satran.in
+    dest: ~/.local/share/gnome-shell/extensions/fullscreenworkspace@satran.in
+  when: not lookup('pipe', 'gnome-extensions list | grep fullscreenworkspace@satran.in || true')
+
+- name: Open fullscreen app in a new workspace (Enable extension)
+  command: gnome-extensions enable fullscreenworkspace@satran.in
+  when: not lookup('pipe', 'gnome-extensions list --enabled | grep fullscreenworkspace@satran.in || true')
+
+- when: not lookup('pipe', 'gnome-extensions list | grep horizontal-workspaces@gnome-shell-extensions.gcampax.github.com || true')
+  block:
+  - name: Create dir for extension
+    file:
+      path: ~/.local/share/gnome-shell/extensions/horizontal-workspaces@gnome-shell-extensions.gcampax.github.com
+      state: directory
+
+  - name: Use horizontal workspaces (Download extension)
+    unarchive:
+      src: https://extensions.gnome.org/extension-data/horizontal-workspacesgnome-shell-extensions.gcampax.github.com.v3.shell-extension.zip
+      dest: ~/.local/share/gnome-shell/extensions/horizontal-workspaces@gnome-shell-extensions.gcampax.github.com
+      remote_src: yes
+
+- name: Use horizontal workspaces (Enable extension)
+  command: gnome-extensions enable horizontal-workspaces@gnome-shell-extensions.gcampax.github.com
+  when: not lookup('pipe', 'gnome-extensions list --enabled | grep horizontal-workspaces@gnome-shell-extensions.gcampax.github.com || true')
+
+- name: Unbind switch-applications (Alt-Tab, Super-Tab)
+  dconf:
+    key: "{{ item }}"
+    value: "'[]'"
+  loop:
+    - /org/gnome/desktop/wm/keybindings/switch-applications
+    - /org/gnome/desktop/wm/keybindings/switch-applications-backward
+
+- name: Bind Alt-Tab and Super-Tab to switch-windows
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  loop:
+    - { key: /org/gnome/desktop/wm/keybindings/switch-windows,          value: "['<Super>Tab', '<Alt>Tab']" }
+    - { key: /org/gnome/desktop/wm/keybindings/switch-windows-backward, value: "['<Shift><Super>Tab', '<Shift><Alt>Tab']" }
+
+- name: Show battery percentage next to the battery icon on the status bar
+  dconf:
+    key: /org/gnome/desktop/interface/show-battery-percentage
+    value: 'true'
