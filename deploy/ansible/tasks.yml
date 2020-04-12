@@ -189,6 +189,10 @@
   import_role: name=IME
   tags: ime
 
+- name: Setup for YubiKey
+  import_role: name=yubikey
+  tags: yubikey
+
 - shell: "cat /etc/shells | grep zsh | tail -1"
   register: zsh_path
   ignore_errors: true

@@ -1,0 +1,25 @@
+---
+- name: Install dependencies
+  pacman:
+    name:
+      - yubikey-manager
+      - opensc
+      - ccid
+    state: latest
+  become: yes
+
+- name: Enable pcscd.service
+  systemd:
+    name: pcscd
+    enabled: yes
+    state: started
+  become: yes
+
+- name: Register PKCS11 to ~/.ssh/config
+  lineinfile:
+    path: ~/.ssh/config
+    line: "PKCS11Provider {{ item }}"
+    insertbefore: "^\\s*Host"
+    firstmatch: yes
+    create: yes
+  with_pipe: pacman -Ql opensc | awk '/\/opensc-pkcs11.so/ {print $2; exit;}'
