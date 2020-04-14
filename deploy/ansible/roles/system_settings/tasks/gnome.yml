@@ -44,6 +44,11 @@
     key: /org/gnome/shell/disable-user-extensions
     value: 'false'
 
+- name: Workspaces only on primary display
+  dconf:
+    key: /org/gnome/mutter/workspaces-only-on-primary
+    value: 'true'
+
 - name: Install GNOME extensions
   script:
     cmd: "gnome-shell-extension-cli/gnome-shell-extension-cli install {{ item }}"
