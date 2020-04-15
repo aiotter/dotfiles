@@ -115,6 +115,11 @@
         name: "{{ packages | map(attribute='aur') | select('defined') | list }}"
       tags: aur
 
+- name: Set up macOS-like keymap
+  import_role: name=xkeysnail
+  when: ansible_os_family not in ["Windows", "Darwin"]
+  tags: keymap
+
 - name: Install Docker
   import_role: name=install_docker
   tags: docker

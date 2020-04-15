@@ -1,0 +1,52 @@
+---
+- name: Install xkeysnail
+  pip:
+    name: xkeysnail
+    executable: "{{ lookup('env', 'HOME_LOCAL') }}/bin/pip3"
+
+- name: Create user group named 'xkeysnail'
+  group: name=xkeysnail
+  become: yes
+
+- name: Add current user to 'xkeysnail'
+  user:
+    name: "{{ ansible_user }}"
+    groups: xkeysnail
+    append: yes
+  become: yes
+
+- name: add rule to udev
+  copy:
+    src: xkeysnail.rules
+    dest: /etc/udev/rules.d/
+  become: yes
+
+- vars:
+    HOME: "{{ lookup('env', 'HOME') }}"
+    XDG_CONFIG_HOME: "{{ lookup('env', 'XDG_CONFIG_HOME') }}"
+    user_systemd_dir: "{{ XDG_CONFIG_HOME or (HOME + '/.config') + '/systemd/user' }}"
+  block:
+    - name: Create user directory for systemd
+      file:
+        path: "{{ user_systemd_dir }}"
+        state: directory
+
+    - name: Register xkeysnail to systemd
+      template:
+        src: xkeysnail.service
+        dest: "{{ user_systemd_dir }}/xkeysnail.service"
+      vars:
+        HOME_LOCAL: "{{ lookup('env', 'HOME_LOCAL') }}"
+        DISPLAY: "{{ lookup('env', 'DISPLAY') }}"
+
+    - name: Enable xkeysnail.service
+      systemd:
+        name: xkeysnail
+        scope: user
+        enabled: yes
+        state: started
+
+- name: Disable Super key to start overlay
+  dconf:
+    key: /org/gnome/mutter/overlay-key
+    value: "''"

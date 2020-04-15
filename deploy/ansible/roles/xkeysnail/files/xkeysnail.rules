@@ -1,0 +1,2 @@
+KERNEL=="event*", NAME="input/%k", MODE="660", GROUP="xkeysnail"
+KERNEL=="uinput", GROUP="xkeysnail"
