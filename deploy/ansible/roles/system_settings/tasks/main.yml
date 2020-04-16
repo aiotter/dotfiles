@@ -4,3 +4,6 @@
 
 - include: gnome.yml
   when: lookup('env', 'DESKTOP_SESSION') == 'gnome'
+
+- include: arch.yml
+  when: ansible_os_family == 'Archlinux'

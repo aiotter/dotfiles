@@ -1,0 +1,15 @@
+---
+- name: Install packages for MDNS
+  pacman:
+    name: "{{ item }}"
+  loop:
+    - avahi
+    - nss-mdns
+  become: yes
+
+- name: Enable service for MDNS
+  systemd:
+    name: avahi-daemon
+    enabled: yes
+    state: started
+  become: yes
