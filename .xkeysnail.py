@@ -29,7 +29,7 @@ define_keymap(
         K('Super-q'): launch(['bash', '-c', '''
             wid=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)
             pid=$(xprop -id $wid '\t$0' _NET_WM_PID | cut -f 2)
-            kill $pid
+            kill -SIGHUP $pid
         '''])}
 )
 
