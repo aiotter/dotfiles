@@ -37,7 +37,7 @@
 - when: ansible_os_family != "Darwin"
   set_fact:
     configpaths:
-      - "~/.config"
+      - "{{ lookup('env', 'XDG_CONFIG_HOME') or '~/.config' }}"
   tags: symlink
 
 # macos configdir path
