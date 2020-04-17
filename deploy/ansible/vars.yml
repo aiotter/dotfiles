@@ -47,6 +47,8 @@ packages:
   - go: github.com/motemen/ghq
   - go: github.com/jesseduffield/lazygit
 
+  - npm: "@bitwarden/cli"
+
   - snippet: https://raw.githubusercontent.com/aiotter/nerdBattery/master/battery
 
 
