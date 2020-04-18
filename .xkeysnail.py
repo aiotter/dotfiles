@@ -1,3 +1,10 @@
+# flake8: noqa F405
+import datetime as dt
+import os
+import shutil
+from functools import partial
+from pathlib import Path
+from subprocess import Popen, PIPE
 from xkeysnail.transform import *
 
 
@@ -21,16 +28,44 @@ define_multipurpose_modmap({
 
 
 # [Keymap]
-# Super-q to kill
+# Super-key to exec command
+def take_screenshot(area=False, to_clipboard=False):
+    assert shutil.which('import') and shutil.which('xclip')
+    commands = ['import']
+    if not area:
+        commands.extend(['-window', 'root'])
+    if to_clipboard:
+        commands.append('png:-')
+        with Popen(commands, stdout=PIPE) as proc:
+            Popen(['xclip', '-selection', 'clipboard', '-t', 'image/png'],
+                  stdin=proc.stdout)
+    else:
+        XDG_PICTURES_DIR = os.environ.get('XDG_PICTURES_DIR', '~/Pictures')
+        picture_path = Path(f'{XDG_PICTURES_DIR}/screenshots/'
+                            f'{dt.datetime.now():%Y%m%d-%H%M%S}.png')
+        picture_path = picture_path.expanduser()
+        picture_path.parent.mkdir(parents=True, exist_ok=True)
+        commands.append(picture_path)
+        Popen(commands)
+
 define_keymap(
-    name='Super-q to kill',
+    name='Super-key to exec',
     condition=None,
     mappings={
         K('Super-q'): launch(['bash', '-c', '''
             wid=$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)
             pid=$(xprop -id $wid '\t$0' _NET_WM_PID | cut -f 2)
             kill -SIGHUP $pid
-        '''])}
+        ''']),
+        K('Super-Shift-Key_3'):
+            partial(take_screenshot, area=False, to_clipboard=False),
+        K('Super-Shift-C-Key_3'):
+            partial(take_screenshot, area=False, to_clipboard=True),
+        K('Super-Shift-Key_4'):
+            partial(take_screenshot, area=True, to_clipboard=False),
+        K('Super-Shift-C-Key_4'):
+            partial(take_screenshot, area=True, to_clipboard=True),
+    }
 )
 
 
