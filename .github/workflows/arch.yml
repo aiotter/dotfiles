@@ -5,10 +5,4 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Deploy
-        uses: ./.github/docker_arch
+    container: ./.github/docker_arch
