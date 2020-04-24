@@ -39,6 +39,7 @@ packages:
     pacman: unrar
 
   - pacman: unzip
+  - pacman: xclip
 
   - pip: httpie
   - pip: ipython
@@ -70,6 +71,8 @@ packages:
 
   - cask: mailspring  # modern mailer
     aur: mailspring
+
+  - pacman: viewnior  # picture viewer
 
 
   # macOS specific packages
