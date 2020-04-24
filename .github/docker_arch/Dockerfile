@@ -9,5 +9,3 @@ echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 
 USER dot
 WORKDIR /home/dot
-
-ENTRYPOINT ["bash", "-c", "curl -sL dot.aiotter.com | bash"]

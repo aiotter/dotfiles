@@ -6,3 +6,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     container: ./.github/docker_arch
+    steps:
+      - name: Deploy
+        run: curl -sL dot.aiotter.com | bash
