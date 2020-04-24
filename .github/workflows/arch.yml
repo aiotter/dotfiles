@@ -16,5 +16,5 @@ jobs:
           echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 
       - name: Deploy
-        run: sudo su - dot; curl -sL dot.aiotter.com | bash
+        run: sudo -u dot sh -c 'curl -sL dot.aiotter.com | bash'
         shell: sh
