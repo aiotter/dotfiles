@@ -77,9 +77,12 @@ call deoplete#custom#option('ignore_sources', {
 
 " let g:ale_sign_error = '⨉'
 " let g:ale_sign_warning = '⚠'
-let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
+let g:ale_echo_msg_format = '[%severity%] %s (%linter%% code%)'
 let g:ale_sign_column_always = 1
 let b:ale_linters = 'all'
+" let g:ale_linters_ignore = {
+" \ 'python': ['pyflakes', 'pycodestyle']
+" \ }
 
 let g:gen_tags#ctags_auto_gen = 1
 
