@@ -5,10 +5,16 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    container: archlinux:latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          useradd dot
+          mkdir /home/dot
+          chown dot /home/dot
+          pacman -Sy --noconfirm sudo
+          echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 
       - name: Deploy
-        uses: ./.github/docker_arch
+        run: sudo -u dot sh -c 'curl -sL dot.aiotter.com | bash'
+        shell: sh

@@ -66,12 +66,6 @@ packages:
   - cask: alacritty  # GPU-accelerated terminal emulator
     pacman: alacritty
 
-  - cask: brave-browser  # privacy-aware browser
-    aur: brave
-
-  - cask: mailspring  # modern mailer
-    aur: mailspring
-
   - pacman: viewnior  # picture viewer
 
 
