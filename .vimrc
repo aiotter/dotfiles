@@ -316,7 +316,7 @@ let s:install_pynvim_script =
   \ "import importlib.util\n"
   \."if importlib.util.find_spec('pynvim') is None:\n"
   \."    import sys, runpy, contextlib\n"
-  \."    sys.argv = ['pip', 'install', 'pynvim']\n"
+  \."    sys.argv = ['pip', '--disable-pip-version-check', 'install', 'pynvim']\n"
   \."    with contextlib.suppress(SystemExit):\n"
   \."        runpy.run_module('pip', run_name='__main__')"
 if has('nvim')
