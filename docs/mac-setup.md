@@ -10,7 +10,11 @@ MAC でのセットアップ
         - システム環境設定 -> キーボード -> ショートカット -> 入力ソース
             - Ctrl+Space: 前の入力ソースを選択 を無効にする
             - Shift+Ctrl+Space: 入力メニューの次の入力ソースを選択 を無効にする
-        
+
+- neovim
+    - カラースキーマが読み込まれなくなったときにやること
+        - `:call dein#recache_runtimepath()` を実行して runtimepath を更新する
+
 
 - [iTerm2](https://www.iterm2.com/)
     - Preferences -> Profiles
