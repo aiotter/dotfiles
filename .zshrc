@@ -33,6 +33,9 @@ alias ghq=exghq
 alias ls='ls --color'
 alias grep='grep --color'
 
+# aliases
+alias lg='lazygit'
+
 # miscellaneous
 if [ -e '/Applications/ccp4-7.0/bin/ccp4.setup-sh' ]; then
   source /Applications/ccp4-7.0/bin/ccp4.setup-sh
