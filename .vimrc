@@ -31,11 +31,6 @@ if dein#load_state(s:dein_dir)
   call dein#add('majutsushi/tagbar')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
-  call dein#add('rhysd/clever-f.vim')
-  call dein#add('terryma/vim-expand-region')
-  call dein#add('kana/vim-textobj-user')
-  call dein#add('kana/vim-textobj-line')
-  call dein#add('kana/vim-textobj-entire')
 
   call dein#add('pearofducks/ansible-vim')
 
@@ -66,9 +61,6 @@ let g:indentLine_setConceal=0
 let g:SuperTabContextDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-let g:clever_f_timeout_ms = 3000
-let g:clever_f_fix_key_direction = 1
-
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
 call deoplete#custom#option('ignore_sources', {
@@ -96,10 +88,6 @@ set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
 " p と P の動作を入れ替える
 nnoremap p P
 nnoremap P p
-
-" v で選択範囲拡張、 C-v で選択範囲縮小
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
 
 " ノーマルモードで o を入力したときに挿入モードに移らない
 " nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
