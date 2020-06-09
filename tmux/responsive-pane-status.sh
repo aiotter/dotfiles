@@ -9,7 +9,7 @@ cd "$pane_current_path"
 
 
 # Git で index.lock を作成しないよう環境変数を設定
-GIT_OPTIONAL_LOCKS=0
+export GIT_OPTIONAL_LOCKS=0
 
 
 # hostname 取得処理
@@ -59,19 +59,10 @@ host() {
 
 # venv仮想環境の検出処理
 find-venv() {
-  dir=$*
-  while :
-  do
-    if [[ -e "${dir}/.venv" ]]
-    then
-      echo "$dir/.venv"
-      break
-    elif [[ "${dir}" = '/' ]] || [[ "${dir}" = '~' ]]
-    then
-      exit 0
-    fi
-    dir=$(dirname $dir)
-  done
+  local _dir=$*
+  [[ -e "${_dir}/.venv" ]] && echo "$_dir/.venv" && return
+  [[ "$_dir" = '/' ]] || [[ "$_dir" = '~' ]] && return
+  find-venv "$(dirname "$_dir")"
 }
 
 # venv仮想環境の情報の表示
