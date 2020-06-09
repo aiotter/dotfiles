@@ -60,6 +60,7 @@ packages:
   - pip: flake8         # Python
   - pip: vim-vint       # Vim script
   - pip: ansible-lint   # Ansible
+  - npm: markdownlint-cli  # Markdown
 
 
   # GUI apps
