@@ -1533,8 +1533,12 @@
   }
 
   function prompt_docker() {
-    containers="$(docker ps -q | wc -l | tr -d ' ')"
-    p10k segment -b green -i $'\uF308 ' -c "${containers/0/}" -t "$containers containers"
+    if docker_ps_result=$(docker ps -q 2>/dev/null); then
+      containers="$(docker ps -q | wc -l | tr -d ' ')"
+      p10k segment -b green -i $'\uF308 ' -c "${containers/0/}" -t "$containers containers"
+    else
+      p10k segment -b '#696969' -i $'\uF308 ' -t "not running"
+    fi
   }
 
   function prompt_vault() {
