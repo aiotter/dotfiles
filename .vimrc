@@ -20,6 +20,7 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
   " パッケージ一覧
+  call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   " call dein#add('tomasr/molokai')
   call dein#add('romainl/vim-dichromatic')
@@ -31,6 +32,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('majutsushi/tagbar')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
+  call dein#add('tpope/vim-fugitive')
 
   call dein#add('pearofducks/ansible-vim')
 
