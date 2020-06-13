@@ -72,7 +72,10 @@ packages:
 
   # macOS specific packages
   - brew: coreutils
+  - brew: grep
+  - brew: gnu-sed
   - brew: gnu-tar
+  - brew: watch
   - cask: hyperswitch  # windows-style Cmd-Tab
   - cask: bettertouchtool
   - cask: karabiner-elements
