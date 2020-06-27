@@ -87,10 +87,6 @@ set updatetime=500  " スワップファイルへの書き出し頻度 (=tagbar�
 " ----- キーバインド -----
 set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
 
-" p と P の動作を入れ替える
-nnoremap p P
-nnoremap P p
-
 " ノーマルモードで o を入力したときに挿入モードに移らない
 " nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
 
