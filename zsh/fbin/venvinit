@@ -3,5 +3,5 @@
 # Add `alias venvinit='source venvinit' to ~/.zshrc`
 
 python3 -m venv .venv
-source ${HOME}/dotfiles/zsh/auto-toggle-venv.zsh
+source ${DOTPATH}/zsh/plugins/auto-toggle-venv.zsh
 
