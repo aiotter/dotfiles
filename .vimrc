@@ -41,7 +41,9 @@ if dein#load_state(s:dein_dir)
   call dein#add('pearofducks/ansible-vim')
 
   call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
+  if has('nvim')
+    call dein#add('ncm2/float-preview.nvim.git')
+  else
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
@@ -77,6 +79,9 @@ call deoplete#custom#option('smart_case', v:true)
 call deoplete#custom#option('ignore_sources', {
 \ '_': ['around']
 \})
+let g:deoplete#sources#jedi#show_docstring = 1
+
+let g:float_preview#docked = 0
 
 " let g:ale_sign_error = '⨉'
 " let g:ale_sign_warning = '⚠'
@@ -228,6 +233,14 @@ if dein#tap('vim-dichromatic')
 endif
 set t_Co=256
 syntax enable
+
+
+" ----- フローティングウィンドウ -----
+if has('nvim')
+  set pumblend=10  " 不透明度
+  " set winblend=10
+  highlight NormalFloat guifg=#eceff4 guibg=#1e1e1e ctermbg=235
+endif
 
 
 " ----- ステータスライン -----
