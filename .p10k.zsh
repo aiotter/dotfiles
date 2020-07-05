@@ -1533,11 +1533,12 @@
   }
 
   function prompt_docker() {
+    local docker_ps_result
     if docker_ps_result=$(docker ps -q 2>/dev/null); then
-      containers="$(docker ps -q | wc -l | tr -d ' ')"
+      containers="$(echo -n "$docker_ps_result" | wc -l | tr -d ' ')"
       p10k segment -b green -i $'\uF308 ' -c "${containers/0/}" -t "$containers containers"
     else
-      p10k segment -b '#696969' -i $'\uF308 ' -t "not running"
+      p10k segment -b '#696969' -i $'\uF308 ' -t "daemon down"
     fi
   }
 
