@@ -572,6 +572,7 @@ shell:
 key_bindings:
   # enable browser-like window toggle on tmux
   - { key: Tab,      mods: Control,       chars: '[27;5;9~'      }
+  - { key: Tab,      mods: Shift,         chars: '[27;2;9~'      }
   - { key: Tab,      mods: Control|Shift, chars: '[27;6;9~'      }
 
   # Prevent IME problem
