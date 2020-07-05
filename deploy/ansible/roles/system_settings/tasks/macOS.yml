@@ -1,0 +1,27 @@
+---
+- name: Prevent making .DS_Store on network drive
+  osx_defaults:
+    domain: com.apple.desktopservices
+    key: DSDontWriteNetworkStores
+    type: bool
+    value: yes
+
+- name: Don't wait too long before key repeat
+  osx_defaults:
+    key: InitialKeyRepeat
+    type: int
+    value: 15
+
+- name: Enable text selection on Quick Look
+  osx_defaults:
+    domain: com.apple.finder
+    key: QLEnableTextSelection
+    type: bool
+    value: yes
+
+- name: Show hidden files on Finder
+  osx_defaults:
+    domain: com.apple.finder
+    key: AppleShowAllFiles
+    type: bool
+    value: yes

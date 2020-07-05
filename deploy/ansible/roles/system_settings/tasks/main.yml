@@ -2,6 +2,9 @@
 - include: linux.yml
   when: ansible_os_family not in ['Darwin', 'Windows']
 
+- include: macOS.yml
+  when: ansible_os_family == 'Darwin'
+
 - include: gnome.yml
   when: lookup('env', 'DESKTOP_SESSION') == 'gnome'
 
