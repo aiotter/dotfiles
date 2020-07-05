@@ -28,6 +28,8 @@ if dein#load_state(s:dein_dir)
   call dein#add('itchyny/lightline.vim')
   " call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
+  call dein#add('Raimondi/delimitMate')  " カッコとかを自動で閉じる
+  call dein#add('alvan/vim-closetag')  " HTML タグを自動で閉じる
   call dein#add('dense-analysis/ale')
   call dein#add('majutsushi/tagbar')
   call dein#add('ervandew/supertab')
@@ -59,6 +61,9 @@ endif
 let g:dein#auto_recache = 1
 
 let g:indentLine_setConceal=0
+
+" Avoid conflicting delimitMate with vim-closetag
+autocmd FileType html,xhtml,phtml,jsx let b:delimitMate_matchpairs = "(:),[:],{:}"
 
 let g:SuperTabContextDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
