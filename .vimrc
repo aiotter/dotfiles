@@ -43,6 +43,8 @@ if dein#load_state(s:dein_dir)
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
+  call dein#add('thinca/vim-quickrun')
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('davidhalter/jedi', {'on_ft': 'python'})
   call dein#add('deoplete-plugins/deoplete-jedi', {'on_ft': 'python'})
 
@@ -88,6 +90,24 @@ let g:gen_tags#ctags_auto_gen = 1
 let g:tagbar_autopreview = 1
 autocmd VimEnter * nested :call tagbar#autoopen(1)  " 自動起動
 set updatetime=500  " スワップファイルへの書き出し頻度 (=tagbar更新頻度)
+
+let g:quickrun_config = {
+\ "python": {
+\   "outputter/quickfix/errorformat": '%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m'
+\ },
+\ "_": {
+\   "runner": "vimproc",
+\   "runner/vimproc/updatetime": 60,
+\   "outputter": "error",
+\   "outputter/error/success": "buffer",
+\   "outputter/error/error": "quickfix",
+\   "outputter/buffer/split": ":botright 8sp",
+\   "outputter/buffer/close_on_empty": 1,
+\   "hook/time/enable": 1
+\ }
+\}
+" QuickRun 実行時のみ Ctrl-C で強制中断
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 " ----- キーバインド -----
 set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
