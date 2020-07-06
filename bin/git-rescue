@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git fsck | awk '/dangling commit/ {print $3}' | xargs git show --oneline --no-patch
