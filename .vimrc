@@ -35,6 +35,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
   call dein#add('tpope/vim-fugitive')
+  call dein#add('tommcdo/vim-fugitive-blame-ext')
   call dein#add('tpope/vim-rhubarb')
 
   call dein#add('christoomey/vim-sort-motion')
