@@ -34,9 +34,11 @@ if dein#load_state(s:dein_dir)
   call dein#add('majutsushi/tagbar')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
-  call dein#add('christoomey/vim-sort-motion')
   call dein#add('tpope/vim-fugitive')
   call dein#add('tpope/vim-rhubarb')
+
+  call dein#add('christoomey/vim-sort-motion')
+  call dein#add('tpope/vim-commentary')
 
   call dein#add('pearofducks/ansible-vim')
 
