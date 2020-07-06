@@ -163,11 +163,11 @@ endif
 
 " ----- タブとインデント (グローバル設定) -----
 set expandtab " タブ入力を複数の空白入力に置き換える
-set tabstop=4 " 画面上でタブ文字が占める幅
-set softtabstop=4 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set tabstop=2 " 画面上でタブ文字が占める幅
+set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=4 " smartindentで増減する幅
+set shiftwidth=2 " smartindentで増減する幅
 
 
 " ----- 検索 -----
@@ -279,16 +279,13 @@ endfunction
 
 " ----- ファイルタイプ固有の設定 -----
 filetype plugin indent on
-" sw=softtabstop  タブ文字を何文字で表示するか
-" sts=shiftwidth  入力したタブ文字を空白何文字に置換するか
-" ts=tabstop      自動インデントは空白何文字を用いるか
-" et=expandtab    ソフトタブを使用 (タブ文字を空白に置換)
-autocmd FileType sh          setlocal sw=2 sts=2 ts=2 et
-autocmd FileType zsh         setlocal sw=2 sts=2 ts=2 et
-autocmd FileType html        setlocal sw=2 sts=2 ts=2 et
-autocmd FileType css         setlocal sw=2 sts=2 ts=2 et
-autocmd FileType javascript  setlocal sw=2 sts=2 ts=2 et
-autocmd FileType yaml        setlocal sw=2 sts=2 ts=2 et
+" sw=softtabstop    タブ文字を何文字で表示するか
+" sts=shiftwidth    入力したタブ文字を空白何文字に置換するか
+" ts=tabstop        自動インデントは空白何文字を用いるか
+" et=expandtab      ソフトタブを使用 (タブ文字を空白に置換)
+" noet=noexpandtab  ハードタブを使用
+autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
+autocmd FileType gitconfig   setlocal sw=4 ts=4 noet
 
 
 " ----- 補完 -----
