@@ -40,6 +40,14 @@ if dein#load_state(s:dein_dir)
   call dein#add('christoomey/vim-sort-motion')
   call dein#add('tpope/vim-commentary')
 
+  call dein#add('kana/vim-textobj-user')
+  call dein#add('kana/vim-textobj-indent')
+  call dein#add('kana/vim-textobj-line')
+  call dein#add('sgur/vim-textobj-parameter')
+  call dein#add('lucapette/vim-textobj-underscore')
+  call dein#add('jceb/vim-textobj-uri')
+  call dein#add('idbrii/textobj-word-column.vim')
+
   call dein#add('pearofducks/ansible-vim')
 
   call dein#add('Shougo/deoplete.nvim')
