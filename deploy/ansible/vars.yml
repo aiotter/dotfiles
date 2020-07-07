@@ -20,8 +20,8 @@ packages:
   - brew: tree
     pacman: tree
 
-  - brew: htop
-    pacman: htop
+  - brew-head: aiotter/htop-vim/htop-vim
+    aur: htop-vim-git
 
   - brew: ffmpeg
     pacman: ffmpeg
