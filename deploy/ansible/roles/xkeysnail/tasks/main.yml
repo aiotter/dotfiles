@@ -46,7 +46,8 @@
         enabled: yes
         state: started
 
-- name: Disable Super key to start overlay
+- name: Disable Super key to start overlay (GNOME)
   dconf:
     key: /org/gnome/mutter/overlay-key
     value: "''"
+  when: lookup('env', 'DESKTOP_SESSION') == 'gnome'
