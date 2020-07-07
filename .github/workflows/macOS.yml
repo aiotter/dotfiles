@@ -7,5 +7,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Deploy
-        run: curl -sL dot.aiotter.com | bash
+        run: deploy/deploy.sh

@@ -12,8 +12,11 @@ jobs:
           useradd dot
           mkdir /home/dot
           chown dot /home/dot
-          pacman -Sy --noconfirm sudo
+          pacman -Sy --noconfirm sudo git
           echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
+
+      - name: Checkout
+        run: git clone "https://github.com/${GITHUB_REPOSITORY}"
 
       - name: Deploy
         run: sudo -u dot sh -c 'curl -sL dot.aiotter.com | bash'
