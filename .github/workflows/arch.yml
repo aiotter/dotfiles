@@ -5,7 +5,7 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    container: archlinux:latest
+    container: ./.github/docker_arch
     steps:
       - name: Setup
         run: |
@@ -16,8 +16,10 @@ jobs:
           echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 
       - name: Checkout
-        run: git clone "https://github.com/${GITHUB_REPOSITORY}"
+        run: |
+          git clone "https://github.com/${GITHUB_REPOSITORY} dotfiles"
+          git checkout "$GITHUB_SHA"
 
       - name: Deploy
-        run: sudo -u dot sh -c 'curl -sL dot.aiotter.com | bash'
+        run: sudo -u dot sh -c dotfiles/deploy/deploy.sh
         shell: sh
