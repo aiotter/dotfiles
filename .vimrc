@@ -334,6 +334,7 @@ let s:venv_dir = expand('~/.cache/neovim_venv')
 " create venv if not exist
 if !isdirectory(s:venv_dir)
   execute '!' . s:python3_path '-m venv' s:venv_dir
+  execute '!' . s:venv_dir . '/bin/python -m pip --disable-pip-version-check install pynvim'
 endif
 
 " if venv is activated, use it
@@ -345,18 +346,11 @@ else
   let $PATH = s:venv_dir . '/bin:' . $PATH
 endif
 
-" Install pynvim
-let s:install_pynvim_script = 
-  \ "import importlib.util\n"
-  \."if importlib.util.find_spec('pynvim') is None:\n"
-  \."    import sys, runpy, contextlib\n"
-  \."    sys.argv = ['pip', '--disable-pip-version-check', 'install', 'pynvim']\n"
-  \."    with contextlib.suppress(SystemExit):\n"
-  \."        runpy.run_module('pip', run_name='__main__')"
-if has('nvim')
-  echo system(g:python3_host_prog . ' -', s:install_pynvim_script)
-else
-  execute('python3 ' . s:install_pynvim_script)
+" Ensure pynvim (if not installed, adds sys.path of the venv)
+execute('python3 import sys, importlib.util')
+if py3eval('importlib.util.find_spec("pynvim") is None') == v:true
+  let s:venv_sys_path = system(s:venv_dir . '/bin/python -c "import sys; print(sys.path)"')
+  execute('python3 sys.path += [p for p in ' . s:venv_sys_path . ' if p.endswith("site-packages")]')
 endif
 
 let g:deoplete#sources#jedi#python_path = g:python3_host_prog
