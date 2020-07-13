@@ -30,8 +30,6 @@ if dein#load_state(s:dein_dir)
   call dein#add('Yggdroot/indentLine')
   call dein#add('Raimondi/delimitMate')  " カッコとかを自動で閉じる
   call dein#add('alvan/vim-closetag')  " HTML タグを自動で閉じる
-  call dein#add('dense-analysis/ale')
-  call dein#add('majutsushi/tagbar')
   call dein#add('ervandew/supertab')
   call dein#add('easymotion/vim-easymotion')
   call dein#add('tpope/vim-fugitive')
@@ -60,8 +58,6 @@ if dein#load_state(s:dein_dir)
   endif
   call dein#add('thinca/vim-quickrun')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-  call dein#add('davidhalter/jedi', {'on_ft': 'python'})
-  call dein#add('deoplete-plugins/deoplete-jedi', {'on_ft': 'python'})
 
 
   " 設定終了
@@ -90,24 +86,8 @@ call deoplete#custom#option('smart_case', v:true)
 call deoplete#custom#option('ignore_sources', {
 \ '_': ['around']
 \})
-let g:deoplete#sources#jedi#show_docstring = 1
 
 let g:float_preview#docked = 0
-
-" let g:ale_sign_error = '⨉'
-" let g:ale_sign_warning = '⚠'
-let g:ale_echo_msg_format = '[%severity%]% code:% %s (%linter%)'
-let g:ale_sign_column_always = 1
-let b:ale_linters = 'all'
-let g:ale_linters_ignore = {
-\ 'python': ['pyflakes', 'pycodestyle']
-\ }
-
-let g:gen_tags#ctags_auto_gen = 1
-
-let g:tagbar_autopreview = 1
-autocmd VimEnter * nested :call tagbar#autoopen(1)  " 自動起動
-set updatetime=500  " スワップファイルへの書き出し頻度 (=tagbar更新頻度)
 
 let g:quickrun_config = {
 \ "python": {
@@ -352,5 +332,3 @@ if py3eval('importlib.util.find_spec("pynvim") is None') == v:true
   let s:venv_sys_path = system(s:venv_dir . '/bin/python -c "import sys; print(sys.path)"')
   execute('python3 sys.path += [p for p in ' . s:venv_sys_path . ' if p.endswith("site-packages")]')
 endif
-
-let g:deoplete#sources#jedi#python_path = g:python3_host_prog
