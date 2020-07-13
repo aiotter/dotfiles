@@ -578,6 +578,9 @@ key_bindings:
   # Prevent IME problem
   - { key: Back,                          action: ReceiveChar      }
 
+  # Prevent the bug (https://github.com/alacritty/alacritty/issues/1359)
+  - { key: Q,        mods: Control,       chars: "\x11"            }
+
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }
