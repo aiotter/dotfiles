@@ -49,15 +49,22 @@ if dein#load_state(s:dein_dir)
 
   call dein#add('pearofducks/ansible-vim')
 
+  call dein#add('prabirshrestha/vim-lsp', {'merged': 0})
+  call dein#add('mattn/vim-lsp-settings', {'merged': 0})
+  
+  call dein#add('liuchengxu/vista.vim')
+
   call dein#add('Shougo/deoplete.nvim')
+  call dein#add('lighttiger2505/deoplete-vim-lsp')
+
   if has('nvim')
     call dein#add('ncm2/float-preview.nvim.git')
   else
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
+
   call dein#add('thinca/vim-quickrun')
-  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
 
   " 設定終了
@@ -80,6 +87,15 @@ autocmd FileType html,xhtml,phtml,jsx let b:delimitMate_matchpairs = "(:),[:],{:
 
 let g:SuperTabContextDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+let g:lsp_diagnostics_echo_cursor = 1
+
+let g:vista_sidebar_width = 30
+let g:vista_echo_cursor_strategy = 'floating_win'
+let g:vista#renderer#enable_icon = 1
+let g:vista_close_on_jump = 1
+let g:vista_default_executive = 'ctags'
+
 
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
@@ -116,6 +132,8 @@ set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
 " Leader
 let mapleader = "\<Space>"
 nnoremap <Leader>f :let &filetype=input('Enter filetype: ')<CR>
+nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
+nnoremap <Leader>q :<C-u>QuickRun<CR>
 
 " EasyMortion
 map ; <Plug>(easymotion-prefix)
@@ -306,6 +324,31 @@ endfunction
 inoremap <expr><Down> Is_completion_unforcused() ? "\<C-e>\<Down>" : "\<Down>"
 inoremap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
 
+
+" ----- Language Server Protocol -----
+function! s:on_lsp_buffer_enabled() abort
+  " Jump to definition
+  noremap <C-]> :<C-u>LspDefinition<CR>
+  " Hover definition (invoke with K)
+  noremap K :<C-u>LspHover<CR>
+  " Set tag source to LSP
+  let g:vista_default_executive = 'vim_lsp'
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+
+" Rename
+nnoremap <Leader>r :<C-u>LspRename<CR>
+" Search refs
+nnoremap <Leader>n :<C-u>LspReferences<CR>
+" Output linter results to quickfix
+nnoremap <Leader>l :<C-u>LspDocumentDiagnostics<CR>
+" Prettify
+nnoremap <Leader>p :<C-u>LspDocumentFormat<CR>
+" Omni complete
+set omnifunc=lsp#complete
 
 " ----- Python -----
 let s:python3_path = $HOME_LOCAL . '/bin/python3'
