@@ -49,8 +49,8 @@ if dein#load_state(s:dein_dir)
 
   call dein#add('pearofducks/ansible-vim')
 
-  call dein#add('prabirshrestha/vim-lsp', {'merged': 0})
-  call dein#add('mattn/vim-lsp-settings', {'merged': 0})
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('mattn/vim-lsp-settings')
   
   call dein#add('liuchengxu/vista.vim')
 
@@ -88,7 +88,11 @@ autocmd FileType html,xhtml,phtml,jsx let b:delimitMate_matchpairs = "(:),[:],{:
 let g:SuperTabContextDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_auto_enable = 1
+let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_settings_servers_dir=$HOME.'/.cache/vim-lsp-settings/servers'
 
 let g:vista_sidebar_width = 30
 let g:vista_echo_cursor_strategy = 'floating_win'
@@ -326,29 +330,40 @@ inoremap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
 
 
 " ----- Language Server Protocol -----
+let g:lsp_settings = {
+\   'bash-language-server': {
+\     'allowlist': ['sh', 'zsh']
+\   },
+\}
+
+" Execute default K by gK
+nnoremap <buffer> gK K
+
+" Hover definition (invoke with K)
+nmap <buffer> K <Plug>(lsp-hover)
+
 function! s:on_lsp_buffer_enabled() abort
-  " Jump to definition
-  noremap <C-]> :<C-u>LspDefinition<CR>
-  " Hover definition (invoke with K)
-  noremap K :<C-u>LspHover<CR>
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
   " Set tag source to LSP
   let g:vista_default_executive = 'vim_lsp'
+  " Jump to definition
+  nmap <buffer> <C-]> <Plug>(lsp-definition)
+  " Rename
+  nmap <buffer> <Leader>R <Plug>(lsp-rename)
+  " Search refs
+  nmap <buffer> <Leader>r <Plug>(lsp-reference)
+  " Output linter results to quickfix
+  nmap <buffer> <Leader>l <Plug>(lsp-document-diagnostics)
+  " Prettify
+  nmap <buffer> <Leader>p <Plug>(lsp-document-format)
 endfunction
 
 augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
-" Rename
-nnoremap <Leader>r :<C-u>LspRename<CR>
-" Search refs
-nnoremap <Leader>n :<C-u>LspReferences<CR>
-" Output linter results to quickfix
-nnoremap <Leader>l :<C-u>LspDocumentDiagnostics<CR>
-" Prettify
-nnoremap <Leader>p :<C-u>LspDocumentFormat<CR>
-" Omni complete
-set omnifunc=lsp#complete
 
 " ----- Python -----
 let s:python3_path = $HOME_LOCAL . '/bin/python3'
