@@ -329,6 +329,11 @@ inoremap <expr><Down> Is_completion_unforcused() ? "\<C-e>\<Down>" : "\<Down>"
 inoremap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
 
 
+" ----- その他 -----
+" https://vi.stackexchange.com/questions/19953/why-doesnt-this-autocmd-take-effect-for-neovim/19963
+set shortmess-=F
+
+
 " ----- Language Server Protocol -----
 let g:lsp_settings = {
 \   'bash-language-server': {
