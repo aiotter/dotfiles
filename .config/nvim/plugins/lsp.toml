@@ -1,0 +1,62 @@
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_auto_enable = 1
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_settings_servers_dir=$HOME.'/.cache/vim-lsp-settings/servers'
+
+" Execute default K by gK
+nnoremap <buffer> gK K
+
+" Hover definition (invoke with K)
+nmap <buffer> K <Plug>(lsp-hover)
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  " Set tag source to LSP
+  let g:vista_default_executive = 'vim_lsp'
+  " Jump to definition
+  nmap <buffer> <C-]> <Plug>(lsp-definition)
+  " Rename
+  nmap <buffer> <Leader>R <Plug>(lsp-rename)
+  " Search refs
+  nmap <buffer> <Leader>r <Plug>(lsp-reference)
+  " Output linter results to quickfix
+  nmap <buffer> <Leader>l <Plug>(lsp-document-diagnostics)
+  " Prettify
+  nmap <buffer> <Leader>p <Plug>(lsp-document-format)
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+'''
+
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+depends = 'vim-lsp'
+hook_add = '''
+let g:lsp_settings = {
+\   'bash-language-server': {
+\     'allowlist': ['sh', 'zsh']
+\   },
+\}
+'''
+
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
+depends = 'vim-lsp'
+hook_add = '''
+nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
+
+let g:vista_sidebar_width = 30
+let g:vista_echo_cursor_strategy = 'floating_win'
+let g:vista#renderer#enable_icon = 1
+let g:vista_close_on_jump = 1
+let g:vista_default_executive = 'ctags'
+'''

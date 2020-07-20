@@ -1,0 +1,16 @@
+[[plugins]]
+repo = 'romainl/vim-dichromatic'
+merged = 0
+hook_add = '''
+call dein#source('vim-dichromatic')
+colorscheme dichromatic
+'''
+
+
+# Display the indention levels with thin vertical lines
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+on_event = 'InsertEnter'
+hook_add = '''
+let g:indentLine_setConceal=0
+'''

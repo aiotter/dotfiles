@@ -1,0 +1,32 @@
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+
+[[plugins]]
+repo = 'kana/vim-textobj-indent'
+depends = 'vim-textobj-user'
+
+
+[[plugins]]
+repo = 'kana/vim-textobj-line'
+depends = 'vim-textobj-user'
+
+
+[[plugins]]
+repo = 'sgur/vim-textobj-parameter'
+depends = 'vim-textobj-user'
+
+
+[[plugins]]
+repo = 'lucapette/vim-textobj-underscore'
+depends = 'vim-textobj-user'
+
+
+[[plugins]]
+repo = 'jceb/vim-textobj-uri'
+depends = 'vim-textobj-user'
+
+
+[[plugins]]
+repo = 'idbrii/textobj-word-column.vim'
+depends = 'vim-textobj-user'

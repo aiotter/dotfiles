@@ -1,0 +1,30 @@
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+let g:lightline = {
+\   'component_function': {
+\     'fileformat': 'LightlineFileformat',
+\     'fileencoding': 'LightlineFileencoding',
+\     'filetype': 'LightlineFiletype',
+\   },
+\ }
+
+" responsive
+let s:threshold = 65
+function! LightlineFileformat()
+  if winwidth(0) > s:threshold
+    return &fileformat ==# 'dos' ? 'CRLF' :
+      \ &fileformat ==# 'unix' ? 'LF' :
+      \ &fileformat ==# 'mac' ? 'CR' :
+      \ &fileformat
+  else
+    return ''
+  endif
+endfunction
+function! LightlineFileencoding()
+  return winwidth(0) > s:threshold ? &fileencoding : ''
+endfunction
+function! LightlineFiletype()
+  return winwidth(0) > s:threshold ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+'''

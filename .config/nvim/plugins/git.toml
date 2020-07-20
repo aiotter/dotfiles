@@ -1,0 +1,12 @@
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+
+[[plugins]]
+repo = 'tommcdo/vim-fugitive-blame-ext'
+depends = 'fugitive'
+
+
+[[plugins]]
+repo = 'tpope/vim-rhubarb'
+depends = 'fugitive'

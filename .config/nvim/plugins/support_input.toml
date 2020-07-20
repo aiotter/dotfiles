@@ -1,0 +1,32 @@
+# Auto-close parentheses
+[[plugins]]
+repo = 'Raimondi/delimitMate'
+on_event = 'InsertEnter'
+hook_add = '''
+" Avoid conflicting delimitMate with vim-closetag
+autocmd FileType html,xhtml,phtml,jsx let b:delimitMate_matchpairs = "(:),[:],{:}"
+'''
+
+
+# Auto-close HTML tags
+[[plugins]]
+repo = 'alvan/vim-closetag'
+on_event = 'InsertEnter'
+on_ft = ['html', 'xhtml', 'phtml']
+
+
+[[plugins]]
+repo = 'ervandew/supertab'
+on_event = 'InsertEnter'
+hook_add = '''
+let g:SuperTabContextDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-n>"
+'''
+
+
+[[plugins]]
+repo = 'easymotion/vim-easymotion'
+on_event = 'InsertEnter'
+hook_add = '''
+map ; <Plug>(easymotion-prefix)
+'''

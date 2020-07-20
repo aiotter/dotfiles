@@ -1,0 +1,6 @@
+[[plugins]]
+repo = 'christoomey/vim-sort-motion'
+
+
+[[plugins]]
+repo = 'tpope/vim-commentary'

@@ -1,0 +1,13 @@
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = 'context_filetype'
+
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+
+[[plugins]]
+repo = 'pearofducks/ansible-vim'
+on_ft = ['yaml', 'yaml.ansible', 'jinja2', 'ansible_hosts']
+on_if = 'expand("%") =~# "^hosts$"'

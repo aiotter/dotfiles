@@ -1,5 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
+let mapleader = "\<Space>"
+
 
 " dein.vimパッケージマネージャ
 " プラグインが実際にインストールされるディレクトリ
@@ -19,58 +21,24 @@ endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  " パッケージ一覧
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-  " call dein#add('tomasr/molokai')
-  call dein#add('romainl/vim-dichromatic')
-  " call dein#add('nanotech/jellybeans.vim')
-  call dein#add('itchyny/lightline.vim')
-  call dein#add('reireias/vim-cheatsheet')
-  call dein#add('kamykn/spelunker.vim')  " spell check
-  " call dein#add('bronson/vim-trailing-whitespace')
-  call dein#add('Yggdroot/indentLine')
-  call dein#add('Raimondi/delimitMate')  " カッコとかを自動で閉じる
-  call dein#add('alvan/vim-closetag')  " HTML タグを自動で閉じる
-  call dein#add('ervandew/supertab')
-  call dein#add('easymotion/vim-easymotion')
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('tommcdo/vim-fugitive-blame-ext')
-  call dein#add('tpope/vim-rhubarb')
+  let s:toml_dir  = $HOME . '/.config/nvim/plugins'
+  let s:ft_pattern = '\%(/filetype/\)\@<=.\+\%(\.toml$\)\@='  " like s@/filetype/(.*)/.toml$@\1@
+  for s:toml in split(globpath(s:toml_dir, '**/*.toml'), '\n')
+    let s:option = {}
 
-  call dein#add('christoomey/vim-sort-motion')
-  call dein#add('tpope/vim-commentary')
+    " Lazy load plugins in toml named '*.toml'
+    if s:toml =~# '_lazy\.toml$'
+      let s:option.lazy = 1
+    endif
 
-  call dein#add('kana/vim-textobj-user')
-  call dein#add('kana/vim-textobj-indent')
-  call dein#add('kana/vim-textobj-line')
-  call dein#add('sgur/vim-textobj-parameter')
-  call dein#add('lucapette/vim-textobj-underscore')
-  call dein#add('jceb/vim-textobj-uri')
-  call dein#add('idbrii/textobj-word-column.vim')
+    " Toml placed under '*/filetype/[ft].toml' only loads on the ft
+    if s:toml =~# s:ft_pattern
+      let s:option.on_ft = matchstr(s:toml, s:ft_pattern)
+    endif
 
-  call dein#add('pearofducks/ansible-vim')
-  call dein#add('cespare/vim-toml')
+    call dein#load_toml(s:toml, s:option)
+  endfor
 
-  call dein#add('prabirshrestha/vim-lsp')
-  call dein#add('mattn/vim-lsp-settings')
-  
-  call dein#add('liuchengxu/vista.vim')
-
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('lighttiger2505/deoplete-vim-lsp')
-
-  if has('nvim')
-    call dein#add('ncm2/float-preview.nvim.git')
-  else
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-
-  call dein#add('thinca/vim-quickrun')
-
-
-  " 設定終了
   call dein#end()
   call dein#save_state()
 endif
@@ -80,61 +48,6 @@ if dein#check_install()
   call dein#install()
 endif
 
-" ----- プラグインの設定 -----
-let g:dein#auto_recache = 1
-let g:cheatsheet#cheat_file = '~/.vim-cheatsheet.md'
-if has('nvim')
-  let g:cheatsheet#float_window = 1
-  let g:cheatsheet#float_window_width_ratio = 0.9
-  let g:cheatsheet#float_window_height_ratio = 0.9
-endif
-
-let g:indentLine_setConceal=0
-
-" Avoid conflicting delimitMate with vim-closetag
-autocmd FileType html,xhtml,phtml,jsx let b:delimitMate_matchpairs = "(:),[:],{:}"
-
-let g:SuperTabContextDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_auto_enable = 1
-let g:lsp_signs_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_settings_servers_dir=$HOME.'/.cache/vim-lsp-settings/servers'
-
-let g:vista_sidebar_width = 30
-let g:vista_echo_cursor_strategy = 'floating_win'
-let g:vista#renderer#enable_icon = 1
-let g:vista_close_on_jump = 1
-let g:vista_default_executive = 'ctags'
-
-
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('smart_case', v:true)
-call deoplete#custom#option('ignore_sources', {
-\ '_': ['around']
-\})
-
-let g:float_preview#docked = 0
-
-let g:quickrun_config = {
-\ "python": {
-\   "outputter/quickfix/errorformat": '%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m'
-\ },
-\ "_": {
-\   "runner": "vimproc",
-\   "runner/vimproc/updatetime": 60,
-\   "outputter": "error",
-\   "outputter/error/success": "buffer",
-\   "outputter/error/error": "quickfix",
-\   "outputter/buffer/split": ":botright 8sp",
-\   "outputter/buffer/close_on_empty": 1,
-\   "hook/time/enable": 1
-\ }
-\}
-" QuickRun 実行時のみ Ctrl-C で強制中断
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 " ----- キーバインド -----
 set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
@@ -143,14 +56,7 @@ set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
 " nnoremap o :<C-u>call append(expand('.'), '')<Cr>j
 
 " Leader
-let mapleader = "\<Space>"
 nnoremap <Leader>f :let &filetype=input('Enter filetype: ')<CR>
-nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
-nnoremap <Leader>q :<C-u>QuickRun<CR>
-nnoremap <Leader>c :Cheat<CR>
-
-" EasyMortion
-map ; <Plug>(easymotion-prefix)
 
 
 " ----- 文字 -----
@@ -250,10 +156,6 @@ endif
 
 
 " ----- 色 -----
-" Colorscheme
-if dein#tap('vim-dichromatic')
-    colorscheme dichromatic
-endif
 set t_Co=256
 syntax enable
 
@@ -271,33 +173,6 @@ set laststatus=2 " ステータスラインを常に表示
 set noshowmode " 現在のモードを非表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
-
-let g:lightline = {
-      \ 'component_function': {
-      \   'fileformat': 'LightlineFileformat',
-      \   'fileencoding': 'LightlineFileencoding',
-      \   'filetype': 'LightlineFiletype',
-      \ },
-      \ }
-
-" レスポンシブ対応
-let s:threshold = 65
-function! LightlineFileformat()
-  if winwidth(0) > s:threshold
-    return &fileformat ==# 'dos' ? 'CRLF' :
-      \ &fileformat ==# 'unix' ? 'LF' :
-      \ &fileformat ==# 'mac' ? 'CR' :
-      \ &fileformat
-  else
-    return ''
-  endif
-endfunction
-function! LightlineFileencoding()
-  return winwidth(0) > s:threshold ? &fileencoding : ''
-endfunction
-function! LightlineFiletype()
-  return winwidth(0) > s:threshold ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
 
 
 " ----- ファイルタイプ固有の設定 -----
@@ -342,42 +217,6 @@ inoremap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
 " ----- その他 -----
 " https://vi.stackexchange.com/questions/19953/why-doesnt-this-autocmd-take-effect-for-neovim/19963
 set shortmess-=F
-
-
-" ----- Language Server Protocol -----
-let g:lsp_settings = {
-\   'bash-language-server': {
-\     'allowlist': ['sh', 'zsh']
-\   },
-\}
-
-" Execute default K by gK
-nnoremap <buffer> gK K
-
-" Hover definition (invoke with K)
-nmap <buffer> K <Plug>(lsp-hover)
-
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  " Set tag source to LSP
-  let g:vista_default_executive = 'vim_lsp'
-  " Jump to definition
-  nmap <buffer> <C-]> <Plug>(lsp-definition)
-  " Rename
-  nmap <buffer> <Leader>R <Plug>(lsp-rename)
-  " Search refs
-  nmap <buffer> <Leader>r <Plug>(lsp-reference)
-  " Output linter results to quickfix
-  nmap <buffer> <Leader>l <Plug>(lsp-document-diagnostics)
-  " Prettify
-  nmap <buffer> <Leader>p <Plug>(lsp-document-format)
-endfunction
-
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
 
 
 " ----- Python -----

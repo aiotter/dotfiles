@@ -1,0 +1,16 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option({
+\ 'smart_case': v:true,
+\ 'ignore_sources': {
+\   '_': ['around']
+\ }
+\})
+'''
+
+
+[[plugins]]
+repo = 'lighttiger2505/deoplete-vim-lsp'
+depends = ['deoplete', 'vim-lsp']
