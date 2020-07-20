@@ -50,6 +50,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('idbrii/textobj-word-column.vim')
 
   call dein#add('pearofducks/ansible-vim')
+  call dein#add('cespare/vim-toml')
 
   call dein#add('prabirshrestha/vim-lsp')
   call dein#add('mattn/vim-lsp-settings')
