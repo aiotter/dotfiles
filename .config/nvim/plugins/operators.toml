@@ -1,4 +1,11 @@
 [[plugins]]
+repo = 'tpope/vim-surround'
+hook_add = '''
+vmap s <Plug>VSurround
+'''
+
+
+[[plugins]]
 repo = 'christoomey/vim-sort-motion'
 
 
