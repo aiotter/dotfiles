@@ -26,6 +26,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('romainl/vim-dichromatic')
   " call dein#add('nanotech/jellybeans.vim')
   call dein#add('itchyny/lightline.vim')
+  call dein#add('reireias/vim-cheatsheet')
   call dein#add('kamykn/spelunker.vim')  " spell check
   " call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
@@ -80,6 +81,12 @@ endif
 
 " ----- プラグインの設定 -----
 let g:dein#auto_recache = 1
+let g:cheatsheet#cheat_file = '~/.vim-cheatsheet.md'
+if has('nvim')
+  let g:cheatsheet#float_window = 1
+  let g:cheatsheet#float_window_width_ratio = 0.9
+  let g:cheatsheet#float_window_height_ratio = 0.9
+endif
 
 let g:indentLine_setConceal=0
 
@@ -139,6 +146,7 @@ let mapleader = "\<Space>"
 nnoremap <Leader>f :let &filetype=input('Enter filetype: ')<CR>
 nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
 nnoremap <Leader>q :<C-u>QuickRun<CR>
+nnoremap <Leader>c :Cheat<CR>
 
 " EasyMortion
 map ; <Plug>(easymotion-prefix)
