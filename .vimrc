@@ -26,6 +26,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('romainl/vim-dichromatic')
   " call dein#add('nanotech/jellybeans.vim')
   call dein#add('itchyny/lightline.vim')
+  call dein#add('kamykn/spelunker.vim')  " spell check
   " call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('Yggdroot/indentLine')
   call dein#add('Raimondi/delimitMate')  " カッコとかを自動で閉じる
