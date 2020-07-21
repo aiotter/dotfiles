@@ -1,3 +1,9 @@
+# Emacs keybind in insert mode
+[[plugins]]
+repo = 'kentarosasaki/vim-emacs-bindings'
+on_event = 'InsertEnter'
+
+
 # Auto-close parentheses
 [[plugins]]
 repo = 'Raimondi/delimitMate'
