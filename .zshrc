@@ -83,11 +83,6 @@ autoload -Uz _zinit
 
 
 # ----- Plugins -----
-# todo.txt must be loaded before powerlevel10k
-zinit ice from'gh-r' as'command' pick'todo.txt_cli-*/todo.sh'
-zinit light todotxt/todo.txt-cli
-alias todo=todo.sh
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 zinit ice depth=1
 zinit light romkatv/powerlevel10k
