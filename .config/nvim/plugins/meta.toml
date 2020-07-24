@@ -2,7 +2,7 @@
 repo = 'Shougo/dein.vim'
 hook_add = '''
 let g:dein#auto_recache = 1
-g:dein#enable_name_conversion = 1
+let g:dein#enable_name_conversion = 1
 '''
 
 
