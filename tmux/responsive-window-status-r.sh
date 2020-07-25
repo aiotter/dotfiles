@@ -17,19 +17,34 @@ else
     online_status="#[bg=cyan,fg=black] *OFFLINE* #[default]"
 fi
 
-# 起動中の Docker イメージの数を取得
-if type docker >/dev/null 2>&1; then
-  containers="$(docker ps -q | wc -l | tr -d ' ')"
-fi
+# 起動中の Docker イメージの数を表示
+function prompt_docker() {
+  local docker_ps_result
+  if docker_ps_result=$(docker ps -q 2>/dev/null); then
+    containers="$(echo -n "$docker_ps_result" | wc -l | tr -d ' ')"
+    echo " ${containers/0/} UP"
+  else
+    echo ' DOWN'
+  fi
+}
+
+# Docker daemon の状態のみを表示
+function docker_availability() {
+  if docker_ps_result=$(docker ps -q 2>/dev/null); then
+    echo ' ◯'
+  else
+    echo ' ×'
+  fi
+}
 
 if [ "$WIDTH" -gt "$MEDIUM" ]
 then
     # 画面幅が十分大きいとき
-    echo " #[fg=cyan]${online_status} $(battery -t -g blue)  DOCK:$containers $(date +'[%a %d-%m-%Y %H:%M]') "
+    echo " #[fg=cyan]${online_status} $(battery -t -g blue)  $(prompt_docker) $(date +'[%a %d-%m-%Y %H:%M]') "
 elif [ "$WIDTH" -ge "$SMALL" ]
 then
     # 画面幅が中くらいのとき
-    echo " #[fg=cyan]$(battery -t -g blue)  $(date +'[%a %d-%m-%Y %H:%M]')"
+    echo " #[fg=cyan]$(battery -t -g blue)  $(docker_availability) $(date +'[%a %d-%m-%Y %H:%M]')"
 else
     # 画面幅が十分小さいとき
     echo ""
