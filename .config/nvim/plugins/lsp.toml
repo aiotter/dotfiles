@@ -41,6 +41,8 @@ augroup END
 repo = 'mattn/vim-lsp-settings'
 depends = 'vim-lsp'
 hook_add = '''
+let g:lsp_settings_filetype_typescript = 'eslint-language-server'
+
 let g:lsp_settings = {
 \   'bash-language-server': {
 \     'allowlist': ['sh', 'zsh']
