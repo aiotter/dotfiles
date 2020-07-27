@@ -107,6 +107,7 @@
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     # time                  # current time
     # docker
+    tty
     # =========================[ Line #2 ]=========================
     newline
     # ip                    # ip address and bandwidth usage for a specified network interface
@@ -1540,6 +1541,10 @@
     else
       p10k segment -b '#696969' -i $'\uF308 ' -t "daemon down"
     fi
+  }
+
+  function prompt_tty() {
+    p10k segment -b green -i '󿡸' -t "$TTY"
   }
 
   function prompt_vault() {
