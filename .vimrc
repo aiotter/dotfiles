@@ -239,8 +239,12 @@ else
 endif
 
 " Ensure pynvim (if not installed, adds sys.path of the venv)
-execute('python3 import sys, importlib.util')
-if py3eval('importlib.util.find_spec("pynvim") is None') == v:true
-  let s:venv_sys_path = system(s:venv_dir . '/bin/python -c "import sys; print(sys.path)"')
-  execute('python3 sys.path += [p for p in ' . s:venv_sys_path . ' if p.endswith("site-packages")]')
+if !has('nvim')
+  execute('python3 import importlib.util')
+  if py3eval("importlib.util.find_spec('pynvim') is None") == v:true
+    let s:venv_sys_path = system(s:venv_dir . '/bin/python -c "import sys; print(sys.path)"')
+    execute('python3 sys.path += [p for p in ' . s:venv_sys_path . ' if p.endswith("site-packages")]')
+  endif
+elseif system(g:python3_host_prog . ' -c "' . "import importlib.util; print(importlib.util.find_spec('pynvim') is None)" . '"') =~ '^True'
+  call system(g:python3_host_prog . ' -m pip install pynvim')
 endif
