@@ -2,6 +2,9 @@
 	useConfigOnly = true
 [core]
 	excludesfile = ~/.gitignore_global
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
 [rebase]
 	autosquash = true
 [commit]
@@ -19,3 +22,7 @@
 	user = aiotter
 [url "git@github.com:"]
     pushInsteadOf = https://github.com/
+[delta]
+	side-by-side = true
+	line-numbers = true
+	# keep-plus-minus-markers = true
