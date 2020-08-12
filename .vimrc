@@ -2,7 +2,6 @@ set encoding=utf-8
 scriptencoding utf-8
 let mapleader = "\<Space>"
 
-
 " dein.vimパッケージマネージャ
 " プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.cache/dein')
@@ -182,8 +181,9 @@ filetype plugin indent on
 " ts=tabstop        自動インデントは空白何文字を用いるか
 " et=expandtab      ソフトタブを使用 (タブ文字を空白に置換)
 " noet=noexpandtab  ハードタブを使用
-autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
+autocmd FileType c           setlocal sw=4 sts=4 ts=4 et
 autocmd FileType gitconfig   setlocal sw=4 ts=4 noet
+autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
 
 
 " ----- 補完 -----
