@@ -28,10 +28,10 @@ function prompt_docker() {
   fi
 }
 
-# Docker daemon の状態のみを表示
-function docker_availability() {
+function simple_prompt_docker() {
   if docker_ps_result=$(docker ps -q 2>/dev/null); then
-    echo ' ◯'
+    containers="$(echo -n "$docker_ps_result" | wc -l | tr -d ' ')"
+    echo " ${containers}"
   else
     echo ' ×'
   fi
@@ -44,7 +44,7 @@ then
 elif [ "$WIDTH" -ge "$SMALL" ]
 then
     # 画面幅が中くらいのとき
-    echo " #[fg=cyan]$(battery -t -g blue)  $(docker_availability) $(date +'[%a %d-%m-%Y %H:%M]')"
+    echo " #[fg=cyan]$(battery -t -g blue)  $(simple_prompt_docker) $(date +'[%a %d-%m-%Y %H:%M]')"
 else
     # 画面幅が十分小さいとき
     echo ""
