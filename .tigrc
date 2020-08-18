@@ -2,12 +2,13 @@ bind generic <C-B>    scroll-page-up
 bind generic <C-C>    ?hub create
 bind generic <C-F>    scroll-page-down
 bind generic <C-O>    @hub browse
-bind generic <C-P>    ?hub pull-request
+bind generic <C-P>    >hub pull-request
 bind generic <C-R>    refresh
 bind generic <C-S>    !hub sync
 bind generic <Space>  none
 bind generic D        ?@rm %(file)
 bind generic G        move-last-line
+bind generic S        view-stash
 bind generic b        none
 bind generic c        !git commit
 bind generic g        move-first-line
@@ -22,7 +23,8 @@ bind refs    D        ?>git branch -D %(branch)
 bind refs    P        ?git push -u %(remote) %(repo:head):%(branch)
 bind refs    c        @git checkout %(branch)
 bind refs    d        >git branch -d %(branch)
-bind refs    n        ?git checkout -b "%(prompt New branch name: )" %(branch)
+bind refs    f        @git fetch
+bind refs    n        @git checkout -b "%(prompt New branch name: )" %(branch)
 bind refs    u        ?git branch --set-upstream-to %(branch)
 
 bind stage   <Enter>  status-update
@@ -30,6 +32,9 @@ bind stage   <Space>  status-update
 bind stage   U        ?@git unstage
 bind stage   u        ?@git unstage %(file)
 
+bind stash   S        ?>git stash
+
+bind status  <C-A>    ?git commit --amend
 bind status  <Space>  status-update
 bind status  A        @git add -A
 bind status  P        ?git push
@@ -39,3 +44,4 @@ bind status  a        @git add -u
 bind status  u        ?@git unstage %(file)
 
 bind main    P        ?git push
+bind main    i        !git rebase -i %(commit)~
