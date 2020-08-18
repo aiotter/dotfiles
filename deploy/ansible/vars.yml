@@ -5,6 +5,9 @@ packages:
   - brew: git
     pacman: git
 
+  - brew: tig
+    pacman: tig
+
   - brew: git-delta
     aur: git-delta
 
