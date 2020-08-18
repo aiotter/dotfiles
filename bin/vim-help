@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# https://stackoverflow.com/a/49424643
+# Strip ANSI escape codes/sequences [$1: input string, $2: target variable]
+function strip_escape_codes() {
+  local input="${1//\"/\\\"}" output="" i char escape=0
+  for (( i=0; i < ${#input}; ++i )); do     # process all characters of input string
+    char="${input:i:1}"                     # get current character from input string
+    if (( ${escape} == 1 )); then           # if we're currently within an escape sequence, check if
+      if [[ "${char}" == [a-zA-Z] ]]; then  # end is reached, i.e. if current character is a letter
+        escape=0                            # end reached, we're no longer within an escape sequence
+      fi
+      continue                              # skip current character, i.e. do not add to ouput
+    fi
+    if [[ "${char}" == $'\e' ]]; then       # if current character is '\e', we've reached the start
+      escape=1                              # of an escape sequence -> set flag
+      continue                              # skip current character, i.e. do not add to ouput
+    fi
+    output+="${char}"                       # add current character to output
+  done
+  eval "$2=\"${output}\""                   # assign output to target variable
+}
+
+function bleech-lines() {
+  while read -r line; do
+    strip_escape_codes "${line}" line_stripped
+    echo "${line_stripped}"
+  done
+}
+
+# https://github.com/thinca/node-vimhelp/blob/d3ffb8daa43d45232f05a028b67994ec049c8742/lib/vimhelp.js#L11-L23
+vim_help=$(vim -u NONE -i NONE -NZXRe \
+  +"verbose silent help $@" \
+  +'?\%(^\s*$\|[^*]$\)?/\*\S\+\*/;/^*\|[^*]$/-1/^\s*\*\S\+\*\|\*\S\+\*\s*\%(>\)\=$/?^[^=-].*[^=-]$?print' \
+  +'qall!')
+
+if type strip-ansi >/dev/null 2>&1; then
+  echo -n "$vim_help" | strip-ansi
+else
+  echo -n "$vim_help" | bleech-lines
+fi
