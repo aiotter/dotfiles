@@ -21,3 +21,5 @@ jobs:
       - name: Deploy
         run: sudo -u dot sh -c 'curl -sL dot.aiotter.com | bash'
         shell: sh
+        env:
+          CI: 'true'

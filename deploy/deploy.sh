@@ -62,8 +62,11 @@ ansible-galaxy install kewlfft.aur
 # Excute ansible
 cd "$THIS_FILE_DIR_PATH" || exit 1
 export ANSIBLE_CONFIG='ansible/ansible.cfg'
-if sudo -nk true 2>/dev/null; then
-  # if sudo password is not needed (like GitHub Actions)
+if [ "$CI" = 'true' ]; then
+  # on GitHub Actions
+  ansible-playbook ansible/setup.yml --skip-tags no-ci
+elif sudo -nk true 2>/dev/null; then
+  # if sudo password is not needed
   ansible-playbook ansible/setup.yml
 else
   # if sudo password is needed: use the password stored beforehand
