@@ -1,17 +1,6 @@
 name: Test dotfiles
 description: Test dotfiles
 
-inputs:
-  GITHUB_REPOSITORY:
-    description: GitHub repository to clone
-    required: true
-  GITHUB_SHA:
-    description: Git SHA to checkout
-    required: true
-
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.GITHUB_REPOSITORY }}
-    - ${{ inputs.GITHUB_SHA }}
