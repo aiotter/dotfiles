@@ -9,10 +9,6 @@ echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 
 USER dot
 WORKDIR /home/dot
+COPY init.sh /init.sh
 
-RUN \
-sudo pacman -S --noconfirm --needed git; \
-git clone "https://github.com/${GITHUB_REPOSITORY} dotfiles"; \
-git checkout "$GITHUB_SHA"
-
-ENTRYPOINT dotfiles/deploy/deploy.sh
+ENTRYPOINT /init.sh

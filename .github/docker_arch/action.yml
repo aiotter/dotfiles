@@ -12,7 +12,6 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    CI: 'true'
-    GITHUB_REPOSITORY: ${{ inputs.GITHUB_REPOSITORY }}
-    GITHUB_SHA: ${{ inputs.GITHUB_SHA }}
+  args:
+    - ${{ inputs.GITHUB_REPOSITORY }}
+    - ${{ inputs.GITHUB_SHA }}
