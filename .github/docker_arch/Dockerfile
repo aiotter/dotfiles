@@ -10,4 +10,9 @@ echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 USER dot
 WORKDIR /home/dot
 
-CMD /usr/lib/systemd/systemd
+RUN \
+sudo pacman -S --noconfirm --needed git; \
+git clone "https://github.com/${GITHUB_REPOSITORY} dotfiles"; \
+git checkout "$GITHUB_SHA"
+
+ENTRYPOINT dotfiles/deploy/deploy.sh

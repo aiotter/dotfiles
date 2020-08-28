@@ -5,21 +5,11 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    container: ./.github/docker_arch
     steps:
-      - name: Setup
-        run: |
-          useradd dot
-          mkdir /home/dot
-          chown dot /home/dot
-          pacman -Sy --noconfirm sudo git
-          echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
-
       - name: Checkout
-        run: |
-          git clone "https://github.com/${GITHUB_REPOSITORY} dotfiles"
-          git checkout "$GITHUB_SHA"
-
-      - name: Deploy
-        run: sudo -u dot sh -c dotfiles/deploy/deploy.sh
-        shell: sh
+        uses: actions/checkout@v2
+      - name: Test dotfiles
+        uses: ./.github/docker_arch/
+        with:
+          GITHUB_REPOSITORY: "$GITHUB_REPOSITORY"
+          GITHUB_SHA: "$GITHUB_SHA"
