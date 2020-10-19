@@ -104,6 +104,10 @@ export ENHANCD_DOT_ARG='...'
 zinit ice wait lucid
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 
+zinit ice wait lucid make'install' src'misc/quitcd/quitcd.bash_zsh'
+zinit light jarun/nnn
+alias nnn=n
+
 # alias GNU utility
 zinit ice wait lucid
 zinit snippet PZT::modules/gnu-utility/init.zsh
