@@ -47,6 +47,12 @@ let g:spelunker_check_type = 1
 '''
 
 
+# Required by spelunker (nvim only)
+[[plugins]]
+repo = 'kamykn/popup-menu.nvim'
+if = 'has("nvim")'
+
+
 [[plugins]]
 repo = 'ncm2/float-preview.nvim.git'
 if = 'has("nvim")'
