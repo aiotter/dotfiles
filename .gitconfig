@@ -21,7 +21,7 @@
 	root = ~/repo
 	user = aiotter
 [url "git@github.com:"]
-    pushInsteadOf = https://github.com/
+    insteadOf = https://github.com/
 [delta]
 	side-by-side = true
 	line-numbers = true
