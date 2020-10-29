@@ -100,6 +100,15 @@
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
       tags: brew_cask
 
+    - name: Symlink mackup config files
+      file:
+        src: "{{ lookup('env', 'DOTPATH') }}/.mackup"
+        dest: "~/.mackup"
+        state: link
+        force: true
+      tags: symlink
+
+
 - when: ansible_os_family == "Archlinux"
   block:
     - name: Install/Upgrade pacman packages

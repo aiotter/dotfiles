@@ -81,6 +81,7 @@ packages:
   - brew: grep
   - brew: gnu-sed
   - brew: gnu-tar
+  - brew: mackup
   - brew: watch
   - cask: hyperswitch  # windows-style Cmd-Tab
   - cask: bettertouchtool
