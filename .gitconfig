@@ -18,7 +18,7 @@
 	get = !ghq get
 	list = !ghq list
 [ghq]
-	root = ~/dev/src
+	root = ~/repo
 	user = aiotter
 [url "git@github.com:"]
     pushInsteadOf = https://github.com/
