@@ -220,31 +220,30 @@ set shortmess-=F
 
 
 " ----- Python -----
-let s:python3_path = $HOME_LOCAL . '/bin/python3'
-let s:venv_dir = expand('~/.cache/neovim_venv')
-
-" create venv if not exist
-if !isdirectory(s:venv_dir)
-  execute '!' . s:python3_path '-m venv' s:venv_dir
-  execute '!' . s:venv_dir . '/bin/python -m pip --disable-pip-version-check install pynvim'
-endif
-
-" if venv is activated, use it
-if exists("$VIRTUAL_ENV")
-  let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
-else
-  let g:python3_host_prog = s:venv_dir . '/bin/python'
-  " QuickRun のための設定
-  let $PATH = s:venv_dir . '/bin:' . $PATH
-endif
-
-" Ensure pynvim (if not installed, adds sys.path of the venv)
-if !has('nvim')
-  execute('python3 import importlib.util')
-  if py3eval("importlib.util.find_spec('pynvim') is None") == v:true
-    let s:venv_sys_path = system(s:venv_dir . '/bin/python -c "import sys; print(sys.path)"')
-    execute('python3 sys.path += [p for p in ' . s:venv_sys_path . ' if p.endswith("site-packages")]')
+if has('nvim')
+  let s:python3_path = $HOME_LOCAL . '/bin/python3'
+  let s:venv_dir = expand('~/.cache/neovim_venv')
+  
+  " create venv if not exist
+  if !isdirectory(s:venv_dir)
+    execute '!' . s:python3_path '-m venv' s:venv_dir
+    execute '!' . s:venv_dir . '/bin/python -m pip --disable-pip-version-check install pynvim'
   endif
-elseif system(g:python3_host_prog . ' -c "' . "import importlib.util; print(importlib.util.find_spec('pynvim') is None)" . '"') =~ '^True'
-  call system(g:python3_host_prog . ' -m pip install pynvim')
+  
+  if exists("$VIRTUAL_ENV")
+    " if venv is activated, use it
+    let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+  else
+    let g:python3_host_prog = s:venv_dir . '/bin/python'
+    " QuickRun のための設定
+    let $PATH = s:venv_dir . '/bin:' . $PATH
+  endif
+else
+  python3 import sysconfig
+  let g:python3_host_prog = py3eval('sysconfig.get_path("scripts")') . '/python3'
+endif
+
+" Ensure pynvim (Using python3 command here on neovim causes error when pynvim is absent)
+if system(g:python3_host_prog . ' -c "' . "import importlib.util; print(importlib.util.find_spec('pynvim') is None)" . '"') =~ '^True'
+  call system(g:python3_host_prog . ' -m pip --disable-pip-version-check install pynvim')
 endif
