@@ -319,7 +319,7 @@ colors:
 #   - Linear
 #
 # Specifying a `duration` of `0` will disable the visual bell.
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 100
   color: '0xffffff'
@@ -365,9 +365,8 @@ visual_bell:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /usr/bin/env
+  program: zsh
   args:
-    - zsh
     - --login
 
 # Startup directory
