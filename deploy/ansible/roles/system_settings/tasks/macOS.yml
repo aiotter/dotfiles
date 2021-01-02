@@ -25,3 +25,23 @@
     key: AppleShowAllFiles
     type: bool
     value: yes
+
+- name: Reduce motion
+  osx_defaults:
+    domain: com.apple.universalaccess
+    key: reduceMotion
+    type: int
+    value: 1
+
+- name: Differentiate without colour
+  osx_defaults:
+    domain: com.apple.universalaccess
+    key: differentiateWithoutColor
+    type: int
+    value: 1
+
+- name: Disable automatical capitalize
+  osx_defaults:
+    key: NSAutomaticCapitalizationEnabled
+    type: bool
+    value: no
