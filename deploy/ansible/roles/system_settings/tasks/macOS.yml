@@ -1,10 +1,10 @@
 ---
-- name: Prevent making .DS_Store on network drive
+- name: Prevent creating .DS_Store on network drive
   osx_defaults:
     domain: com.apple.desktopservices
     key: DSDontWriteNetworkStores
-    type: bool
-    value: yes
+    type: string
+    value: "true"
 
 - name: Don't wait too long before key repeat
   osx_defaults:
