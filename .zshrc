@@ -96,6 +96,17 @@ export MODE_CURSOR_SEARCH="#ff00ff steady underline"
 export MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD"
 export MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
+zinit ice wait lucid from'gh-r' as'command'
+zinit light muesli/duf
+
+zinit ice wait lucid from'gh-r' as'command' \
+  mv'exa-* -> exa' atload'alias ls="exa --icons"'
+zinit light ogham/exa
+
+zinit ice wait lucid from'gh-r' as'command' \
+  mv'bat-* -> bat'
+zinit light sharkdp/bat
+
 zinit ice wait lucid
 zinit light b4b4r07/enhancd
 export ENHANCD_DOT_ARG='...'
