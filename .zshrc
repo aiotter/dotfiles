@@ -103,8 +103,7 @@ zinit ice wait lucid from'gh-r' as'command' \
   mv'exa-* -> exa' atload'alias ls="exa --icons"'
 zinit light ogham/exa
 
-zinit ice wait lucid from'gh-r' as'command' \
-  mv'bat-* -> bat'
+zinit ice wait lucid from'gh-r' as'command' pick'bat-*/bat'
 zinit light sharkdp/bat
 
 zinit ice wait lucid
