@@ -88,13 +88,7 @@ zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 zinit ice wait lucid
-zinit light softmoth/zsh-vim-mode
-export MODE_CURSOR_VIINS="#00ff00 blinking bar"
-export MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
-export MODE_CURSOR_VICMD="green block"
-export MODE_CURSOR_SEARCH="#ff00ff steady underline"
-export MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD"
-export MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+zinit light jeffreytse/zsh-vi-mode
 
 zinit ice wait lucid from'gh-r' as'command'
 zinit light muesli/duf
