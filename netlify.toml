@@ -1,6 +1,5 @@
-# redirect dot.aiotter.com to github content
 [[redirects]]
-  from = "/"
-  to = "https://raw.githubusercontent.com/aiotter/dotfiles/master/deploy/init.sh"
-  status = 301
+  from = "https://dot.aiotter.com"
+  to = "/deploy/init.sh"
+  status = 200
   force = true
