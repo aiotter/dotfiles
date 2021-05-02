@@ -1,3 +1,9 @@
+[[headers]]
+  for = "*"
+  [headers.values]
+  Content-Disposition = "inline"
+  Content-Type = "text/plain; charset=utf-8"
+
 [[redirects]]
   from = "https://dot.aiotter.com"
   to = "/deploy/init.sh"
