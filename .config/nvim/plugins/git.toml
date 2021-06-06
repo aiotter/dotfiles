@@ -10,3 +10,17 @@ depends = 'fugitive'
 [[plugins]]
 repo = 'tpope/vim-rhubarb'
 depends = 'fugitive'
+
+
+#[[plugins]]
+#repo = 'rhysd/github-complete.vim'
+#on_ft = ['gitcommit', 'markdown']
+#depends = 'deoplete.nvim'
+#lazy = 1
+#hook_add = '''
+#call deoplete#custom#source('omni', 'functions', {
+#    \ 'gitcommit': ['github_complete#complete'],
+#    \ 'markdown': ['github_complete#complete'],
+#    \})
+#let g:github_complete_emoji_japanese_workaround = 1
+#'''

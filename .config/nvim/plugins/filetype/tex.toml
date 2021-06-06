@@ -1,0 +1,18 @@
+# vimtex with ale can lint TeX documents without TeX distribution
+[[plugins]]
+repo = 'lervag/vimtex'
+depends = 'vimtex'
+hook_add = '''
+let g:tex_flavor = 'latex'
+'''
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+let g:ale_echo_msg_format = '[%severity%]% code:% %s (%linter%)'
+let g:ale_sign_column_always = 1
+let b:ale_linters = 'all'
+let g:ale_linters_ignore = {
+\ 'python': ['pyflakes', 'pycodestyle']
+\ }
+'''

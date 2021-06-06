@@ -1,6 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 " dein.vimパッケージマネージャ
 " プラグインが実際にインストールされるディレクトリ
@@ -38,15 +39,28 @@ if dein#load_state(s:dein_dir)
     call dein#load_toml(s:toml, s:option)
   endfor
 
+  " Load my plugin under development
+  let s:deoplete_gh = expand('~/repo/github.com/aiotter/deoplete-gh.vim')
+  if isdirectory(s:deoplete_gh)
+    call dein#add(s:deoplete_gh)
+  elseif
+    call dein#add('aiotter/deoplete-gh.vim', {'on_ft': 'gitcommit'})
+  endif
+
   call dein#end()
   call dein#save_state()
 endif
+
+" call deoplete#custom#option('profile', v:true)
+" call deoplete#enable_logging('DEBUG', '/tmp/deoplete.log')
 
 " 未インストールのプラグインがあればインストール
 if dein#check_install()
   call dein#install()
 endif
 
+call dein#call_hook('source')
+autocmd VimEnter * call dein#call_hook('post_source')
 
 " ----- キーバインド -----
 set ttimeoutlen=100  " Esc で Insert -> Normal のモード遷移を高速化
@@ -77,8 +91,8 @@ endif
 " ----- 制御文字の表示 -----
 set list
 set listchars=tab:▸\ ,eol:↲,extends:»,precedes:«,nbsp:⚋ ",trail:-
-autocmd ColorScheme * highlight NonText    ctermbg=NONE ctermfg=238 guibg=NONE guifg=NONE
-autocmd ColorScheme * highlight SpecialKey ctermbg=NONE ctermfg=238 guibg=NONE guifg=NONE
+autocmd ColorScheme * highlight NonText    ctermbg=NONE ctermfg=238 guibg=NONE guifg='#444444'
+autocmd ColorScheme * highlight SpecialKey ctermbg=NONE ctermfg=238 guibg=NONE guifg='#444444'
 
 
 " ----- Concealing (構文の非表示化) の設定 -----
@@ -157,11 +171,16 @@ endif
 " ----- 色 -----
 set t_Co=256
 syntax enable
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+  set termguicolors
+endif
 
 
 " ----- フローティングウィンドウ -----
 if has('nvim')
-  set pumblend=10  " 不透明度
+  " set pumblend=10 " 不透明度
   " set winblend=10
   highlight NormalFloat guifg=#eceff4 guibg=#1e1e1e ctermbg=235
 endif

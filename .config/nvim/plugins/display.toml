@@ -1,8 +1,7 @@
 [[plugins]]
 repo = 'romainl/vim-dichromatic'
 merged = 0
-hook_add = '''
-call dein#source('vim-dichromatic')
+hook_source = '''
 colorscheme dichromatic
 '''
 
@@ -13,4 +12,18 @@ repo = 'Yggdroot/indentLine'
 on_event = 'InsertEnter'
 hook_add = '''
 let g:indentLine_setConceal=0
+'''
+
+
+# display the colours in the file (#rrggbb, #rgb, ...)
+[[plugins]]
+repo = 'rrethy/vim-hexokinase'
+if = "has('termguicolors')"
+on_ft = ['html', 'less', 'r', 'sass', 'scss', 'stylus', 'vim', 'yaml']
+build = 'make hexokinase'
+hook_post_source = '''
+if &termguicolors
+  let g:Hexokinase_optInPatterns = 'full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names'
+  HexokinaseTurnOn
+endif
 '''

@@ -21,18 +21,18 @@ on_event = 'InsertEnter'
 on_ft = ['html', 'xhtml', 'phtml']
 
 
-[[plugins]]
-repo = 'ervandew/supertab'
-on_event = 'InsertEnter'
-hook_add = '''
-let g:SuperTabContextDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<c-n>"
-'''
+# [[plugins]]
+# repo = 'ervandew/supertab'
+# on_event = 'InsertEnter'
+# hook_add = '''
+# let g:SuperTabContextDefaultCompletionType = "context"
+# let g:SuperTabDefaultCompletionType = "<c-n>"
+# '''
 
 
-[[plugins]]
-repo = 'easymotion/vim-easymotion'
-on_event = 'InsertEnter'
-hook_add = '''
-map ; <Plug>(easymotion-prefix)
-'''
+# [[plugins]]
+# repo = 'easymotion/vim-easymotion'
+# on_event = 'InsertEnter'
+# hook_add = '''
+# map ; <Plug>(easymotion-prefix)
+# '''

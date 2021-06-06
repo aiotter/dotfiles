@@ -25,7 +25,7 @@ function! s:on_lsp_buffer_enabled() abort
   " Search refs
   nmap <buffer> <Leader>r <Plug>(lsp-reference)
   " Output linter results to quickfix
-  nmap <buffer> <Leader>l <Plug>(lsp-document-diagnostics)
+  nmap <buffer> <Leader>d <Plug>(lsp-document-diagnostics)
   " Prettify
   nmap <buffer> <Leader>p <Plug>(lsp-document-format)
 endfunction

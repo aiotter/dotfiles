@@ -8,6 +8,23 @@ call deoplete#custom#option({
 \   '_': ['around']
 \ }
 \})
+
+" set completeopt+=noselect
+" setlocal omnifunc=syntaxcomplete#Complete
+" call deoplete#custom#option('omni_patterns', {
+" \ 'markdown': [':'],
+" \ 'gitcommit': [':', '[/ ][a-zA-Z_-]\+/[a-zA-Z_-]', '#'],
+" \})
+
+" inoremap <silent><expr> <TAB>
+inoremap <expr> <TAB>
+\ pumvisible() ? "\<C-n>" :
+\ <SID>check_back_space() ? "\<TAB>" :
+\ deoplete#manual_complete()
+function! s:check_back_space() abort "{{{
+let col = col('.') - 1
+return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 '''
 
 
