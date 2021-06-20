@@ -21,13 +21,13 @@ function! s:on_lsp_buffer_enabled() abort
   " Jump to definition
   nmap <buffer> <C-]> <Plug>(lsp-definition)
   " Rename
-  nmap <buffer> <Leader>R <Plug>(lsp-rename)
+  nmap <buffer> <LocalLeader>lR <Plug>(lsp-rename)
   " Search refs
-  nmap <buffer> <Leader>r <Plug>(lsp-reference)
+  nmap <buffer> <LocalLeader>lr <Plug>(lsp-reference)
   " Output linter results to quickfix
-  nmap <buffer> <Leader>d <Plug>(lsp-document-diagnostics)
+  nmap <buffer> <LocalLeader>ld <Plug>(lsp-document-diagnostics)
   " Prettify
-  nmap <buffer> <Leader>p <Plug>(lsp-document-format)
+  nmap <buffer> <LocalLeader>lp <Plug>(lsp-document-format)
 endfunction
 
 augroup lsp_install
@@ -54,7 +54,7 @@ let g:lsp_settings = {
 repo = 'liuchengxu/vista.vim'
 depends = 'vim-lsp'
 hook_add = '''
-nnoremap <silent> <Leader>o :<C-u>Vista!!<CR>
+nnoremap <silent> <Leader>d :<C-u>Vista!!<CR>
 
 let g:vista_sidebar_width = 30
 let g:vista_echo_cursor_strategy = 'floating_win'
