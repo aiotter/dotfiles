@@ -1,0 +1,47 @@
+[[plugins]]
+repo = 'reireias/vim-cheatsheet'
+hook_add = '''
+nnoremap <Leader>c :Cheat<CR>
+
+let g:cheatsheet#cheat_file = '~/.vim-cheatsheet.md'
+if has('nvim')
+  let g:cheatsheet#float_window = 1
+  let g:cheatsheet#float_window_width_ratio = 0.9
+  let g:cheatsheet#float_window_height_ratio = 0.9
+endif
+'''
+
+
+[[plugins]]
+repo = 'spinks/vim-leader-guide'
+hook_add = '''
+nnoremap <silent> <LocalLeader> :<c-u>LeaderGuide g:maplocalleader<CR>
+nnoremap <silent> <LocalLeader> :<c-u>LeaderGuide g:maplocalleader<CR>
+vnoremap <silent> <Leader> :<c-u>LeaderGuideVisual g:mapleader<CR>
+vnoremap <silent> <Leader> :<c-u>LeaderGuideVisual g:mapleader<CR>
+let g:leaderGuide_vertical = 1
+let g:leaderGuide_position = 'botright'
+let g:leaderGuide_display_plus_menus = 1
+
+let s:gmap = {}
+let s:gmap.c = 'cheatsheet'
+let s:gmap.d = 'definitions'
+let s:gmap.f = 'file type'
+let s:gmap.q = 'quickRun'
+
+let s:lmap = {}
+let s:lmap.l = {'name': 'LSP'}
+let s:lmap.l.R = 'Rename'
+let s:lmap.l.d = 'diagnostics'
+let s:lmap.l.p = 'prettify'
+let s:lmap.l.r = 'reference'
+
+let g:leaderGuides = {}
+if g:mapleader == g:maplocalleader
+  let g:leaderGuides[g:mapleader] = extend(s:gmap, s:lmap)
+else
+  let g:leaderGuides[g:mapleader] = s:gmap
+  let g:leaderGuides[g:maplocalleader] = s:lmap
+endif
+call leaderGuide#register_prefix_descriptions("", "g:leaderGuides")
+'''
