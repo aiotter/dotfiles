@@ -21,6 +21,31 @@ on_event = 'InsertEnter'
 on_ft = ['html', 'xhtml', 'phtml']
 
 
+# Persistent very magic option
+[[plugins]]
+repo = 'coot/EnchantedVim'
+depends = 'CRDispatcher'
+hook_add = '''
+let g:VeryMagicSubstitute = 1  " (default is 0)
+let g:VeryMagicGlobal = 1  " (default is 0)
+let g:VeryMagicVimGrep = 1  " (default is 0)
+let g:VeryMagicSearchArg = 1  " (default is 0, :edit +/{pattern}))
+let g:VeryMagicFunction = 1  " (default is 0, :fun /{pattern})
+let g:VeryMagicHelpgrep = 1  " (default is 0)
+let g:VeryMagicRange = 1  " (default is 0, search patterns in command ranges)
+let g:VeryMagicEscapeBackslashesInSearchArg = 1  " (default is 0, :edit +/{pattern}))
+let g:SortEditArgs = 1  " (default is 0)
+
+let g:VeryMagic = 0 " (default is 1)
+set incsearch
+nmap / /\v
+nmap ? ?\v 
+'''
+
+[[plugins]]
+repo = 'coot/CRDispatcher'
+
+
 # [[plugins]]
 # repo = 'ervandew/supertab'
 # on_event = 'InsertEnter'
