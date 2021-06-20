@@ -1,0 +1,6 @@
+[[plugins]]
+repo = 'mxw/vim-jsx'
+depends = 'vim-javascript'
+
+[[plugins]]
+repo = 'pangloss/vim-javascript'

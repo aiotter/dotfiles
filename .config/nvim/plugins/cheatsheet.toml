@@ -46,6 +46,16 @@ let g:lmap.l.R = ['<Plug>(lsp-rename)', 'Rename']
 let g:lmap.l.d = ['<Plug>(lsp-document-diagnostics)', 'diagnostics']
 let g:lmap.l.p = ['<Plug>(lsp-document-format)', 'prettify']
 let g:lmap.l.r = ['<Plug>(lsp-reference)', 'reference']
+
+let g:lmap.g = {'name': '+Git'}
+let g:lmap.g.B = [':GBrowse', 'browse']
+let g:lmap.g.a = [':Git add %:p', 'add']
+let g:lmap.g.b = [':Git blame', 'blame']
+let g:lmap.g.c = [':Git commit', 'commit']
+let g:lmap.g.d = [':Git diff', 'diff']
+let g:lmap.g.l = [':Gclog', 'log']
+let g:lmap.g.p = [':Git push', 'push']
+let g:lmap.g.s = [':Git', 'status']
 '''
 # which_key#register() has to be called after sourcing when g:which_key_use_floating_win == 1
 hook_post_source='''
