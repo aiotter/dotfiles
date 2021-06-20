@@ -1,5 +1,5 @@
 *.swp
 .DS_Store
 ._zplugin
-.config/jesseduffield/lazygit/*
-!.config/jesseduffield/lazygit/config.yml
+.config/lazygit/*
+!.config/lazygit/config.yml

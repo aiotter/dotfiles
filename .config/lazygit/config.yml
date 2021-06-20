@@ -9,6 +9,14 @@ gui:
       - blue
   commitLength:
     show: true
+  showFileTree: true
+  showListFooter: false
+  showRandomTip: false
+git:
+  paging:
+    colorArg: always
+    pager: delta --paging=never --features=traditional
 reporting: "off"
+disableStartupPopups: true
 startuppopupversion: 1
 confirmOnQuit: true
