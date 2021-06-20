@@ -15,7 +15,8 @@ gui:
 git:
   paging:
     colorArg: always
-    pager: delta --paging=never --features=traditional
+    # pager: delta --paging=never --features=traditional
+    pager: delta --paging=never --features=traditional --minus-style='"#606060" "#001930"'
 reporting: "off"
 disableStartupPopups: true
 startuppopupversion: 1
