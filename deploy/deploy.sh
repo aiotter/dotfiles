@@ -53,10 +53,11 @@ fi
 # Install ansible and its dependencies
 if ! type ansible >/dev/null 2>&1; then
   echo 'Installing ansible...'
-  "$HOME_LOCAL/bin/python3" -m pip -q install -U ansible psutil
+  "$HOME_LOCAL/bin/python3" -m pip -q install -U "ansible==2.9.*" psutil
 fi
 
 # Install ansible modules
+ansible-galaxy collection install community.general
 ansible-galaxy install kewlfft.aur
 
 # Excute ansible

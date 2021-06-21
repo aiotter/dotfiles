@@ -41,7 +41,7 @@ packages:
   - brew: unp  # unpack (almost) everything
     pacman: unp
 
-  - brew: unrar
+  - brew: carlocab/personal/unrar
     pacman: unrar
 
   - pacman: unzip
@@ -51,7 +51,7 @@ packages:
   - pip: ipython
   - pip: youtube-dl
 
-  - go: github.com/motemen/ghq
+  - go: github.com/x-motemen/ghq
   - go: github.com/jesseduffield/lazygit
 
   - npm: "@bitwarden/cli"

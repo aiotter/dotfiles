@@ -1,7 +1,7 @@
 ---
 - name: Install Docker (macOS)
   when: ansible_os_family == "Darwin"
-  homebrew_cask:
+  community.general.homebrew_cask:
     name: docker
     state: upgraded
 

@@ -96,7 +96,7 @@
       tags: brew_formula
 
     - name: Install casks
-      homebrew_cask:
+      community.general.homebrew_cask:
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
       tags: brew_cask
 
