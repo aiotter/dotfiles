@@ -48,11 +48,11 @@ host() {
       done
     fi
     # SSH接続時の表示
-    echo "#[bg=red,fg=black][ ssh:$user@$host ]#[default]"
+    echo "#[bg=red,fg=black][ $user@$host ]#[default]"
     exit 0
   fi
   # localhostでの実行時の表示
-  echo "#[bg=colour236,dim][ localhost ]#[default]"
+  echo "#[bg=colour236,dim][ $USER@localhost ]#[default]"
   exit 0
 }
 
