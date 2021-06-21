@@ -23,6 +23,13 @@ case $1 in
     rm -rf "$(ghq list --full-path --exact "$repo")"
     ;;
 
+  get )
+    \ghq "$@"
+    [ $? = 0 ] || exit 1
+    repo="$(ghq list --full-path --exact ${@:$#:1})"
+    cd $repo
+    ;;
+
   * )
     \ghq "$@"
     ;;
