@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+if which gdate >/dev/null 2>&1; then
+  date=gdate
+else
+  date=date
+fi
+
+if which gstat >/dev/null 2>&1; then
+  stat=gstat
+else
+  stat=stat
+fi
+
+built_at=$($date -d "$(docker image inspect mylatex:latest | jq -r '.[0].Metadata.LastTagTime')" +%s)
+modified_at=$($stat --format='%Z' $(print -lr -- $DOTPATH/docker/mylatex/**/*(om[1,10]) | head -n1))
+
+# Rebuild if something has changed
+[ $(docker images mylatex | wc -l) = 1 -o $modified_at -gt $built_at ] && docker build --tag mylatex:latest $DOTPATH/docker/mylatex

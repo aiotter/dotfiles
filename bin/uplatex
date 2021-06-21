@@ -1,0 +1,3 @@
+#/bin/sh
+build-mylatex
+docker run --rm -v $PWD:/workdir mylatex:latest uplatex "$@"

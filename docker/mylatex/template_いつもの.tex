@@ -1,0 +1,58 @@
+% upLaTeX 文章，文字コードは UTF-8
+\documentclass[dvipdfmx,uplatex,ja=standard,a4paper]{bxjsarticle}	% フォントの大きさはここで指定 12ptとか
+%geometry{top=30truemm,bottom=30truemm,left=25truemm,right=25truemm}
+\usepackage{amsmath,amsfonts,amssymb,exscale}
+\usepackage{lmodern}
+\usepackage[T2A,T1]{fontenc}
+%\usepackage[prefercjkvar]{pxcjkcat}	% ラテン文字などを欧文扱いして半角で表示する
+%\usepackage[utf8]{inputenc,mls}		% mlsを読み込まないとキリル文字などが化ける
+\usepackage{graphicx}			% mlsが内部でgraphicxを読み込んでいるため，ここでdvipdfmxオプションを付けるとクラッシュする
+\usepackage{booktabs,bigstrut}	% 表の出力時に利用
+%\usepackage{fancybox}			% \ovalbox, \Ovalbox, \fbox, \doublebox, \shadowbox
+%\usepackage{ascmac}				% 見出し付き枠囲み:itembox環境[l,c,r], 見出しなし枠囲み:screen環境, 影付き枠囲み:shadebox環境
+%\usepackage{pxrubrica}			% \jruby{鷹}{たか}, \jruby{小鳩}{こ|ばと}, \jruby[g]{雲雀}{ひばり}
+%\usepackage{comment}			% 複数行のコメントアウトを実現するcomment環境
+%\usepackage{moreverb}			% Latexのコードを無視する．verbatimtab環境，\verbatimtabinput[4]{./file.txt}，\listinginput{1}{./file.f} (行番号)
+
+%\usepackage{myverbatim}			% いい感じにソースコード program source を出力する．\prgsrcbox{./sample.txt}[sample file]，\prgsrc*{./file.f} (行番号)
+\usepackage{mymacro}			% 引用は右上に小さく表示する．平均 \average{S}．物理量 \pq{V}[all]．微分記号 \diff{y}{x}．指数部分 ×10^5 は \e{5}
+\usepackage{coltable}			% table環境に自動的に影をつけ，ストライプにする．
+
+%\usepackage[version=4]{mhchem}	% ━ \ce{^227_90Th+}, \ce{HC#CH}, \ce{CuSO4.5H2O}, \ce{A <=>> B}, \ce{A ->[H2SO4_{conc}][$x_i$] B}
+%\usepackage{chemfig}			% ┯ \chemfig{CH_3-CH(-[2]CH_3)-CH_2-C(=[:60]O)-[:-60]O-H}
+								% ├ \chemfig{-[角度(1,2⇔[:45],[:90]),長さ(何倍),結合元原子の番号,結合先原子の番号,TikZのオプション]}
+								% └ 側鎖は()でくくる．環は繋ぎたい原子2つの直後に"?"．環は"*頂点数"．ex)シクロヘキサン \chemfig{[:30]*6(------)}
+%\usepackage{chemobabel}			% ┯ コンパイルには Open Babel 及び Inkscape (path設定済)，-shell-escape オプションが必要．
+								% ├ \chemobabel[scale=0.6]{Brevetoxin A.mol}{}, \chemobabel{ATP.cdx}{-xd}	オプション:xd(ファイル名なし)
+								% └ \smilesobabel[scale=0.7]{CC(=O)Nc1ccc(cc1)O}{}	オプション:xa(炭素原子全描画)，xu(無着色)，xc(末端炭素記号省略)
+%\usepackage{textgreek}			% ギリシャ文字をテキストモードで使用する \textalpha 等の使用を可能にする．
+\usepackage{siunitx}			% 単位を出力する． \si{kg.m.s^{-2}}，\SI{3.14}{kg.m.s^{-2}}
+
+
+%\pagestyle{empty}		% ページ番号の設定．empty=非表示，headings=ヘッダに表示
+
+\title{}
+\author{小口祐斗 \\ 04C15015}
+\date{\today}
+
+\begin{document}
+%\begin{titlepage}		% 表紙を用意する
+\maketitle
+%\begin{abstract}
+	%概要
+%\end{abstract}
+%\thispagestyle{empty}	% pagestyleを使う場合，ここにも記載する．titlepage環境を使用する場合も必要．
+%\end{titlepage}
+%\tableofcontents		% 目次を用意する
+%\clearpage				% 図などを全出力して改ページする
+% ----- ここから本文 -----
+
+
+
+
+% ----- Bibliography -----
+%\bibliographystyle{junsrt}
+%\bibliography{bibliography}		% \cite{key}で呼び出し．呼び出さないが文献一覧に追加したい場合はこの行より前に\nocite{key}で列挙する．
+
+\end{document}
+

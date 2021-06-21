@@ -1,0 +1,12 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mymacro}[2016/12/27 v1.0]
+% styファイル内では一時的に\makeatletter有効扱いとなる
+
+\RequirePackage{xparse}
+
+\def\@cite#1{\textsuperscript{[#1]}}	% 引用を右肩に小さく表示する設定
+\NewDocumentCommand\average{m}{\ensuremath{\langle#1\rangle}}		% 平均を<S>で表す．\average{S}
+\NewDocumentCommand\pq{mO{}}{\textit{#1}$_{\rm #2}$}				% 物理量 Physical quantity は斜体で．2つ目の引数は下付き文字(省略可能)．\pq{V}[all]
+\NewDocumentCommand\diff{mm}{\ensuremath{\frac{\mathrm{d}#1}{\mathrm{d}#2}}}	% 微分記号のdは物理量ではないため立体で表す．\diff{y}{x}
+\newcommand{\e}[1]{\ensuremath{\times~10^{#1}}}	% 指数部分 ×10^5 は \e{5}
+\newcommand{\shatai}[1]{\makebox[2.25zw][l]{\vphantom{#1}\rotatebox{-48.8}{\scalebox{0.875}[1.143]{\rotatebox{41.2}{\smash{\rlap{#1}}}}}}} % 日本語用斜体

@@ -1,0 +1,11 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{coltable}[2016/12/28 v1.0]
+
+\usepackage[table]{xcolor}	% 表に色を付ける．table環境内に\rowcolorsで指定．\rowcolors{2}{}{gray!20}
+
+\renewenvironment{table}[1][]%
+{\@float{table}[#1]\rowcolors{2}{}{gray!20}}%
+{\end@float}
+
+%\newenvironment{col@table}[1][]{\begin{table}[#1]\rowcolors{2}{}{gray!20}}{\end{table}}
+%\renewenvironment{table}{\begin{col@table}}{\end{col@table}}
