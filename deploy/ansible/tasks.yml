@@ -10,12 +10,14 @@
   loop:
     - "~/work"
     - "~/.config"
+    - "~/.cargo"
 
 - name: List up dotfiles to link
   find:
     path: "{{ lookup('env', 'DOTPATH') }}"
     hidden: true
     pattern: .*
+    file_type: file
     excludes:
       - ".DS_Store"
       - "*.swp"
@@ -63,6 +65,14 @@
     state: link
     force: true
   loop: "{{ configdirs.files | map(attribute='path') | product(configpaths) | list }}"
+  tags: symlink
+
+- name: Symlink cargo config file
+  file:
+    src: "{{ lookup('env', 'DOTPATH') }}/.cargo/config.toml"
+    dest: "~/.cargo/config.toml"
+    state: link
+    force: true
   tags: symlink
 
 - name: Install Python modules
