@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script can be called multiple times after initialization
+
 PYTHON_VER=3.8
 
 THIS_FILE_DIR_PATH=$(cd "$(dirname "$0")"; pwd)
@@ -19,8 +21,9 @@ if [ -z ${PASSWORD+x} ] && ! sudo -nk true 2>/dev/null; then
   done
 fi
 
-# Install dependencies (Arch Linux)
+# Arch Linux specific things
 if type pacman >/dev/null 2>&1; then
+  # Install dependencies
   echo "$PASSWORD" | sudo -S pacman -Syu --noconfirm
   echo "$PASSWORD" | sudo -S pacman -S --noconfirm --needed base-devel gnupg
 
@@ -29,6 +32,10 @@ if type pacman >/dev/null 2>&1; then
     cd /tmp/yay || exit 1
     makepkg -si --noconfirm
   fi
+
+  # needed by cargo
+  eval `ssh-agent -s`
+  ssh-add
 fi
 
 # Install python-build if not installed
@@ -47,7 +54,7 @@ if [ -e "$HOME_LOCAL/bin/python3" ]; then
   CURRENT_PYTHON_VER=$("$HOME_LOCAL/bin/python3" -c "import platform; print(platform.python_version())")
 fi
 if [ "$PYTHON_VER" != "${CURRENT_PYTHON_VER:-}" ]; then
-  python-build "$PYTHON_VER" "$HOME_LOCAL"
+  CONFIGURE_OPTS='--enable-optimizations' python-build "$PYTHON_VER" "$HOME_LOCAL"
 fi
 
 # Install ansible and its dependencies
@@ -56,7 +63,8 @@ if ! type ansible >/dev/null 2>&1; then
   "$HOME_LOCAL/bin/python3" -m pip -q install -U "ansible==2.9.*" psutil
 fi
 
-# Install ansible modules
+# Install ansible modules, which fails when the permission of ~/.netrc != 600
+[ "$(perl -e 'printf "%03o\n", (stat($ENV{"HOME"}."/.netrc"))[2] & 0777' 2>/dev/null)" != 600 ] && chmod 600 ~/.netrc
 ansible-galaxy collection install community.general
 ansible-galaxy install kewlfft.aur
 
@@ -73,3 +81,5 @@ else
   # if sudo password is needed: use the password stored beforehand
   ansible-playbook ansible/setup.yml --extra-vars "ansible_become_pass='$PASSWORD'"
 fi
+
+[ $? == 0 ] && [ "$(uname)" == 'Darwin' ] && echo 'Do not forget to execute `mackup restore` after logging into iCloud!'

@@ -3,11 +3,11 @@
   when: ansible_os_family == "Darwin"
   homebrew:
     name: go
-    state: latest
+    state: present
 
 - name: Install Go (Arch Linux)
   when: ansible_os_family == "Archlinux"
   pacman:
     name: go
-    state: latest
+    state: present
   become: true

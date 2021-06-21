@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script should be called only once on initialization
+
 export DOTPATH=${PREFIX:-"$HOME/dotfiles"}
 
 # Get password for sudo

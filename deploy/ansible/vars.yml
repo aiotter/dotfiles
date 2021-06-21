@@ -87,6 +87,8 @@ packages:
   - cask: bettertouchtool
   - cask: karabiner-elements
   - cask: skim  # pdf viewer (useful with latex)
+  - cask: imageoptim
+
   - mas: 1440147259   # AdGuard for Safari
   - mas: 1168254295   # AmorphousDiskMark: benchmark storage devices
   - mas: 937984704    # Amphetamine: prevent sleeping
