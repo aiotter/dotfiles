@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Monkey patch for a bug in mas
+# See https://github.com/ansible-collections/community.general/issues/2060 for details
+
+mas=$(which -a mas | grep -v "$(dirname "$0")" | head -1)
+
+case $1 in
+  outdated )
+    $mas outdated | grep -v 'Warning: '
+    ;;
+
+  * )
+    $mas "$@"
+    ;;
+esac

@@ -87,6 +87,23 @@ packages:
   - cask: bettertouchtool
   - cask: karabiner-elements
   - cask: skim  # pdf viewer (useful with latex)
+  - mas: 1440147259   # AdGuard for Safari
+  - mas: 1168254295   # AmorphousDiskMark: benchmark storage devices
+  - mas: 937984704    # Amphetamine: prevent sleeping
+  - mas: 1352778147   # Bitwarden
+  - mas: 1023111433   # ColorBlindPal
+  - mas: 1150771803   # Countdown Timer Plus
+  - mas: 1222737651   # DaltonLens
+  - mas: 1055511498   # Day One
+  - mas: 1444383602   # GoodNotes
+  - mas: 1452453066   # Hidden bar
+  - mas: 1533805339   # Keepa - Price Tracker
+  - mas: 411213048    # LadioCast: sound mixer
+  - mas: 529490330    # LilyView
+  - mas: 1549370672   # Raindrop.io
+  - mas: 1485958094   # Tab Closer: close multiple tabs once on Safari
+  - mas: 406825478    # Telephone
+
 
   # used to be required when using pbpaste inside tmux
   # remained for backword compartibility

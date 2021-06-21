@@ -100,6 +100,12 @@
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
       tags: brew_cask
 
+    - name: Install from Mac App Store
+      community.general.mas:
+        id: "{{ packages | map(attribute='mas') | select('defined') | list }}"
+        state: latest
+      tags: [mas, no-ci]
+
     - name: Symlink mackup config files
       file:
         src: "{{ lookup('env', 'DOTPATH') }}/.mackup"
