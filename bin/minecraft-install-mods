@@ -1,0 +1,40 @@
+#/bin/sh
+
+[ -d mods ]             || (echo 'Execute in project dir' >&2; exit 1)
+[ -e manifest.json ]    || (echo 'manifest.json not found' >&2; exit 1)
+type jq >/dev/null 2>&1 || (echo 'jq is needed' >&2; exit 1)
+
+IFS=$'\n'
+LOG_FILE=mod-install.log
+GAME_VERSION=$(jq -r '.minecraft.version' manifest.json)
+
+download_mod () {
+  targetFileData="$1"
+  [ -z "$targetFileData" ] && return
+
+  # Download dependencies
+  for addonId in $(echo $targetFileData | jq -r '.dependencies[].addonId'); do
+    [ -z "$addonId" ] && break
+    addonFilesData=$(curl -sSL "https://addons-ecs.forgesvc.net/api/v2/addon/${addonId}/files")
+    targetFileData=$(echo $addonFilesData | jq --arg GAME_VERSION "$GAME_VERSION" '[ .[] | select(.gameVersion[] | contains($GAME_VERSION)) ] | sort_by(.fileDate) [-1]')
+    download_mod "$targetFileData"
+  done
+
+  downloadUrl=$(echo $targetFileData | jq -r '.downloadUrl')
+  fileName=$(echo $targetFileData | jq -r '.fileName')
+
+  [ -e "mods/$fileName" ] && continue
+
+  echo "Downloading $fileName..."
+  echo "$downloadUrl" >>$LOG_FILE
+  curl -sSL -o "mods/$fileName" "$downloadUrl"
+}
+
+rm -rf "$LOG_FILE"
+for line in $(cat manifest.json | jq -c '.files[]'); do
+  projectID=$(echo $line | jq '.projectID')
+  fileID=$(echo $line | jq '.fileID')
+  targetFileData=$(curl -sSL "https://addons-ecs.forgesvc.net/api/v2/addon/${projectID}/file/${fileID}")
+
+  download_mod "$targetFileData"
+done

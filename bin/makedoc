@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+make -f <(cat << END-OF-MAKEFILE
+
+%.pdf:	%.adoc
+	asciidoctor-pdf -r asciidoctor-pdf-cjk --out-file $@ $<
+
+%.docx:	%.adoc custom-reference.docx
+	asciidoctor --backend docbook --out-file - $< | pandoc --from docbook --to docx --reference-doc=custom-reference.docx --output $@
+
+custom-reference.docx:
+	pandoc --print-default-data-file reference.docx > custom-reference.docx
+
+END-OF-MAKEFILE
+) $@

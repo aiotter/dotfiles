@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+for f in *.flac; do
+  [ -d alac ] || mkdir alac
+  ffmpeg -i "$f" -vn -acodec alac "alac/${f%.flac}.m4a"
+
+  [ -e cover.jpg -o -e cover.png ] && AtomicParsley "alac/${f%.flac}.m4a" --artwork cover.jpg --overWrite
+done

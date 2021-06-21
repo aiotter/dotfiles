@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+echo -n 'API key: '
+read key
+
+echo -n 'API Secret: '
+read secret
+
+curl -sL -u "$key:$secret" \
+  --data 'grant_type=client_credentials' \
+  'https://api.twitter.com/oauth2/token' | jq -r .access_token
