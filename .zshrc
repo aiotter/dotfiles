@@ -23,6 +23,11 @@ alias py=python3
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:$PATH"
 
+# Rust
+export CARGO_HOME="$HOME/.cargo"
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
+export PATH="$CARGO_HOME/bin:$PATH"
+
 # My commands
 FPATH=$DOTPATH/zsh/fbin:$FPATH
 autoload -Uz $(ls -1 "$DOTPATH/zsh/fbin")
@@ -34,6 +39,9 @@ alias grep='grep --color'
 
 # aliases
 alias lg='lazygit'
+
+# Load local profile
+[ -e ~/.local_profile ] && source ~/.local_profile
 
 # miscellaneous
 if [ -e '/Applications/ccp4-7.0/bin/ccp4.setup-sh' ]; then
@@ -93,9 +101,9 @@ zinit light jeffreytse/zsh-vi-mode
 zinit ice wait lucid from'gh-r' as'command'
 zinit light muesli/duf
 
-zinit ice wait lucid from'gh-r' as'command' \
-  mv'exa-* -> exa' atload'alias ls="exa --icons"'
-zinit light ogham/exa
+# zinit ice wait lucid from'gh-r' as'command' \
+#   mv'exa-* -> exa' atload'alias ls="exa --icons --time-style=long-iso"'
+# zinit light ogham/exa
 
 zinit ice wait lucid from'gh-r' as'command' pick'bat-*/bat'
 zinit light sharkdp/bat
@@ -107,9 +115,12 @@ export ENHANCD_DOT_ARG='...'
 zinit ice wait lucid
 zinit snippet OMZ::plugins/extract/extract.plugin.zsh
 
-zinit ice wait lucid make'install' src'misc/quitcd/quitcd.bash_zsh'
+zinit ice wait lucid make'install' src'misc/quitcd/quitcd.bash_zsh' \
+  atload'alias nnn="n -e"'
 zinit light jarun/nnn
-alias nnn=n
+
+zinit ice wait lucid as'command' make atclone"./autogen.sh && ./configure --prefix=$ZPFX" atpull'%atclone' pick"htop"
+zinit light KoffeinFlummi/htop-vim
 
 # alias GNU utility
 zinit ice wait lucid
