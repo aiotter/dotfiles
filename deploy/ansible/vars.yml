@@ -75,6 +75,9 @@ packages:
 
   - pacman: viewnior  # picture viewer
 
+  - cask: zotero
+    aur: zotero
+
 
   # macOS specific packages
   - brew: coreutils
