@@ -229,6 +229,12 @@
   changed_when: false
   tags: zsh
 
+- name: Install zsh plugin manager
+  git:
+    repo: 'https://github.com/zdharma/zinit.git'
+    dest: ~/.zinit/bin
+  tags: zsh
+
 - name: Install zsh plugins
   command: zsh -i -c -- '@zinit-scheduler'
   environment:
