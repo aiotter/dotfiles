@@ -10,11 +10,15 @@ PATH=$HOME/local/bin:$PATH
 
 # オンラインステータスの取得
 ping 'google.com' -c 1 >/dev/null 2>&1
-if [ $? == 0 ]
-then
-    online_status=" $(get-wifi-ssid)"
+if [ $? == 0 ]; then
+  interface="$(get-current-network-interface)"
+  if echo $interface | grep -i wi-fi; then
+    online_status=" $(get-wifi-ssid | sed -E 's/^(.{9}).*/\1…/')"
+  else
+    online_status=" $interface"
+  fi
 else
-    online_status="#[bg=cyan,fg=black] *OFFLINE* #[default]"
+  online_status="#[bg=cyan,fg=black] *OFFLINE* #[default]"
 fi
 
 # 起動中の Docker イメージの数を表示
