@@ -2,12 +2,25 @@
 
 # This script can be called multiple times after initialization
 
+# SETTINGS
 PYTHON_VER=3.8
 
+# VARIABLES
 THIS_FILE_DIR_PATH=$(cd "$(dirname "$0")"; pwd)
 export DOTPATH=${DOTPATH:-"$THIS_FILE_DIR_PATH"}
 export HOME_LOCAL=$HOME/.local
-export PATH=$HOME_LOCAL/bin:$PATH
+export PATH=$HOME_LOCAL/bin:$DOTPATH/bin:$PATH
+
+# FUNCTIONS
+function is-apple-id-logged-in() {
+  /usr/libexec/PlistBuddy -c "print :Accounts:0:LoggedIn" ~/Library/Preferences/MobileMeAccounts.plist >/dev/null 2>&1
+}
+
+
+# Check if you are ready to run this script
+if [ "$(uname)" = 'Darwin' ] && { ! is-apple-id-logged-in || [ "$CI" = 'true' ]; }; then
+  echo 'You need to be logged into Apple account!'
+fi
 
 # Get password for sudo if not yet input
 if [ -z ${PASSWORD+x} ] && ! sudo -nk true 2>/dev/null; then
@@ -82,4 +95,4 @@ else
   ansible-playbook ansible/setup.yml --extra-vars "ansible_become_pass='$PASSWORD'"
 fi
 
-[ $? == 0 ] && [ "$(uname)" == 'Darwin' ] && echo 'Do not forget to execute `mackup restore` after logging into iCloud!'
+mackup restore

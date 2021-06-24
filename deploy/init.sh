@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script should be called only once on initialization
+# This script is intended to be called when no dotfiles in the deploying computer.
+# Do NOT call it on CI. It downloads master branch so that CI cannot run on the other branches.
 
 export DOTPATH=${PREFIX:-"$HOME/dotfiles"}
 
