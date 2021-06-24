@@ -56,6 +56,14 @@ host() {
   exit 0
 }
 
+# 子孫プロセスを出力する
+descendent_pids() {
+  lsof -p $1 2>/dev/null | awk '/cwd/ { print $1, $2 }'
+  pids=$(pgrep -P $1)
+  for pid in $pids; do
+    descendent_pids $pid
+  done
+}
 
 # 渡された文字列がペインに入り切るときechoする
 print-if-capable() {
@@ -78,25 +86,25 @@ host_result=$(host)
 # 矢印の書式設定
 cursor=" ⇱ "
 
-# git管理下のとき
-if git status >/dev/null 2>&1
-then
+current_command_pid="$(descendent_pids ${pane_pid} | awk -v cmd="${pane_current_command}" '$1 == cmd { print $2 }' | tail -1)"
+if git status >/dev/null 2>&1; then
+  # git管理下のとき
   git_name=$(git config --get user.name)
   git_name=${git_name:-UNNAMED}
   git_email=$(git config --get user.email)
   git_email=${git_email:-not_set@invalid.email}
   git_style='#[reverse]'
 
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} (${pane_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} (${pane_pid}) " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} (${current_command_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} (${current_command_pid}) " | print-if-capable && exit 0
 fi
 
 # 非Git管理下
-echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) " | print-if-capable && exit 0
-echo "${cursor}${host_result} (${pane_pid}) " | print-if-capable && exit 0
+echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) " | print-if-capable && exit 0
+echo "${cursor}${host_result} (${current_command_pid}) " | print-if-capable && exit 0
 echo "${cursor}${host_result} " | print-if-capable && exit 0
 echo ""
