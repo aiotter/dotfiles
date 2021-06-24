@@ -166,3 +166,7 @@ zinit light zdharma/fast-syntax-highlighting
 zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
+# switch to tmux
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  tmux new-session -A -s main
+fi
