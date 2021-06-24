@@ -78,7 +78,7 @@ echo-venv() {
 
 
 # 渡された文字列がペインに入り切るときechoする
-check-space() {
+print-if-capable() {
   local orig_msg=$(cat)
   local cleaned_msg=$(echo "$orig_msg" | sed -E 's/#\[[^]]+]//g')
   if [[ ${WIDTH} -gt ${#cleaned_msg}+4 ]]
@@ -110,19 +110,18 @@ then
   git_email=${git_email:-not_set@invalid.email}
   git_style='#[reverse]'
 
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] | ${venv_result} " | check-space && exit 0
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] | ${venv_result} " | check-space && exit 0
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | check-space && exit 0
-  echo "${cursor}${host_result} (${pane_pid}) | ${git_style}${git_name}#[default] " | check-space && exit 0
-  echo "${cursor}${host_result} | ${git_style}${git_name}#[default] " | check-space && exit 0
-  echo "${cursor}${host_result} [GIT] " | check-space && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] | ${venv_result} " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] | ${venv_result} " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} (${pane_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} [GIT] " | print-if-capable && exit 0
 fi
 
 
 # 非Git管理下
-echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${venv_result} " | check-space && exit 0
-echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) " | check-space && exit 0
-echo "${cursor}${host_result} (${pane_pid}) " | check-space && exit 0
-echo "${cursor}${host_result} " | check-space && exit 0
+echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${venv_result} " | print-if-capable && exit 0
+echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) " | print-if-capable && exit 0
+echo "${cursor}${host_result} (${pane_pid}) " | print-if-capable && exit 0
+echo "${cursor}${host_result} " | print-if-capable && exit 0
 echo ""
-
