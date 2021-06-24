@@ -81,17 +81,18 @@ packages:
 
   # macOS specific packages
   - brew: coreutils
-  - brew: grep
   - brew: gnu-sed
   - brew: gnu-tar
+  - brew: grep
   - brew: mackup
   - brew: watch
-  - cask: hyperswitch  # windows-style Cmd-Tab
+  - cask: alfred
+  - cask: alt-tab
   - cask: bettertouchtool
-  - cask: karabiner-elements
-  - cask: skim  # pdf viewer (useful with latex)
   - cask: imageoptim
-
+  - cask: karabiner-elements
+  - cask: scroll-reverser
+  - cask: skim  # pdf viewer (useful with latex)
   - mas: 1440147259   # AdGuard for Safari
   - mas: 1168254295   # AmorphousDiskMark: benchmark storage devices
   - mas: 937984704    # Amphetamine: prevent sleeping
