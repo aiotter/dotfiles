@@ -43,7 +43,7 @@ if dein#load_state(s:dein_dir)
   let s:deoplete_gh = expand('~/repo/github.com/aiotter/deoplete-gh.vim')
   if isdirectory(s:deoplete_gh)
     call dein#add(s:deoplete_gh)
-  elseif
+  else
     call dein#add('aiotter/deoplete-gh.vim', {'on_ft': 'gitcommit'})
   endif
 
