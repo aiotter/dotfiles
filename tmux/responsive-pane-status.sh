@@ -57,26 +57,6 @@ host() {
 }
 
 
-# venv仮想環境の検出処理
-find-venv() {
-  local _dir=$*
-  [[ -e "${_dir}/.venv" ]] && echo "$_dir/.venv" && return
-  [[ "$_dir" = '/' ]] || [[ "$_dir" = '~' ]] && return
-  find-venv "$(dirname "$_dir")"
-}
-
-# venv仮想環境の情報の表示
-echo-venv() {
-  venv=$(find-venv "${pane_current_path}" | sed -E 's@^.+/([^/]*/\.venv)@\1@')
-  if [[ -n $venv ]]
-  then
-    echo "VENV ON #[bold]$venv#[default]"
-  else
-    echo "#[dim]no venv#[default]"
-  fi
-}
-
-
 # 渡された文字列がペインに入り切るときechoする
 print-if-capable() {
   local orig_msg=$(cat)
@@ -91,12 +71,9 @@ print-if-capable() {
 }
 
 
-
-
 # レスポンシブ対応
 # 入り切る場合はechoしてexit、入り切らなければ情報量減らしてリトライ
 host_result=$(host)
-venv_result=$(echo-venv)
 
 # 矢印の書式設定
 cursor=" ⇱ "
@@ -110,17 +87,15 @@ then
   git_email=${git_email:-not_set@invalid.email}
   git_style='#[reverse]'
 
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] | ${venv_result} " | print-if-capable && exit 0
-  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] | ${venv_result} " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
   echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
   echo "${cursor}${host_result} (${pane_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} [GIT] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} (${pane_pid}) " | print-if-capable && exit 0
 fi
 
-
 # 非Git管理下
-echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) | ${venv_result} " | print-if-capable && exit 0
 echo "${cursor}${host_result} | ${pane_current_command}(${pane_pid}) " | print-if-capable && exit 0
 echo "${cursor}${host_result} (${pane_pid}) " | print-if-capable && exit 0
 echo "${cursor}${host_result} " | print-if-capable && exit 0
