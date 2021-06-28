@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+descendent_pids() {
+  # print '[pid]|[command name]'
+  data=$(lsof -a -d cwd -p $1 -Fcfp 2>/dev/null | sort | awk 'BEGIN {FS="\n"; RS=""; OFS="|"}; {print substr($3,2), substr($1,2)}')
+  echo "$data"
+  pids=$(pgrep -P $1)
+  for pid in $pids; do
+    descendent_pids $pid
+  done
+}
+descendent_pids "$(tmux display -p '#{pane_pid}')" | awk -v cmd="$(tmux display -p '#{pane_current_command}')" -F '|' '$2 == cmd { print $1 }' | tail -1

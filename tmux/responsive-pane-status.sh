@@ -58,8 +58,8 @@ host() {
 
 # 子孫プロセスを出力する
 descendent_pids() {
-  # prints in alphabetical order: command name, fd (always selected), pid
-  data=$(lsof -a -d cwd -p $1 -Fcfp 2>/dev/null | sort | sed -E 's/^.//' | tr '\n' ' ')
+  # print '[pid]|[command name]'
+  data=$(lsof -a -d cwd -p $1 -Fcfp 2>/dev/null | sort | awk 'BEGIN {FS="\n"; RS=""; OFS="|"}; {print substr($3,2), substr($1,2)}')
   echo "$data"
   pids=$(pgrep -P $1)
   for pid in $pids; do
@@ -88,7 +88,7 @@ host_result=$(host)
 # 矢印の書式設定
 cursor=" ⇱ "
 
-current_command_pid="$(descendent_pids ${pane_pid} | awk -v cmd="${pane_current_command}" '$1 == cmd { print $3 }' | tail -1)"
+current_command_pid="$(descendent_pids ${pane_pid} | awk -v cmd="${pane_current_command}" -F '|' '$2 == cmd { print $1 }' | tail -1)"
 if git status >/dev/null 2>&1; then
   # git管理下のとき
   git_name=$(git config --get user.name)
