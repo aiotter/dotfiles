@@ -40,6 +40,11 @@ alias grep='grep --color'
 # aliases
 alias lg='lazygit'
 
+# less: mouse support
+if (( $(less -V | head -1 | cut -d ' ' -f 2) >= 542 )); then
+  export LESS='--mouse --wheel-lines=3'
+fi
+
 # Load local profile
 [ -e ~/.local_profile ] && source ~/.local_profile
 

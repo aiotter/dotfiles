@@ -84,6 +84,7 @@ packages:
   - brew: gnu-sed
   - brew: gnu-tar
   - brew: grep
+  - brew: less
   - brew: mackup
   - brew: watch
   - cask: alfred
