@@ -24,3 +24,9 @@
       - COPYRIGHT.txt
       - LICENSE.txt
     dest: "{{ dir }}"
+
+- name: Install HackGenNerd
+  unarchive:
+    remote_src: yes
+    src: https://github.com/yuru7/HackGen/releases/download/v2.3.5/HackGenNerd_v2.3.5.zip
+    dest: "{{ dir }}"
