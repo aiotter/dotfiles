@@ -18,6 +18,9 @@ export GIT_EDITOR=$EDITOR
 export GOPATH=$HOME/dev/go
 export PATH=$PATH:$GOPATH/bin
 
+# JavaScript / TypeScript
+export PATH="$HOME/.deno/bin:$PATH"
+
 # Python
 alias py=python3
 export VIRTUAL_ENV_DISABLE_PROMPT=1
