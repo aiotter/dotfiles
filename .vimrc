@@ -178,6 +178,14 @@ if has('termguicolors')
 endif
 
 
+" ----- ウィンドウ -----
+" Quickfix だけが残された場合自動的に閉じる
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+aug END
+
+
 " ----- フローティングウィンドウ -----
 if has('nvim')
   " set pumblend=10 " 不透明度
