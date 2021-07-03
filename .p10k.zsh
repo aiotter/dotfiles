@@ -1544,10 +1544,12 @@
   }
 
   function prompt_tty() {
-    p10k segment -b green -i '󿡸' -t "$TTY"
+    # icon = 
+    p10k segment -b green -i $'\uf878' -t "$TTY"
   }
 
   function prompt_vault() {
+    # icon = 
     p10k segment -b red -f yellow -i $'\uF132' -c "${BW_SESSION}" -t $'\uF13E '
   }
 
