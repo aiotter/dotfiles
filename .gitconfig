@@ -20,11 +20,12 @@
 	date = iso
 
 [alias]
-	one = !git log --oneline --color=always | head
-	graph = log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
-	unstage = reset HEAD
+	fpush = push --force-with-lease
 	get = !ghq get
+	graph = log --graph --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s (%cr) %C(blue)<%an>%Creset' --abbrev-commit --date=relative
 	list = !ghq list
+	one = !git log --oneline --color=always | head
+	unstage = reset HEAD
 
 [ghq]
 	root = ~/repo
