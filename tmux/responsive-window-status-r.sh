@@ -15,7 +15,7 @@ if [ $? == 0 ]; then
   if echo $interface | grep -i wi-fi; then
     online_status=" $(get-wifi-ssid | sed -E 's/^(.{9}).*/\1…/')"
   else
-    online_status=" $interface"
+    online_status=" WIRED"
   fi
 else
   online_status="#[bg=cyan,fg=black] *OFFLINE* #[default]"
@@ -53,4 +53,3 @@ else
     # 画面幅が十分小さいとき
     echo ""
 fi
-
