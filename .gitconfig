@@ -31,9 +31,6 @@
 	root = ~/repo
 	user = aiotter
 
-[url "git@github.com:"]
-    insteadOf = https://github.com/
-
 [delta]
 	features = side-by-side
 

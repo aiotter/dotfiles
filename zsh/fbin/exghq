@@ -24,7 +24,8 @@ case $1 in
     ;;
 
   get )
-    \ghq "$@"
+    shift
+    \ghq get -p "$@"
     [ $? = 0 ] || exit 1
     repo="$(ghq list --full-path --exact ${@:$#:1})"
     cd $repo
