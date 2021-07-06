@@ -39,13 +39,13 @@ host() {
           printf "%s|%s\n", host, $0;
         }' ~/.ssh/config
       )
-      echo $list | while read line; do
+      while read line; do
         host_user=${line#*|}
         if [[ "$host" =~ $line ]]; then
           user=$host_user
           break
         fi
-      done
+      done < <(echo $list)
     fi
     # SSH接続時の表示
     echo "#[bg=red,fg=black][ $user@$host ]#[default]"
