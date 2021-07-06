@@ -9,3 +9,9 @@
   to = "/deploy/init.sh"
   status = 200
   force = true
+
+[[redirects]]
+  from = "https://ssh.aiotter.com"
+  to = "/bin/ssh-register-key"
+  status = 200
+  force = true
