@@ -12,6 +12,10 @@ repo = 'tpope/vim-rhubarb'
 depends = 'fugitive'
 
 
+[[plugins]]
+repo = 'rhysd/conflict-marker.vim'
+
+
 #[[plugins]]
 #repo = 'rhysd/github-complete.vim'
 #on_ft = ['gitcommit', 'markdown']
