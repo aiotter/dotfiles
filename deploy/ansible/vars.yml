@@ -53,6 +53,7 @@ packages:
 
   - go: github.com/x-motemen/ghq
   - go: github.com/jesseduffield/lazygit
+  - go: github.com/fiatjaf/jiq/cmd/jiq  # interactive jq
 
   - npm: "@bitwarden/cli"
 
@@ -90,6 +91,7 @@ packages:
   - cask: alfred
   - cask: alt-tab
   - cask: bettertouchtool
+  - cask: iina  # video player
   - cask: imageoptim
   - cask: karabiner-elements
   - cask: scroll-reverser
