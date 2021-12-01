@@ -91,7 +91,7 @@ KEYTIMEOUT=5
 # ---------------------------------------------- #
 if [ ! -e "${HOME}/.zinit/bin/zinit.zsh" ]; then
   mkdir ~/.zinit
-  git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
+  git clone https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
 fi
 source ~/.zinit/bin/zinit.zsh
 autoload -Uz _zinit

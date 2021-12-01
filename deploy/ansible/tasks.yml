@@ -231,7 +231,7 @@
 
 - name: Install zsh plugin manager
   git:
-    repo: 'https://github.com/zdharma/zinit.git'
+    repo: 'https://github.com/zdharma-continuum/zinit.git'
     dest: ~/.zinit/bin
   tags: zsh
 
