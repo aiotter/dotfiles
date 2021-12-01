@@ -97,8 +97,8 @@ if git status >/dev/null 2>&1; then
   git_email=${git_email:-not_set@invalid.email}
   git_style='#[reverse]'
 
-  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}Git: ${git_name}<${git_email}>#[default] " | print-if-capable && exit 0
-  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}Git: ${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style} ${git_name}<${git_email}>#[default] " | print-if-capable && exit 0
+  echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style} ${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
   echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}${git_name}<${git_email:0:5}...>#[default] " | print-if-capable && exit 0
   echo "${cursor}${host_result} | ${pane_current_command}(${current_command_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
   echo "${cursor}${host_result} (${current_command_pid}) | ${git_style}${git_name}#[default] " | print-if-capable && exit 0
