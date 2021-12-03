@@ -45,3 +45,17 @@
     key: NSAutomaticCapitalizationEnabled
     type: bool
     value: no
+
+# Getting ready for dict_add
+# cf. https://github.com/ansible-collections/community.general/pull/3420
+# - name: Create shortcuts
+#   community.general.osx_defaults:
+#     domain: "{{ item.app }}"
+#     key: NSUserKeyEquivalents
+#     dict_add: "{{ item.menu }}"
+#     type: string
+#     value: "{{ item.key }}"
+#   loop:
+#     - app: "com.bitwarden.desktop"
+#       menu: "Sync Vault"
+#       key: "@s"
