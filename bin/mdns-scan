@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if sed --version >/dev/null 2>&1; then
+  # GNU sed
+  dns-sd -B _services._dns-sd._udp \
+    | sed -u '1,/^Timestamp/ d' \
+    | awk '!uniq[$7]++ { print $7; fflush() }' \
+    | xargs -P20 -I{} sh -c 'dns-sd -Z {} | sed -u "/^;/ d" | awk "{PTR[NR]=\$3} / SRV / {printf \"%30-s %s\n\", \$6, PTR[NR-1]; fflush()}" | sed -u "s/\\\\032/ /g; s/\.{}\._tcp$//"' \
+    | awk '!uniq[$1]++ { print; fflush() }'
+else
+  # BSD sed
+  dns-sd -B _services._dns-sd._udp \
+    | sed -l '1,/^Timestamp/ d' \
+    | awk '!uniq[$7]++ { print $7; fflush() }' \
+    | xargs -P20 -I{} sh -c 'dns-sd -Z {} | sed -l "/^;/ d" | awk "{PTR[NR]=\$3} / SRV / {printf \"%30-s %s\n\", \$6, PTR[NR-1]; fflush()}" | sed -l "s/\\\\032/ /g; s/\.{}\._tcp$//"' \
+    | awk '!uniq[$1]++ { print; fflush() }'
+fi
+
+# Service Type も表示する版
+# dns-sd -B _services._dns-sd._udp \
+#   | gsed -u '1,/^Timestamp/ d' \
+#   | awk '!uniq[$7]++ { print $7; fflush() }' \
+#   | xargs -P20 -I{} sh -c 'dns-sd -Z {} | gsed -u "/^;/ d" | awk "{PTR[NR]=\$3} / SRV / {printf \"%20-s %30-s %s\n\", \"{}\", \$6, PTR[NR-1]; fflush()}" | gsed -u "s/\\\\032/ /g; s/\.{}\._tcp$//"' \
+#   | awk '!uniq[$0]++ { print; fflush() }'
