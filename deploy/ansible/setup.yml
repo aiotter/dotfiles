@@ -6,4 +6,5 @@
     - kewlfft.aur
   tasks:
     - include: tasks.yml
-
+  vars:
+    ansible_user: "{{lookup('env', 'USER')}}"

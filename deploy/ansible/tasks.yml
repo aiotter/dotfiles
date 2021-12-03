@@ -90,7 +90,7 @@
       tags: check_brew
 
     - name: Update Homebrew
-      homebrew:
+      community.general.homebrew:
         update_homebrew: true
 
     - name: Install/Upgrade formulae
@@ -100,7 +100,7 @@
       tags: brew_formula
 
     - name: Install/Upgrade HEAD-only formulae
-      homebrew:
+      community.general.homebrew:
         name: "{{ packages | map(attribute='brew-head') | select('defined') | list }}"
         state: head
       tags: brew_formula

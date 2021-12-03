@@ -73,7 +73,7 @@ fi
 # Install ansible and its dependencies
 if ! type ansible >/dev/null 2>&1; then
   echo 'Installing ansible...'
-  "$HOME_LOCAL/bin/python3" -m pip -q install -U "ansible==2.9.*" psutil
+  "$HOME_LOCAL/bin/python3" -m pip -q install -U "ansible==5.0.*" psutil
 fi
 
 # Install ansible modules, which fails when the permission of ~/.netrc != 600

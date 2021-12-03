@@ -1,47 +1,47 @@
 ---
 - name: Prevent creating .DS_Store on network drive
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.desktopservices
     key: DSDontWriteNetworkStores
     type: string
     value: "true"
 
 - name: Don't wait too long before key repeat
-  osx_defaults:
+  community.general.osx_defaults:
     key: InitialKeyRepeat
     type: int
     value: 15
 
 - name: Enable text selection on Quick Look
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.finder
     key: QLEnableTextSelection
     type: bool
     value: yes
 
 - name: Show hidden files on Finder
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.finder
     key: AppleShowAllFiles
     type: bool
     value: yes
 
 - name: Reduce motion
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.universalaccess
     key: reduceMotion
     type: int
     value: 1
 
 - name: Differentiate without colour
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.universalaccess
     key: differentiateWithoutColor
     type: int
     value: 1
 
 - name: Disable automatical capitalize
-  osx_defaults:
+  community.general.osx_defaults:
     key: NSAutomaticCapitalizationEnabled
     type: bool
     value: no
