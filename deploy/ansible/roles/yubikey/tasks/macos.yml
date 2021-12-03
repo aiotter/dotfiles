@@ -1,0 +1,16 @@
+---
+- name: Install dependencies
+  community.general.homebrew:
+    name:
+      - opensc
+      - ykman
+    state: latest
+
+- name: Register PKCS11 to ~/.ssh/config
+  lineinfile:
+    path: ~/.ssh/config
+    line: "PKCS11Provider {{ item }}"
+    insertbefore: "^\\s*Host"
+    firstmatch: yes
+    create: yes
+  with_pipe: echo "$(brew --prefix opensc)/lib/opensc-pkcs11.so"
