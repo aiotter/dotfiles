@@ -42,6 +42,7 @@ alias grep='grep --color'
 
 # aliases
 alias lg='lazygit'
+alias grep='better-grep'
 
 # less: mouse support
 if (( $(less -V | head -1 | cut -d ' ' -f 2) >= 542 )); then

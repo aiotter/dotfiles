@@ -1,0 +1,215 @@
+#!/usr/bin/env python3
+
+# Copyright 2021 aiotter
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+import argparse
+import os
+import shutil
+import sys
+
+# convert `grep -10` to `grep --context=10`
+for i, arg in enumerate(sys.argv):
+    if arg.startswith('-') and arg[1:].isdecimal() and arg[1:].isascii():
+        sys.argv[i] = '--context=' + arg[1:]
+
+parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
+
+parser.add_argument('-V', '--version', action='store_true')
+
+parser.add_argument('-E', '--extended-regexp', action='store_true')  # default on ripgrep
+parser.add_argument('-F', '--fixed-strings', action='store_true')  # exists on ripgrep
+parser.add_argument('-G', '--basic-regexp', action='store_true')
+parser.add_argument('-P', '--perl-regexp', action='store_true')  # exists on ripgrep as -P/--pcre2
+
+parser.add_argument('-e', '--regexp', nargs=1)  # exists on ripgrep
+parser.add_argument('-f', '--file', nargs=1)  # exists on ripgrep
+parser.add_argument('-i', '-y', '--ignore-case', action='store_true')  # exists on ripgrep (-y invalid)
+parser.add_argument('-v', '--invert-match', action='store_true')  # exists on ripgrep
+parser.add_argument('-w', '--word-regexp', action='store_true')  # exists on ripgrep
+parser.add_argument('-x', '--line-regexp', action='store_true')  # exists on ripgrep
+
+parser.add_argument('-c', '--count', action='store_true')  # exists on ripgrep
+parser.add_argument('--color', '--colour', nargs='?', choices=['never', 'always', 'auto'])  # exists on ripgrep
+parser.add_argument('-L', '--files-without-match', action='store_true')  # exists on ripgrep
+parser.add_argument('-l', '--files-with-matches', action='store_true')  # exists on ripgrep
+parser.add_argument('-m', '--max-count', nargs=1)  # exists on ripgrep
+parser.add_argument('-o', '--only-matching', action='store_true')  # exists on ripgrep
+parser.add_argument('-q', '--quiet', '--silent', action='store_true')  # exists on ripgrep as -q/--quiet (--silent invalid)
+parser.add_argument('-s', '--no-messages', action='store_true')  # exists on ripgrep
+
+parser.add_argument('-b', '--byte-offset', action='store_true')  # exists on ripgrep
+parser.add_argument('-H', '--with-filename', action='store_true')  # exists on ripgrep
+parser.add_argument('-h', '--no-filename', action='store_true')  # exists on ripgrep as -I/--no-filename
+parser.add_argument('--label', nargs=1)
+parser.add_argument('-n', '--line-number', action='store_true')  # exists on ripgrep
+parser.add_argument('-T', '--initial-tab', action='store_true')
+parser.add_argument('-u', '--unix-byte-offsets', action='store_true')  # exists on ripgrep as --crlf (slightly different)
+parser.add_argument('-Z', '--null', action='store_true')  # exists on ripgrep as -0/--null
+
+parser.add_argument('-A', '--after-context', nargs=1)  # exists on ripgrep
+parser.add_argument('-B', '--before-context', nargs=1)  # exists on ripgrep
+parser.add_argument('-C', '--context', nargs=1)  # exists on ripgrep
+
+parser.add_argument('-a', '--text', action='store_true')  # exists on ripgrep
+parser.add_argument('--binary-files', nargs=1, choices=['without-match', 'text', 'binary'])
+parser.add_argument('-D', '--devices', nargs=1, choices=['read', 'skip'])
+parser.add_argument('-d', '--directories', nargs=1, choices=['read', 'skip', 'recurse'])
+parser.add_argument('--exclude', nargs=1)  # exists on ripgrep as --glob
+parser.add_argument('--exclude-from', nargs=1)  # exists on ripgrep as --ignore-file (slightly different)
+parser.add_argument('--exclude-dir', nargs=1)  # exists on ripgrep as --glob
+parser.add_argument('-I', action='store_true')  # exists on ripgrep as --no-binary
+parser.add_argument('--include', nargs=1)  # exists on ripgrep as --glob
+parser.add_argument('-r', '--recursive', action='store_true')
+parser.add_argument('-R', '--dereference-recursive', action='store_true')  # exists on ripgrep as --follow
+
+parser.add_argument('--line-buffered', action='store_true')  # exists on ripgrep
+parser.add_argument('-U', '--binary', action='store_true')  # exists on ripgrep
+parser.add_argument('-z', '--null-data', action='store_true')  # exists on ripgrep (-z invalid)
+
+parser.add_argument('PATTERN')
+parser.add_argument('FILE', nargs='*')
+
+args = parser.parse_args()
+
+def exec_grep():
+    for path in os.environ['PATH'].split(':'):
+        grep = shutil.which('grep', path=path)
+        if grep is None or grep == __file__:
+            continue
+        # print(f'=== Executes grep: {grep} {" ".join(sys.argv[1:])} ===', file=sys.stderr, flush=True)
+        os.execv(grep, ['grep'] + sys.argv[1:])
+    raise FileNotFoundError('No grep executable found')
+
+
+def override_argv(name, value):
+    for i, arg in enumerate(sys.argv):
+        if arg == name:
+            sys.argv[i] = value
+
+def add_argv(value):
+    sys.argv.insert(1, value)
+
+def remove_argv(*values, nargs: int = 0):
+    for value in values:
+        try:
+            while True:
+                index = sys.argv.index(value)
+                del sys.argv[index]
+                for _ in range(nargs):
+                    del sys.argv[index]
+        except ValueError:
+            continue
+
+def main():
+    ripgrep = shutil.which('rg')
+
+    # ripgrep not installed
+    if not ripgrep:
+        exec_grep()
+
+    # Using BRE
+    if args.basic_regexp or not (args.extended_regexp or args.perl_regexp):
+        exec_grep()
+
+    # Using function not implemented on ripgrep
+    if args.label or args.initial_tab:
+        exec_grep()
+
+    # Non-recursive
+    if not (args.recursive or args.dereference_recursive
+                or (args.directories and args.directories[0] == 'recurse')):
+        add_argv('--depth=0')
+
+    if args.devices:
+        if args.devices[0] == 'read':
+            exec_grep()
+        remove_argv('--devices=pass')
+        remove_argv('-d', '--devices', nargs=1)
+
+    if args.directories:
+        if args.directories[0] == 'read':
+            exec_grep()
+        remove_argv('--directories=skip')
+        remove_argv('--directories=recurse')
+        remove_argv('-d', '--directories', nargs=1)
+
+    if args.binary_files:
+        if args.binary_files[0] == 'without-match':
+            remove_argv('--binary-files=without-match')
+            remove_argv('--binary-files', nargs=1)
+        elif args.binary_files[0] == 'text':
+            remove_argv('--binary-files=text')
+            remove_argv('--binary-files', nargs=1)
+            add_argv('--text')
+        elif args.binary_files[0] == 'binary':
+            remove_argv('--binary-files=binary')
+            remove_argv('--binary-files', nargs=1)
+
+    if args.binary:
+        override_argv('-U', '--binary')
+
+    # if not args.line_number:
+    #     add_argv('--no-line-number')
+
+    if args.byte_offset and args.unix_byte_offsets:
+        remove_argv('-u', '--unix-byte-offsets')
+        add_argv('--crlf')
+
+    if args.files_without_match:
+        override_argv('-L', '--files-without-match')
+
+    if args.dereference_recursive:
+        add_argv('--follow')
+
+    if args.include:
+        add_argv('--glob=' + args.include[0])
+
+    if args.exclude:
+        add_argv('--glob=!' + args.exclude[0])
+
+    if args.exclude_dir:
+        add_argv('--glob=!' + args.exclude_dir[0])
+
+    if args.exclude_from:
+        add_argv('--ignore-file' + args.exclude_from[0])
+
+    if args.no_filename:
+        override_argv('-h', '--no-filename')
+
+    if args.null:
+        override_argv('-Z', '--null')
+
+    if args.null_data:
+        override_argv('-z', '--null-data')
+
+    if args.perl_regexp:
+        override_argv('--perl-regexp', '--pcre2')
+
+    if args.quiet:
+        override_argv('--silent', '--quiet')
+
+    if args.extended_regexp:
+        override_argv('-E', '--engine=default')
+        override_argv('-extended-regexp', '--engine=default')
+
+    if args.recursive:
+        remove_argv('-r', '--recursive')
+
+    if args.ignore_case:
+        override_argv('-y', '--ignore-case')
+
+    add_argv('--hidden')
+    add_argv('--no-config')
+    add_argv('--no-ignore')
+
+    # print(f' === Executes ripgrep: {ripgrep} {" ".join(sys.argv[1:])} ===', file=sys.stderr, flush=True)
+    os.execv(ripgrep, ['rg'] + sys.argv[1:])
+
+if __name__ == '__main__':
+    main()
