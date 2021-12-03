@@ -78,8 +78,7 @@ fi
 
 # Install ansible modules, which fails when the permission of ~/.netrc != 600
 [ "$(perl -e 'printf "%03o\n", (stat($ENV{"HOME"}."/.netrc"))[2] & 0777' 2>/dev/null)" != 600 ] && chmod 600 ~/.netrc
-ansible-galaxy collection install community.general
-ansible-galaxy install kewlfft.aur
+ansible-galaxy collection install community.general kewlfft.aur
 
 # Excute ansible
 cd "$THIS_FILE_DIR_PATH" || exit 1

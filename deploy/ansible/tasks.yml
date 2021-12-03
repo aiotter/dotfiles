@@ -136,7 +136,7 @@
       tags: pacman
 
     - name: Install/Upgrade AUR packages
-      aur:
+      kewlfft.aur.aur:
         name: "{{ packages | map(attribute='aur') | select('defined') | list }}"
       tags: aur
 
