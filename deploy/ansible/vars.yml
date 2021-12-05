@@ -44,7 +44,6 @@ packages:
   - brew: carlocab/personal/unrar
     pacman: unrar
 
-  - pacman: unzip
   - pacman: xclip
 
   - pip: httpie

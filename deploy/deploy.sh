@@ -38,7 +38,7 @@ fi
 if type pacman >/dev/null 2>&1; then
   # Install dependencies
   echo "$PASSWORD" | sudo -S pacman -Syu --noconfirm
-  echo "$PASSWORD" | sudo -S pacman -S --noconfirm --needed base-devel gnupg
+  echo "$PASSWORD" | sudo -S pacman -S --noconfirm --needed base-devel gnupg unzip
 
   if ! type yay >/dev/null 2>&1; then
     git clone https://aur.archlinux.org/yay.git /tmp/yay

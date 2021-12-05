@@ -162,6 +162,14 @@
   changed_when: "result.stdout != ''"
   tags: go
 
+- name: Install deno
+  shell:
+    cmd: curl -fsSL https://deno.land/x/install/install.sh | sh
+    creates: "{{ lookup('env', 'HOME_LOCAL') }}/bin/deno"
+  environment:
+    DENO_INSTALL: "{{ lookup('env', 'HOME_LOCAL') }}"
+  tags: deno
+
 - name: Install Node.js
   import_role: name=install_nodejs
   tags: npm
