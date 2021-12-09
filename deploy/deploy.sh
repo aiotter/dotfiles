@@ -17,11 +17,6 @@ function is-apple-id-logged-in() {
 }
 
 
-# Check if you are ready to run this script
-if [ "$(uname)" = 'Darwin' ] && { ! is-apple-id-logged-in || [ "$CI" = 'true' ]; }; then
-  echo 'You need to be logged into Apple account!'
-fi
-
 # Get password for sudo if not yet input
 if [ -z ${PASSWORD+x} ] && ! sudo -nk true 2>/dev/null; then
   printf "Password for sudo: "
@@ -34,11 +29,29 @@ if [ -z ${PASSWORD+x} ] && ! sudo -nk true 2>/dev/null; then
   done
 fi
 
+# Create auto-removable SUDO_ASKPASS if PASSWORD is defined
+# Use with care: SUDO_ASKPASS should not be exported
+if [ -n ${PASSWORD+x} ]; then
+  trap '[[ -n ${SUDO_ASKPASS-} ]] && rm -f "$SUDO_ASKPASS"' EXIT
+  SUDO_ASKPASS=$(mktemp "/tmp/sudo-askpass.XXXXXX")
+  cat <<- EOF >$SUDO_ASKPASS
+	#!/bin/bash
+	echo "$PASSWORD"
+	EOF
+  chmod 500 "$SUDO_ASKPASS"
+fi
+unset -v PASSWORD
+
+# Check if you are ready to run this script
+if [ "$(uname)" = 'Darwin' ] && { ! is-apple-id-logged-in || [ "$CI" = 'true' ]; }; then
+  echo 'You need to be logged into Apple account!'
+fi
+
 # Arch Linux specific things
 if type pacman >/dev/null 2>&1; then
   # Install dependencies
-  echo "$PASSWORD" | sudo -S pacman -Syu --noconfirm
-  echo "$PASSWORD" | sudo -S pacman -S --noconfirm --needed base-devel gnupg unzip
+  SUDO_ASKPASS="${SUDO_ASKPASS}" sudo -A pacman -Syu --noconfirm
+  SUDO_ASKPASS="${SUDO_ASKPASS}" sudo -A pacman -S --noconfirm --needed base-devel gnupg unzip
 
   if ! type yay >/dev/null 2>&1; then
     git clone https://aur.archlinux.org/yay.git /tmp/yay
@@ -86,12 +99,11 @@ export ANSIBLE_CONFIG='ansible/ansible.cfg'
 if [ "$CI" = 'true' ]; then
   # on GitHub Actions
   ansible-playbook ansible/setup.yml --skip-tags no-ci
-elif sudo -nk true 2>/dev/null; then
-  # if sudo password is not needed
-  ansible-playbook ansible/setup.yml
+elif [ -e "${SUDO_ASKPASS}" ]; then
+  ls -l "$SUDO_ASKPASS"
+  SUDO_ASKPASS="${SUDO_ASKPASS}" ansible-playbook ansible/setup.yml --extra-vars "ansible_become_pass='$("$SUDO_ASKPASS")'"
 else
-  # if sudo password is needed: use the password stored beforehand
-  ansible-playbook ansible/setup.yml --extra-vars "ansible_become_pass='$PASSWORD'"
+  ansible-playbook ansible/setup.yml
 fi
 
 mackup restore

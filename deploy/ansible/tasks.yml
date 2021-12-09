@@ -85,7 +85,7 @@
   block:
     - name: Install Homebrew
       shell:
-        cmd: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+        cmd: '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
         creates: /usr/local/bin/brew
       tags: check_brew
 
