@@ -15,11 +15,10 @@ jobs:
           pacman -Sy --noconfirm sudo git
           echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 
-      - name: Checkout
-        run: git clone "https://github.com/${GITHUB_REPOSITORY}"
+      - uses: actions/checkout@v2
 
       - name: Deploy
-        run: sudo -u dot sh -c 'curl -sL dot.aiotter.com | bash'
+        run: sudo -u dot deploy/deploy.sh
         shell: sh
         env:
           CI: 'true'
