@@ -26,19 +26,19 @@
     type: bool
     value: yes
 
-- name: Reduce motion
-  community.general.osx_defaults:
-    domain: com.apple.universalaccess
-    key: reduceMotion
-    type: int
-    value: 1
+# - name: Reduce motion
+#   community.general.osx_defaults:
+#     domain: com.apple.universalaccess
+#     key: reduceMotion
+#     type: int
+#     value: 1
 
-- name: Differentiate without colour
-  community.general.osx_defaults:
-    domain: com.apple.universalaccess
-    key: differentiateWithoutColor
-    type: int
-    value: 1
+# - name: Differentiate without colour
+#   community.general.osx_defaults:
+#     domain: com.apple.universalaccess
+#     key: differentiateWithoutColor
+#     type: int
+#     value: 1
 
 - name: Disable automatical capitalize
   community.general.osx_defaults:
