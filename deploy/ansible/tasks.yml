@@ -110,6 +110,11 @@
         name: "{{ packages | map(attribute='cask') | select('defined') | list }}"
       tags: brew_cask
 
+    - name: Install mas command tool
+      community.general.homebrew:
+        name: mas
+      tags: [mas, no-ci]
+
     - name: Install from Mac App Store
       community.general.mas:
         id: "{{ packages | map(attribute='mas') | select('defined') | list }}"
