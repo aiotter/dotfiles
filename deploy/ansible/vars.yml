@@ -26,9 +26,6 @@ packages:
   - brew: tree
     pacman: tree
 
-  - brew-head: aiotter/htop-vim/htop-vim
-    aur: htop-vim-git
-
   - brew: ffmpeg
     pacman: ffmpeg
 
