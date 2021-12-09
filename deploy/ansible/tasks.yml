@@ -200,7 +200,7 @@
   shell:
     cmd: |
       before=$(find {{ dir }})
-      yes | vim +quit >/dev/null
+      nvim -e +':wq! /dev/null' >/dev/null
       diff <(echo "$before") <(find {{ dir }}) >/dev/null || echo changed
     executable: /bin/bash
   register: result
