@@ -189,7 +189,7 @@
   tags: tpm
 
 - name: Install tmux plugins
-  shell: "! ~/.tmux/plugins/tpm/bin/install_plugins | grep -v 'Already installed'"
+  shell: "~/.tmux/plugins/tpm/bin/install_plugins | grep -v 'Already installed' || true"
   register: result
   changed_when: "result.stdout != ''"
   tags: tpm
