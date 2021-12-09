@@ -16,6 +16,8 @@ jobs:
           echo 'dot ALL=NOPASSWD: ALL' >>/etc/sudoers
 
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Deploy
         run: sudo -u dot deploy/deploy.sh
