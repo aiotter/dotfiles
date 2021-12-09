@@ -105,4 +105,4 @@ else
   ansible-playbook ansible/setup.yml
 fi
 
-mackup restore
+[ "$(uname)" = 'Darwin' ] && echo 'Do not forget to execute `mackup restore`!'
