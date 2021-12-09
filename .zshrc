@@ -143,12 +143,10 @@ zinit wait lucid light-mode for \
   from'gh-r' as'command'          junegunn/fzf-bin \
   as'command' pick'bin/fzf-tmux'  junegunn/fzf
 
-zinit ice wait lucid from'gh-r' as'command' pick'hub-*/bin/hub' \
-  atload'eval "$(hub alias -s)"'
-zinit light github/hub
-
-zinit ice wait lucid as'completion' has'hub' mv'hub.zsh_completion -> _hub'
-zinit snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
+# zinit ice wait lucid from'gh-r' as'command' pick'hub-*/bin/hub'
+# zinit light github/hub
+# zinit ice wait lucid as'completion' mv'hub.zsh_completion -> _hub' blockf
+# zinit snippet https://github.com/github/hub/blob/master/etc/hub.zsh_completion
 
 # extensions in dotfiles
 zinit ice wait lucid multisrc"*.zsh"
@@ -159,10 +157,11 @@ zinit light "$DOTPATH/zsh/plugins"
 zinit ice wait lucid
 zinit snippet PZT::modules/completion/init.zsh
 
-zinit ice wait lucid as'completion' svn \
-  mv'git-completion.zsh -> _git' atpull'zinit creinstall -q .' \
+zinit ice wait lucid as'null' \
   atload'zstyle ":completion:*:*:git:*" script "$(pwd)/git-completion.bash"'
-zinit snippet https://github.com/git/git/trunk/contrib/completion
+zinit snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+zinit ice wait lucid blockf as'completion' mv'git-completion.zsh -> _git'
+zinit snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
 
 zinit ice wait lucid blockf as'completion'
 zinit snippet https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
@@ -170,8 +169,8 @@ zinit snippet https://raw.githubusercontent.com/docker/cli/master/contrib/comple
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
-zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
-zinit light zdharma/fast-syntax-highlighting
+zinit ice wait lucid atload"zicompinit; zicdreplay" blockf
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice wait lucid atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
