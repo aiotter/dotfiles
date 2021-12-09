@@ -67,7 +67,7 @@ if [ -e "$HOME_LOCAL/bin/python3" ]; then
   CURRENT_PYTHON_VER=$("$HOME_LOCAL/bin/python3" -c "import platform; print(platform.python_version())")
 fi
 if [ "$PYTHON_VER" != "${CURRENT_PYTHON_VER:-}" ]; then
-  CONFIGURE_OPTS='--enable-optimizations' python-build "$PYTHON_VER" "$HOME_LOCAL"
+  PYTHON_CONFIGURE_OPTS='--enable-optimizations' python-build "$PYTHON_VER" "$HOME_LOCAL"
 fi
 
 # Install ansible and its dependencies
