@@ -6,7 +6,8 @@
 PYTHON_VER=3.8
 
 # VARIABLES
-export DOTPATH=$(cd "$(dirname "$0")"; git rev-parse --show-toplevel)
+THIS_FILE_DIR_PATH=$(cd "$(dirname "$0")"; pwd)
+export DOTPATH=$(cd "$THIS_FILE_DIR_PATH"; git rev-parse --show-toplevel)
 export HOME_LOCAL=$HOME/.local
 export PATH=$HOME_LOCAL/bin:$DOTPATH/bin:$PATH
 
@@ -93,7 +94,7 @@ fi
 ansible-galaxy collection install community.general kewlfft.aur
 
 # Excute ansible
-cd "$(dirname "$0")" || exit 1
+cd "$THIS_FILE_DIR_PATH" || exit 1
 export ANSIBLE_CONFIG='ansible/ansible.cfg'
 if [ "$CI" = 'true' ]; then
   # on GitHub Actions
