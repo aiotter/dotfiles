@@ -1,4 +1,4 @@
-name: Setting up new macOS
+name: macOS
 
 on: [push]
 
