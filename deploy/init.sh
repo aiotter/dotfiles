@@ -31,6 +31,7 @@ if [ -d "$DOTPATH" ]; then
 else
   git clone --recursive https://github.com/aiotter/dotfiles.git "$DOTPATH"
   cd "$DOTPATH" || exit 1
+  git remote set-url origin git@github.com:aiotter/dotfiles.git
 fi
 
 export PASSWORD
