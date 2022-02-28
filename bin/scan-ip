@@ -1,0 +1,26 @@
+#!/usr/bin/env -S deno run --allow-run
+import oui from "https://esm.sh/oui@11.0.107";
+import { table } from "https://deno.land/x/minitable@v1.0/mod.ts";
+
+const process = Deno.run({ cmd: ["arp", "-al"], stdout: "piped" });
+const output = await process.output().then((out) =>
+  new TextDecoder().decode(out)
+);
+
+const container = new Map();
+
+output.split("\n").slice(1, -1)
+  .map((line) => line.split(/\s+/))
+  .map(([ip, mac]) => [ip, mac, oui(mac)])
+  .forEach((record) => container.set(record.join(), record));
+
+const result = [...container.values()];
+
+console.log(table(
+  result.map(([ip, mac, vender]) => ({
+    "IP address": ip,
+    "MAC address": mac,
+    "Vender name": vender ?? "unknown",
+  })),
+  ["IP address", "MAC address", "Vender name"],
+));
