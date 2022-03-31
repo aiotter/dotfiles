@@ -69,7 +69,7 @@ if ! which python-build >/dev/null 2>&1; then
   rm -rf /tmp/python-build
   mkdir /tmp/python-build
   cd /tmp/python-build || exit 1
-  git clone --depth=1 git://github.com/pyenv/pyenv.git
+  git clone --depth=1 https://github.com/pyenv/pyenv.git
   cd pyenv/plugins/python-build || exit 1
   PREFIX="$HOME_LOCAL" ./install.sh
 fi
