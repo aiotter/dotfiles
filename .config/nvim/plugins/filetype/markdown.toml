@@ -1,0 +1,6 @@
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+hook_add = '''
+let g:vim_markdown_fenced_languages = ['ts=typescript']
+let g:vim_markdown_folding_disabled = 1
+'''

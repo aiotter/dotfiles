@@ -1,6 +1,14 @@
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = 'context_filetype'
+hook_add = '''
+" Only changes syntax; not filetype
+let g:precious_enable_switchers = { "*" : { "setfiletype" : 0 } }
+augroup vim_precious
+  autocmd!
+  autocmd User PreciousFileType let &l:syntax = precious#context_filetype()
+augroup END
+'''
 
 
 [[plugins]]
@@ -11,3 +19,8 @@ repo = 'Shougo/context_filetype.vim'
 repo = 'pearofducks/ansible-vim'
 on_ft = ['yaml', 'yaml.ansible', 'jinja2', 'ansible_hosts']
 on_if = 'expand("%") =~# "^hosts$"'
+
+
+[[plugins]]
+repo = 'jxnblk/vim-mdx-js'
+hook_add = 'autocmd BufNewFile,BufRead *.mdx set filetype=markdown.mdx'
