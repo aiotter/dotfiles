@@ -159,7 +159,7 @@
   tags: go
 
 - name: Install Go packages
-  shell: "go get -v {{ item }}"
+  shell: "go install -v {{ item }}"
   environment:
     GOPATH: "{{ lookup('env', 'HOME') }}/dev/go"
   loop: "{{ packages | map(attribute='go') | select('defined') | list }}"
