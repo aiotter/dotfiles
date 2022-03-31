@@ -34,6 +34,24 @@ augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let s:pio_project_root = lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), "platformio.ini")
+if s:pio_project_root->strlen() > 0 && executable("pio") && executable("clangd")
+  let s:pio_core = system("pio system info --json-output")->json_decode().core_dir.value
+  let s:compile_commands = glob(s:pio_project_root . '/.pio/**/compile_commands.json', 0, 1)->get(0)->fnamemodify(':p:h')
+
+  au User lsp_setup call lsp#register_server({
+  \ 'name': 'clangd',
+  \ 'cmd': ['clangd', '-background-index',
+  \         '--query-driver=' . s:pio_core . '/packages/*/bin/*',
+  \         '--compile-commands-dir=' . s:compile_commands,
+  \        ],
+  \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+  \ })
+endif
+
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
 '''
 
 
@@ -41,13 +59,18 @@ augroup END
 repo = 'mattn/vim-lsp-settings'
 depends = 'vim-lsp'
 hook_add = '''
-let g:lsp_settings_filetype_typescript = 'deno'
+let g:lsp_settings_filetype_javascript = ['deno', 'typescript-language-server', 'eslint-language-server']
+let g:lsp_settings_filetype_typescript = ['deno', 'typescript-language-server', 'eslint-language-server']
+let g:lsp_settings_filetype_typescriptreact = ['deno', 'typescript-language-server', 'eslint-language-server']
 let g:lsp_settings_filetype_python = 'pyright-langserver'
 
 let g:lsp_settings = {
 \   'bash-language-server': {
 \     'allowlist': ['sh', 'zsh']
 \   },
+\   'clangd': {
+\     'disabled': v:true
+\  }
 \}
 '''
 
