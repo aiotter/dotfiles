@@ -81,6 +81,7 @@ bindkey '^[[1~' beginning-of-line  # HOME
 bindkey '^[OF'  end-of-line        # END
 bindkey '^[[4~' end-of-line        # END
 bindkey '^[[3~' delete-char        # DEL
+bindkey '[27;2;9~' reverse-menu-complete  # Shift-TAB
 
 # vim mode
 bindkey -v
