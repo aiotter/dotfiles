@@ -60,3 +60,7 @@ if = '!has("nvim")'
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
 if = '!has("nvim")'
+
+[[plugins]]
+repo = 'skanehira/code2img.vim'
+hook_add = 'let g:code2img_theme = "monokai"'

@@ -18,7 +18,7 @@ autocmd FileType html,xhtml,phtml,jsx let b:delimitMate_matchpairs = "(:),[:],{:
 [[plugins]]
 repo = 'alvan/vim-closetag'
 on_event = 'InsertEnter'
-on_ft = ['html', 'xhtml', 'phtml']
+on_ft = ['html', 'xhtml', 'phtml', 'javascriptreact', 'typescriptreact']
 
 
 # Persistent very magic option

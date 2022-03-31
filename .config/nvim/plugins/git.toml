@@ -28,3 +28,7 @@ repo = 'rhysd/conflict-marker.vim'
 #    \})
 #let g:github_complete_emoji_japanese_workaround = 1
 #'''
+
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
