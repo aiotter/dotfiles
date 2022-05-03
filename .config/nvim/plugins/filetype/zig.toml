@@ -1,0 +1,13 @@
+[[plugins]]
+repo = 'ziglang/zig.vim'
+merge_ftdetect = true
+hook_post_source = '''
+" Add LSP settings (vim-lsp)
+if executable('rnix-lsp')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'rnix-lsp',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
+    \ 'whitelist': ['nix'],
+    \ })
+endif
+'''

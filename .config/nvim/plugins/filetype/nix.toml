@@ -1,0 +1,3 @@
+[[plugins]]
+repo = 'LnL7/vim-nix.git'
+merge_ftdetect = true
