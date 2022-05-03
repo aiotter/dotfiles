@@ -46,7 +46,7 @@ alias grep='better-grep'
 
 # less: mouse support
 if (( $(less -V | head -1 | cut -d ' ' -f 2) >= 542 )); then
-  export LESS='--mouse --wheel-lines=3'
+  export LESS='--mouse --wheel-lines=3 --use-color --RAW-CONTROL-CHARS'
   export MANPAGER='less -is'
 fi
 
