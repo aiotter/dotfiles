@@ -64,3 +64,10 @@ if = '!has("nvim")'
 [[plugins]]
 repo = 'skanehira/code2img.vim'
 hook_add = 'let g:code2img_theme = "monokai"'
+
+[[plugins]]
+repo = 'lambdalisue/suda.vim'
+hook_add = 'let g:suda_smart_edit = 1'
+
+# [[plugins]]
+# repo = 'vim-scripts/sudo.vim'

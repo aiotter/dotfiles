@@ -9,3 +9,11 @@ let g:dein#enable_name_conversion = 1
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
+
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+
+[[plugins]]
+repo = 'lambdalisue/askpass.vim'
