@@ -10,7 +10,7 @@ repo = 'Raimondi/delimitMate'
 on_event = 'InsertEnter'
 hook_add = '''
 " Avoid conflicting delimitMate with vim-closetag
-autocmd FileType html,xhtml,phtml,jsx let b:delimitMate_matchpairs = "(:),[:],{:}"
+autocmd FileType html,xhtml,phtml,javascriptreact,typescriptreact let b:delimitMate_matchpairs = "(:),[:],{:}"
 '''
 
 
@@ -62,3 +62,31 @@ on_ft = ['html', 'xhtml', 'phtml', 'javascriptreact', 'typescriptreact']
 # hook_add = '''
 # map ; <Plug>(easymotion-prefix)
 # '''
+
+
+[[plugins]]
+repo = 'andymass/vim-matchup'
+
+
+[[plugins]]
+repo = 'junegunn/vim-peekaboo'
+on_event = 'BufWinEnter'
+hook_add = '''
+let g:peekaboo_delay = 500
+let g:peekaboo_window="call CreateCenteredFloatingWindow()"
+
+function! CreateCenteredFloatingWindow() abort
+    if(!has('nvim')) 
+        split
+        new
+    else
+        let width = float2nr(&columns * 0.6)
+        let height = float2nr(&lines * 0.6)
+        let top = ((&lines - height) / 2) - 1
+        let left = (&columns - width) / 2
+        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal', 'border': 'single', 'noautocmd': 1}
+        let s:buf = nvim_create_buf(v:false, v:true)
+        call nvim_open_win(s:buf, v:true, opts)
+    endif
+endfunction
+'''

@@ -99,7 +99,8 @@ autocmd ColorScheme * highlight SpecialKey ctermbg=NONE ctermfg=238 guibg=NONE g
 " json のダブルクオーテーションなど，視認性を妨げる文字を隠す設定
 if has('conceal')
   set conceallevel=1 " 表示する(0), 代理文字（default: スペース）に置換(1), 非表示(2)
-  set concealcursor= " 構文を隠すモードの指定．n: normal, v: visual, i: insert, c: command
+  set concealcursor=nc " カーソルライン上で構文を隠すモードの指定．n: normal, v: visual, i: insert, c: command
+  autocmd ColorSchemePre * highlight clear Conceal
 endif
 
 
@@ -118,8 +119,8 @@ set ignorecase " 検索パターンに大文字小文字を区別しない
 set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
 set hlsearch " 検索結果をハイライト
 
-" ESCキー2度押しでハイライトの切り替え
-nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
+" ESCキー2度押しでハイライトの非表示化
+nnoremap <silent><Esc><Esc> :<C-u>nohlsearch<CR>
 
 
 " ----- カーソル -----
@@ -129,11 +130,18 @@ set cursorline " カーソルラインをハイライト
 " highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=darkgray
 set scrolloff=5 " スクロール時、常に5行先を表示する
 
-" 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
-nnoremap j gj
-nnoremap k gk
-nnoremap <down> gj
-nnoremap <up> gk
+" https://zenn.dev/mattn/articles/83c2d4c7645faa
+nmap gj gj<SID>g
+nmap gk gk<SID>g
+nnoremap <script> <SID>gj gj<SID>g
+nnoremap <script> <SID>gk gk<SID>g
+nmap <SID>g <Nop>
+
+" Emacs-like behaviour
+nnoremap <C-b> h
+nnoremap <C-n> j
+nnoremap <C-p> k
+nnoremap <C-f> l
 
 " バックスペースキーの有効化
 set backspace=indent,eol,start
@@ -230,15 +238,35 @@ endfunction
 inoremap <expr><CR> _Enter_key()
 
 " C-p と C-n を矢印キーと同じ挙動に（候補選択時に挿入しない）
-inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
-inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+" inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+" inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
 " カーソルキーで補完ウィンドウにフォーカスしない
 function! Is_completion_unforcused()
   return complete_info(['pum_visible', 'selected']) == {'pum_visible': 1, 'selected': -1}
 endfunction
-inoremap <expr><Down> Is_completion_unforcused() ? "\<C-e>\<Down>" : "\<Down>"
-inoremap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
+imap <expr><Down> Is_completion_unforcused() ? "\<C-e>\<Down>" : "\<Down>"
+imap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
+" ↓おそらく vim のバグで設定できない
+imap <expr><C-n>  Is_completion_unforcused() ? "\<C-e>\<C-n>"  : "\<Down>"
+imap <expr><C-p>  Is_completion_unforcused() ? "\<C-e>\<C-p>"  : "\<Up>"
+
+
+" ----- ヒントの表示 -----
+" function! s:hint_cmd_output(prefix, cmd) abort
+"   redir => str
+"     execute a:cmd
+"   redir END
+"   echo str
+"   return a:prefix . nr2char(getchar())
+" endfunction
+"  
+" nnoremap <expr> m  <SID>hint_cmd_output('m', 'marks')
+" nnoremap <expr> `  <SID>hint_cmd_output('`', 'marks')
+" nnoremap <expr> '  <SID>hint_cmd_output("'", 'marks')
+" nnoremap <expr> "  <SID>hint_cmd_output('"', 'registers')
+" nnoremap <expr> q  <SID>hint_cmd_output('q', 'registers')
+" nnoremap <expr> @  <SID>hint_cmd_output('@', 'registers')
 
 
 " ----- その他 -----

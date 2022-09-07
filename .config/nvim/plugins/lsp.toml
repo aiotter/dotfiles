@@ -56,12 +56,28 @@ if s:pio_project_root->strlen() > 0 && executable("pio") && executable("clangd")
   \        ],
   \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
   \ })
+elseif executable("clangd")
+  au User lsp_setup call lsp#register_server({
+  \ 'name': 'clangd',
+  \ 'cmd': ['clangd', '-background-index'],
+  \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+  \ })
+endif
+
+" Nix
+if executable('rnix-lsp')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'rnix-lsp',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
+    \ 'whitelist': ['nix'],
+    \ })
 endif
 '''
 
 
 [[plugins]]
-repo = 'mattn/vim-lsp-settings'
+# repo = 'mattn/vim-lsp-settings'
+repo = '/Users/aiotter/repo/github.com/mattn/vim-lsp-settings'
 depends = 'vim-lsp'
 hook_add = '''
 let g:lsp_settings_filetype_javascript = ['deno', 'typescript-language-server', 'eslint-language-server']

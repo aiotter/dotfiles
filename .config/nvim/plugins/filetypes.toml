@@ -24,3 +24,28 @@ on_if = 'expand("%") =~# "^hosts$"'
 [[plugins]]
 repo = 'jxnblk/vim-mdx-js'
 hook_add = 'autocmd BufNewFile,BufRead *.mdx set filetype=markdown.mdx'
+
+
+# [[plugins]]
+# repo = 'vim-scripts/ifdef-highlighting'
+# on_ft = ['c', 'cpp']
+# hook_add = "execute 'source' g:dein#plugin.rtp . '/syntax/ifdef.vim'"
+
+
+[[plugins]]
+repo = 'mphe/grayout.vim'
+on_ft = ['c', 'cpp']
+hook_add = '''
+let g:grayout_libclang_path = "/usr/local/opt/llvm/lib"
+autocmd BufReadPost,BufWritePost * if &ft == 'c' || &ft == 'cpp' || &ft == 'objc' | exec 'GrayoutUpdate' | endif
+autocmd CursorHold,CursorHoldI * if &ft == 'c' || &ft == 'cpp' || &ft == 'objc' | exec 'GrayoutUpdate' | endif
+'''
+hook_source = '''
+highlight PreprocessorGrayout ctermfg=gray ctermbg=darkgray guifg=#b5b3b3 guibg=#3d3d3d
+'''
+
+
+# [[plugins]]
+# repo = 'ziglang/zig.vim'
+# lazy = true
+# merge_ftdetect = true

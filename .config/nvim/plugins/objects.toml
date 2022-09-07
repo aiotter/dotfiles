@@ -30,3 +30,7 @@ depends = 'vim-textobj-user'
 [[plugins]]
 repo = 'idbrii/textobj-word-column.vim'
 depends = 'vim-textobj-user'
+
+
+[[plugins]]
+repo = 'chaoren/vim-wordmotion'

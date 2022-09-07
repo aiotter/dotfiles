@@ -9,9 +9,14 @@ colorscheme dichromatic
 # Display the indention levels with thin vertical lines
 [[plugins]]
 repo = 'Yggdroot/indentLine'
-on_event = 'InsertEnter'
+on_event = 'BufWinEnter'
 hook_add = '''
-let g:indentLine_setConceal=0
+let g:indentLine_setConceal = 0
+" let g:indentLine_setColors = 0
+" let g:indentLine_char = '︳'
+" let g:indentLine_char = '⎜'
+let g:indentLine_char = '⎸'
+" let g:indentLine_char = '꜏'
 '''
 
 
@@ -26,4 +31,12 @@ if &termguicolors
   let g:Hexokinase_optInPatterns = 'full_hex,triple_hex,rgb,rgba,hsl,hsla,colour_names'
   HexokinaseTurnOn
 endif
+'''
+
+
+[[plugins]]
+repo = 'blueyed/vim-diminactive'
+hook_post_source = '''
+let g:diminactive_enable_focus = 1
+highlight ColorColumn ctermbg=0 guibg=#303030
 '''

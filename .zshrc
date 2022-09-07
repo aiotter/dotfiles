@@ -66,6 +66,7 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=100000
 SAVEHIST=100000
 setopt EXTENDED_HISTORY
+setopt NO_SHARE_HISTORY
 setopt hist_reduce_blanks
 setopt hist_ignore_dups
 setopt hist_ignore_space

@@ -9,7 +9,8 @@ MEDIUM=140
 PATH=$HOME/local/bin:$PATH
 
 # オンラインステータスの取得
-ping 'google.com' -c 1 >/dev/null 2>&1
+# timeout is less than status-interval by 1s
+ping 'google.com' -c1 -t "$(($(tmux show -Av status-interval) - 1))" >/dev/null 2>&1
 if [ $? == 0 ]; then
   interface="$(get-current-network-interface)"
   if echo $interface | grep -i wi-fi; then
